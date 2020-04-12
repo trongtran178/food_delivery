@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SignInActivity">
+
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="60dp"-->
+    <!--        android:theme="@style/AppTheme.AppBarOverlay"></com.google.android.material.appbar.AppBarLayout>-->
+
+    <!--    <com.google.android.material.internal.BaselineLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent">-->
+
+    <fragment
+        android:id="@+id/test"
+        android:name="hcmute.spkt.tranngoctrong.food_delivery.fragment.SignInFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></fragment>
+
+
+    <!--        <com.google.android.material.textview.MaterialTextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity=""-->
+    <!--            android:text="Hello">-->
+
+    <!--        </com.google.android.material.textview.MaterialTextView>-->
+    <!--    </com.google.android.material.internal.BaselineLayout>-->
+
+</LinearLayout>
