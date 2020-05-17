@@ -54,7 +54,6 @@ public class FavoriteRestaurantAdapter extends RecyclerView.Adapter<FavoriteRest
     class FavoriteRestaurantHolder extends RecyclerView.ViewHolder {
         private TextView testTemp;
 
-
         public FavoriteRestaurantHolder(@NonNull View itemView) {
             super(itemView);
             testTemp = itemView.findViewById(R.id.texttemp);

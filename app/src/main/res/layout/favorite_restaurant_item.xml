@@ -5,11 +5,14 @@
     android:layout_marginRight="16dp"
     android:backgroundTintMode="screen">
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/food_delivery_foreground"></ImageView>
+        android:scaleType="fitXY"
+        android:src="@mipmap/capture"
 
+        ></ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,8 +30,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="8dp"
-                    android:background="@color/blue">
+                    android:background="@color/blue"
+                    android:paddingVertical="8dp">
 
                     <TextView
                         android:id="@+id/texttemp"
