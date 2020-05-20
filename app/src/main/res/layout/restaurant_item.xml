@@ -15,17 +15,28 @@
             android:id="@+id/imagewithlabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingBottom="56dp"
             app:layout_constraintTop_toTopOf="@id/imagewithlabel">
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
             >
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/capture"></ImageView>
+                android:src="@mipmap/capture" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginTop="-44dp"
+                android:background="@color/blue"
+                android:text="Review "
+                android:textColor="@color/white"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:textSize="15dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -39,11 +50,11 @@
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
-                android:textStyle="bold"
-                android:textSize="17dp"
-
                 android:layout_height="wrap_content"
-                android:text="Canh bún cô Ba"></TextView>
+                android:text="Canh bún cô Ba"
+
+                android:textSize="17dp"
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/subtitle"
@@ -51,9 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Mã khuyến mãi. Có người mới đặt giao hàng tận nơi"
-                android:textStyle="normal"
                 android:textSize="13dp"
-                ></TextView>
+                android:textStyle="normal"></TextView>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
