@@ -8,21 +8,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".page.categories.FilterCategoriesActivity" />
         <activity android:name=".page.main_page.MainPageActivity">
+
+        </activity>
+        <activity android:name=".page.search.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".page.search.ChooseProvincesActivity"/>
+
         <activity
             android:name=".page.categories.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity android:name=".SignInActivity">
-
 
         </activity>
     </application>

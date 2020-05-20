@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:paddingHorizontal="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/open_choose_province_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@color/white"
+                android:elevation="0dp"
+                android:text="TP.HCM"
+                android:textColor="@color/blue">
+
+            </Button>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/provinceText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+
+                android:background="@color/white">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchRestaurant"
+                    style="@drawable/button_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/provinceText"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Tìm địa điểm, món ăn, địa chỉ">
+
+                </androidx.appcompat.widget.SearchView>
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/restaurant_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/restaurant_item">
+
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

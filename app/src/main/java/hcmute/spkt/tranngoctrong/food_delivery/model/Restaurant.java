@@ -2,6 +2,7 @@ package hcmute.spkt.tranngoctrong.food_delivery.model;
 
 public class Restaurant {
     private String name;
+    private String address;
     private float favoriteCount;
 
     public Restaurant() {
