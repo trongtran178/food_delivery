@@ -21,7 +21,8 @@
         </activity>
 
         <activity
-            android:name=".page.search.ChooseProvinceActivity"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".page.search.ChooseProvincesActivity"/>
 
         <activity
             android:name=".page.categories.CategoriesActivity"

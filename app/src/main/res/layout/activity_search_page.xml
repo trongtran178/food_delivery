@@ -19,13 +19,13 @@
             android:gravity="bottom">
 
             <Button
-                android:id="@+id/choose_province_button"
+                android:id="@+id/open_choose_province_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@color/white"
                 android:elevation="0dp"
-                android:text="Đồng Nai"
+                android:text="TP.HCM"
                 android:textColor="@color/blue">
 
             </Button>
