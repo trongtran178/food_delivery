@@ -28,7 +28,7 @@ public class ChooseProvincesActivity extends AppCompatActivity {
     public static final String EXTRA_PROVINCE_SELECTED = "EXTRA_PROVINCE_SELECTED";
 
     RecyclerView provinceRecycleView;
-    TextView doneTextview, backTextView;
+    TextView doneTextView, backTextView;
     ProvinceAdapter provinceAdapter;
     Province currentProvinceSelected;
 
@@ -36,7 +36,7 @@ public class ChooseProvincesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_provinces);
-        doneTextview = findViewById(R.id.doneTextView);
+        doneTextView = findViewById(R.id.doneTextView);
         backTextView = findViewById(R.id.backTextView);
         provinceRecycleView = findViewById(R.id.provinceRecycleView);
         provinceRecycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -56,7 +56,7 @@ public class ChooseProvincesActivity extends AppCompatActivity {
             }
         });
 
-        doneTextview.setOnClickListener(new OnDoneTextClickListener());
+        doneTextView.setOnClickListener(new OnDoneTextClickListener());
 
         backTextView.setOnClickListener(new OnBackTextClickListener());
 

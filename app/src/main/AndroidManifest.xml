@@ -14,6 +14,10 @@
 
         </activity>
         <activity android:name=".page.search.SearchActivity">
+
+        </activity>
+
+        <activity android:name=".page.search.SearchResultsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
