@@ -10,47 +10,67 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:paddingHorizontal="8dp">
+        android:background="@color/red"
+        android:paddingVertical="16dp">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom">
 
-            <Button
-                android:id="@+id/open_choose_province_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@color/white"
-                android:elevation="0dp"
-                android:text="TP.HCM"
-                android:textColor="@color/blue">
-
-            </Button>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/provinceText"
+            <TextView
+                android:id="@+id/temp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerInParent="true"
+                android:drawableStart="@drawable/ic_chevron_left_white_14dp"
+                android:paddingBottom="8dp"
+                android:text="Tim kiếm"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@id/search_text_input_layout"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"></TextView>
 
-                android:background="@color/white">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/search_text_input_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+
+                app:layout_constraintEnd_toStartOf="@id/open_choose_province_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/temp">
 
                 <androidx.appcompat.widget.SearchView
-                    android:id="@+id/searchRestaurant"
+                    android:id="@+id/search_restaurant_view"
                     style="@drawable/button_border"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/provinceText"
                     app:iconifiedByDefault="false"
                     app:queryHint="Tìm địa điểm, món ăn, địa chỉ">
 
                 </androidx.appcompat.widget.SearchView>
             </com.google.android.material.textfield.TextInputLayout>
-        </RelativeLayout>
+
+            <Button
+                android:id="@+id/open_choose_province_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="0dp"
+                android:text="TP.HCM"
+                android:layout_marginEnd="8dp"
+                android:textColor="@color/blue"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/search_text_input_layout"
+                app:layout_constraintTop_toBottomOf="@id/temp"
+                app:layout_constraintVertical_bias="0.0">
+
+            </Button>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.appcompat.widget.Toolbar>

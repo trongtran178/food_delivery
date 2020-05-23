@@ -41,7 +41,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             }
         });
 
-
         //if you need three fix imageview in width
         return new RestaurantHolder(itemView);
     }

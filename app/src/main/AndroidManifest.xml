@@ -20,9 +20,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".page.search.SearchResultsActivity" />
+        <activity android:name=".page.search.RestaurantDetailsActivity" />
+
+
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
-            android:name=".page.search.ChooseProvincesActivity"/>
+            android:name=".page.search.ChooseProvincesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".page.categories.CategoriesActivity"
