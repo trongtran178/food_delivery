@@ -33,7 +33,7 @@
             android:lines="1"
             android:maxWidth="240dp"
             android:minWidth="200dp"
-            android:text="Bún đậu cô "
+            android:text="Bún đậu cô Loan"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/textView6"

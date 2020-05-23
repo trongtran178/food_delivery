@@ -14,19 +14,19 @@
 
         </activity>
         <activity android:name=".page.search.SearchActivity">
-
-        </activity>
-
-        <activity android:name=".page.search.SearchResultsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".page.search.SearchResultsActivity" />
+        <activity android:name=".page.search.RestaurantDetailsActivity" />
+
+
         <activity
-            android:theme="@style/AppTheme.NoActionBar"
-            android:name=".page.search.ChooseProvincesActivity"/>
+            android:name=".page.search.ChooseProvincesActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".page.categories.CategoriesActivity"

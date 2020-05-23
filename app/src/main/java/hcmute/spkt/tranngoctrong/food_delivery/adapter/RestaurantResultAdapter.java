@@ -1,6 +1,7 @@
 package hcmute.spkt.tranngoctrong.food_delivery.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+import hcmute.spkt.tranngoctrong.food_delivery.page.search.RestaurantDetailsActivity;
 
 public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResultAdapter.RestaurantResultHolder> {
 
@@ -47,8 +49,15 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
 
         public RestaurantResultHolder(@NonNull View itemView) {
             super(itemView);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goToRestaurantDetail = new Intent(context, RestaurantDetailsActivity.class);
+                    context.startActivity(goToRestaurantDetail);
+                }
+            });
         }
+
 
     }
 }

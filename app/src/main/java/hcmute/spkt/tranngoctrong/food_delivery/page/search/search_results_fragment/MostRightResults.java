@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,8 @@ public class MostRightResults extends Fragment {
         restaurantResultRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         restaurantResultRecyclerView.setHasFixedSize(true);
+
+
     }
 
     @Override
