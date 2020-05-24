@@ -9,6 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCZ9u_lUi8qluejrwYiaVPRlUZaWdbMVcs" />
+
+
         <activity android:name=".page.categories.FilterCategoriesActivity" />
         <activity android:name=".page.main_page.MainPageActivity">
 
@@ -30,15 +36,17 @@
 
         <activity
             android:name=".page.categories.CategoriesActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        </activity>
-        <activity android:name=".SignInActivity">
+        <activity android:name=".SignInActivity" />
 
-        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
 </manifest>

@@ -92,10 +92,10 @@ public class ChooseProvincesActivity extends AppCompatActivity {
 
     private List<Province> getListProvinces() {
         List<Province> provinces = new ArrayList<Province>();
-        provinces.add(new Province("Quảng Ngãi", false));
-        provinces.add(new Province("Quảng Nam", false));
-        provinces.add(new Province("Đắk Lắk ", false));
-        provinces.add(new Province("Đắk Nông", false));
+        provinces.add(new Province("Ho Chi Minh", false));
+        provinces.add(new Province("Quang Tri", false));
+        provinces.add(new Province("Thua Thien - Hue", false));
+        provinces.add(new Province("Da Nang", false));
 
         return provinces;
 
