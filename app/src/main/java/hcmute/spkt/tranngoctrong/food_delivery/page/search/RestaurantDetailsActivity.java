@@ -1,7 +1,9 @@
 package hcmute.spkt.tranngoctrong.food_delivery.page.search;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -22,7 +24,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private RecyclerView restaurantFoodsRecyclerView;
     private FoodAdapter foodAdapter;
     private RestaurantMapFragment restaurantMapFragment;
-
+    private LinearLayout menuLayout;
 
     private List<Food> restaurantFoods = new ArrayList<Food>();
 
@@ -32,6 +34,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_detail);
 
         restaurantFoodsRecyclerView = findViewById(R.id.restaurant_foods_recycler_view);
+        menuLayout = findViewById(R.id.menu_layout);
         restaurantFoods = getRestaurantFoods();
         foodAdapter = new FoodAdapter(this, restaurantFoods);
         restaurantFoodsRecyclerView.setAdapter(foodAdapter);
@@ -40,9 +43,19 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         this.restaurantMapFragment = (RestaurantMapFragment) fragmentManager.findFragmentById(R.id.restaurant_map_fragment);
         View restaurantMapView = this.restaurantMapFragment.getView();
+        menuLayout.setOnClickListener(menuLayoutClickListener);
         restaurantMapView.setAlpha(0.25f);
     }
 
+    private View.OnClickListener menuLayoutClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            final Intent goToMenuDetailIntent = new Intent(RestaurantDetailsActivity.this,
+                    MenuDetailsActivity.class);
+            startActivity(goToMenuDetailIntent);
+        }
+    };
 
     private List<Food> getRestaurantFoods() {
         List<Food> restaurantFoods = new ArrayList<Food>();

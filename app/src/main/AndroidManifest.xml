@@ -38,6 +38,8 @@
             android:name=".page.categories.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".page.search.MenuDetailsActivity" />
+
         <activity android:name=".SignInActivity" />
 
 
