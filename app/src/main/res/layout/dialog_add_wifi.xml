@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:background="@drawable/custom_dialog"
+
+    android:orientation="vertical">
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        style="@style/update_wifi_text_input_style"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="16dp"
+        android:background="@drawable/custom_text_input_edit_text"
+        android:drawableStart="@drawable/ic_wifi_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="Ten wifi show san neu da ket noi"
+        android:paddingHorizontal="8dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        style="@style/update_wifi_text_input_style"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/custom_text_input_edit_text"
+        android:drawableStart="@drawable/ic_lock_grey_24dp"
+        android:drawablePadding="16dp"
+        android:hint="Nhap mat khau"
+        android:paddingHorizontal="8dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/add_wifi_button_custom"
+        android:text="Cap nhat Wifi password"
+        android:textColor="@color/white" />
+
+</LinearLayout>

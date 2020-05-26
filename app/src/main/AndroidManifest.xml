@@ -12,7 +12,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCZ9u_lUi8qluejrwYiaVPRlUZaWdbMVcs" />
+            android:value="AIzaSyBDrQRAum7jvzarxnQkCMwKnrAio5YFvmY" />
 
 
         <activity android:name=".page.categories.FilterCategoriesActivity" />
@@ -37,6 +37,8 @@
         <activity
             android:name=".page.categories.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".page.search.MenuDetailsActivity" />
 
         <activity android:name=".SignInActivity" />
 
