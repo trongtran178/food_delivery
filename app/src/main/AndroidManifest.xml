@@ -12,7 +12,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCZ9u_lUi8qluejrwYiaVPRlUZaWdbMVcs" />
+            android:value="AIzaSyBDrQRAum7jvzarxnQkCMwKnrAio5YFvmY" />
 
 
         <activity android:name=".page.categories.FilterCategoriesActivity" />

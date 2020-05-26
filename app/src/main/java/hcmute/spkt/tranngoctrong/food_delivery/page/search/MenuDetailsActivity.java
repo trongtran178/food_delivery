@@ -3,8 +3,10 @@ package hcmute.spkt.tranngoctrong.food_delivery.page.search;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ public class MenuDetailsActivity extends AppCompatActivity {
     ExpandableListAdapter menuDetailsExpandableListAdapter;
     List<String> itemsMenuGroup;
     HashMap<String, List<Food>> itemsMenuChild;
+    private ImageButton menu_detail_back_button;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +48,9 @@ public class MenuDetailsActivity extends AppCompatActivity {
         int width = metrics.widthPixels;
 
         menuDetailsExpandableListView.setIndicatorBounds(width - GetDipsFromPixel(50.0f), width - GetDipsFromPixel(10.0f));
+
+        menu_detail_back_button = findViewById(R.id.menu_detail_back_button);
+        menu_detail_back_button.setOnClickListener(menuDetailBackButtonClickListener);
 
     }
 
@@ -80,4 +86,12 @@ public class MenuDetailsActivity extends AppCompatActivity {
         return data;
 
     }
+
+    View.OnClickListener menuDetailBackButtonClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            MenuDetailsActivity.super.finish();
+        }
+    };
 }

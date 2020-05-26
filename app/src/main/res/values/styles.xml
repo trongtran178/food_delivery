@@ -17,4 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="update_wifi_text_input_style">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+    </style>
+
 </resources>

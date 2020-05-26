@@ -77,13 +77,8 @@ public class ChooseProvincesActivity extends AppCompatActivity {
     }
 
     private class OnBackTextClickListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
-            // send data back to search activity
-            // đặt resultCode là Activity.RESULT_CANCELED thể hiện
-            // đã thất bại khi người dùng click vào nút Back.
-            // Khi này sẽ không trả về data.
             Intent resultIntent = new Intent();
             setResult(RESULT_CANCELED, resultIntent);
             finish();

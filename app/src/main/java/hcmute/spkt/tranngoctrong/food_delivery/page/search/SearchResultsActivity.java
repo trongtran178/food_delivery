@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +31,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private SearchView searchRestaurantResultsView;
-
-
+    private ImageButton search_results_back_button;
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
 
     @Override
@@ -46,12 +48,11 @@ public class SearchResultsActivity extends AppCompatActivity {
         sectionsPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         tabLayout = (TabLayout) findViewById(R.id.search_results_tab);
         viewPager = (ViewPager) findViewById(R.id.search_results_container);
-
         setupViewPager(viewPager);
 
         tabLayout.setupWithViewPager(viewPager);
-
-
+        search_results_back_button = findViewById(R.id.search_results_back_button);
+        search_results_back_button.setOnClickListener(searchResultsBackButtonClickListener);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -61,9 +62,14 @@ public class SearchResultsActivity extends AppCompatActivity {
         adapter.addFragment(new CommonResults(), "Common");
         adapter.addFragment(new Filters(), "Filter");
         viewPager.setAdapter(adapter);
-
-
     }
+
+    private View.OnClickListener searchResultsBackButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            SearchResultsActivity.super.finish();
+        }
+    };
 
 
 }
