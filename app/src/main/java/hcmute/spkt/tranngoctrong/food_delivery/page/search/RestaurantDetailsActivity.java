@@ -40,10 +40,17 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private ImageButton restaurant_detail_back_button;
     private List<Food> restaurantFoods = new ArrayList<Food>();
     private Api api;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        api = Api.getInstance();
+
         setContentView(R.layout.activity_restaurant_detail);
+
+        Response response = api.get("/restaurants");
+        System.out.println(response.getResults());
 
         restaurantFoodsRecyclerView = findViewById(R.id.restaurant_foods_recycler_view);
         menuLayout = findViewById(R.id.menu_layout);
@@ -64,15 +71,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         restaurant_detail_back_button = (ImageButton) findViewById(R.id.restaurant_detail_back_button);
         restaurant_detail_back_button.setOnClickListener(restaurantDetailBackButtonListener);
 
-        GetAsyncTask getAsyncTask = new GetAsyncTask();
-        try {
-            String result = (String) getAsyncTask.execute("https://whispering-citadel-24521.herokuapp.com/restaurants").get();
-            Response response = new Response().fromJson(result);
-            System.out.println("71 - " + response.getResults());
 
-        } catch(Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+
+
 
     }
 

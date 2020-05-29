@@ -10,11 +10,10 @@ public class Response {
     private boolean isSuccess;
     private Object results;
 
-    public Response() {
-        super();
-    }
+    public Response() {}
 
     public Response(int code, String status, boolean isSuccess, Object results) {
+        super();
         this.code = code;
         this.status = status;
         this.isSuccess = isSuccess;

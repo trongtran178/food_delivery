@@ -1,15 +1,7 @@
 package hcmute.spkt.tranngoctrong.food_delivery.services;
 
-
-import android.content.Context;
-import android.os.AsyncTask;
-import android.widget.Toast;
-
-import java.io.IOException;
-
+import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 public class Api {
 
@@ -18,15 +10,12 @@ public class Api {
     private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com";
 
     private GetAsyncTask getAsyncTask;
+    private PostAsyncTask postAsyncTask;
+    private PutAsyncTask putAsyncTask;
+    private DeleteAsyncTask deleteAsyncTask;
+
 
     private OkHttpClient client;
-
-    static class Method {
-        private static final String get = "get";
-        private static final String post = "post";
-        private static final String put = "put";
-        private static final String delete = "delete";
-    }
 
     private Api() {
         client = new OkHttpClient();
@@ -38,6 +27,42 @@ public class Api {
         }
         return instance;
     }
+
+    // sample url: /restaurants
+    public Response get(String resource) {
+        getAsyncTask = new GetAsyncTask(client);
+        try {
+            String resultsJsonString = (String) getAsyncTask.execute(getUrl(resource)).get();
+            Response response = new Response().fromJson(resultsJsonString);
+            getAsyncTask.cancel(true);
+            return response;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        return null;
+    }
+
+    public Response post(String resource) {
+        postAsyncTask = new PostAsyncTask();
+        return null;
+    }
+
+    public Response put(String resource) {
+        putAsyncTask = new PutAsyncTask();
+        return null;
+    }
+
+    public Response delete(String resource) {
+        deleteAsyncTask = new DeleteAsyncTask();
+        return null;
+    }
+
+
+    private String getUrl(String resource) {
+        return BASE_URL + resource;
+    }
+
 }
 
 

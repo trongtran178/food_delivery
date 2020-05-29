@@ -44,7 +44,6 @@ public class SearchResultsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String searchQuery = intent.getStringExtra(SEARCH_QUERY_EXTRA);
         searchRestaurantResultsView.setQuery(searchQuery, true);
-        System.out.println(45 + ", " + searchQuery);
         sectionsPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         tabLayout = (TabLayout) findViewById(R.id.search_results_tab);
         viewPager = (ViewPager) findViewById(R.id.search_results_container);
