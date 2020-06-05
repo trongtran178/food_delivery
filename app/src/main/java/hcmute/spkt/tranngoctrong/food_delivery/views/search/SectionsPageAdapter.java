@@ -1,4 +1,4 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.search;
+package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

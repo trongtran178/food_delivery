@@ -1,7 +1,6 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.search;
+package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
@@ -10,7 +9,6 @@ import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.solver.Metrics;
 
 import java.util.ArrayList;
 import java.util.HashMap;

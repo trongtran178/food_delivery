@@ -17,7 +17,7 @@
             android:layout_marginStart="8dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/restaurantNameTextView"
+            app:layout_constraintEnd_toStartOf="@id/restaurant_search_results_item_name_text_view"
             app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.319"
@@ -25,7 +25,7 @@
 
 
         <TextView
-            android:id="@+id/restaurantNameTextView"
+            android:id="@+id/restaurant_search_results_item_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -54,7 +54,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@id/address"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/restaurantNameTextView" />
+            app:layout_constraintLeft_toRightOf="@id/restaurant_search_results_item_name_text_view" />
 
         <TextView
             android:id="@+id/distanceToMe"
@@ -88,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@id/restaurantNameTextView"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_name_text_view"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView

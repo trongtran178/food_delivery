@@ -1,14 +1,12 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.search.search_results_fragment;
+package hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +23,7 @@ public class MostRightResults extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         restaurantResultRecyclerView = (RecyclerView)getView().findViewById(R.id.restaurant_results_recycler_view);
-        restaurantResultAdapter = new RestaurantResultAdapter(this.getContext());
+        restaurantResultAdapter = new RestaurantResultAdapter(this.getContext(), null);
 
         restaurantResultRecyclerView.setAdapter(restaurantResultAdapter);
         restaurantResultRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
