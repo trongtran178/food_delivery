@@ -1,4 +1,4 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.search.search_results_fragment;
+package hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

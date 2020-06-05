@@ -1,4 +1,4 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.main_page;
+package hcmute.spkt.tranngoctrong.food_delivery.views.main_page;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.View;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FavoriteRestaurantAdapter;

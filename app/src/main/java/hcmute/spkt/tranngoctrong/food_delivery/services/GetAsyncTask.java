@@ -18,11 +18,11 @@ public class GetAsyncTask extends AsyncTask<String, Void, Object> {
     protected Object doInBackground(String... params) {
         Request.Builder builder = new Request.Builder();
         builder.url(params[0]);
-        System.out.println(params[0]);
         Request request = builder.build();
         Response response = null;
         try {
             response = client.newCall(request).execute();
+            System.out.println(response.toString());
             return response.body().string();
         } catch (Exception e) {
             System.out.println(e.getMessage());

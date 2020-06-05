@@ -1,30 +1,24 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.search;
+package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
-import hcmute.spkt.tranngoctrong.food_delivery.page.search.search_results_fragment.CommonResults;
-import hcmute.spkt.tranngoctrong.food_delivery.page.search.search_results_fragment.Filters;
-import hcmute.spkt.tranngoctrong.food_delivery.page.search.search_results_fragment.MostRightResults;
-import hcmute.spkt.tranngoctrong.food_delivery.page.search.search_results_fragment.NearMeResults;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.CommonResults;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.Filters;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.MostRightResults;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.NearMeResults;
 
-public class SearchResultsActivity extends AppCompatActivity {
+public class SearchRestaurantResultsActivity extends AppCompatActivity {
 
     private SectionsPageAdapter sectionsPagerAdapter;
 
@@ -66,9 +60,14 @@ public class SearchResultsActivity extends AppCompatActivity {
     private View.OnClickListener searchResultsBackButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            SearchResultsActivity.super.finish();
+            SearchRestaurantResultsActivity.super.finish();
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("SearchResultsActivity Destroyed");
+    }
 
 }

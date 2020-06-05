@@ -15,30 +15,30 @@
             android:value="AIzaSyBDrQRAum7jvzarxnQkCMwKnrAio5YFvmY" />
 
 
-        <activity android:name=".page.categories.FilterCategoriesActivity" />
-        <activity android:name=".page.main_page.MainPageActivity">
+        <activity android:name=".views.categories.FilterCategoriesActivity" />
+        <activity android:name=".views.main_page.MainPageActivity">
 
         </activity>
-        <activity android:name=".page.search.SearchActivity">
+        <activity android:name=".views.search.SearchRestaurantActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".page.search.SearchResultsActivity" />
-        <activity android:name=".page.search.RestaurantDetailsActivity" />
+        <activity android:name=".views.search.SearchRestaurantResultsActivity" />
+        <activity android:name=".views.search.RestaurantDetailsActivity" />
 
 
         <activity
-            android:name=".page.search.ChooseProvincesActivity"
+            android:name=".views.search.ChooseProvincesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".page.categories.CategoriesActivity"
+            android:name=".views.categories.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".page.search.MenuDetailsActivity" />
+        <activity android:name=".views.search.MenuDetailsActivity" />
 
         <activity android:name=".SignInActivity" />
 

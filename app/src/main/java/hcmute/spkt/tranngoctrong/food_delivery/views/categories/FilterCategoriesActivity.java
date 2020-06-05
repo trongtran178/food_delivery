@@ -1,4 +1,4 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.categories;
+package hcmute.spkt.tranngoctrong.food_delivery.views.categories;
 
 import androidx.appcompat.app.AppCompatActivity;
 

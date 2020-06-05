@@ -26,9 +26,7 @@ public class Response {
 
     public Response fromJson(String responseString) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-
         Response response = mapper.readValue(responseString, Response.class);
-
         return response;
     }
 
@@ -63,5 +61,15 @@ public class Response {
 
     public void setResults(Object results) {
         this.results = results;
+    }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "code=" + code +
+                ", status='" + status + '\'' +
+                ", isSuccess=" + isSuccess +
+                ", results=" + results +
+                '}';
     }
 }

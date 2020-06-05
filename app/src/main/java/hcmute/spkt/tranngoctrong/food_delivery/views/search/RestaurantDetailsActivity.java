@@ -1,9 +1,7 @@
-package hcmute.spkt.tranngoctrong.food_delivery.page.search;
+package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,41 +14,41 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.FragmentManager;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
+import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
+import hcmute.spkt.tranngoctrong.food_delivery.repositories.RestaurantRepository;
 import hcmute.spkt.tranngoctrong.food_delivery.services.Api;
-import hcmute.spkt.tranngoctrong.food_delivery.services.GetAsyncTask;
 
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private RecyclerView restaurantFoodsRecyclerView;
     private FoodAdapter foodAdapter;
     private RestaurantMapFragment restaurantMapFragment;
+    private RestaurantRepository restaurantRepository;
     private LinearLayout menuLayout;
     private TextView addWifiTextView;
     private ImageButton restaurant_detail_back_button;
     private List<Food> restaurantFoods = new ArrayList<Food>();
-    private Api api;
+//    private Api api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        api = Api.getInstance();
-
         setContentView(R.layout.activity_restaurant_detail);
-
-        Response response = api.get("/restaurants");
-        System.out.println(response.getResults());
 
         restaurantFoodsRecyclerView = findViewById(R.id.restaurant_foods_recycler_view);
         menuLayout = findViewById(R.id.menu_layout);
@@ -70,9 +68,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         addWifiTextView.setOnClickListener(addWifiTextViewListener);
         restaurant_detail_back_button = (ImageButton) findViewById(R.id.restaurant_detail_back_button);
         restaurant_detail_back_button.setOnClickListener(restaurantDetailBackButtonListener);
-
-
-
 
 
     }
@@ -109,6 +104,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         this.restaurantFoods.add(new Food(1, "Met 160k", 50000));
         this.restaurantFoods.add(new Food(1, "Met nay 4 nguoi", 50000));
         return restaurantFoods;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("RestaurantDetailsActivity Destroyed");
     }
 
 
