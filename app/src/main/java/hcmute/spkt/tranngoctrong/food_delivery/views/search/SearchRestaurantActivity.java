@@ -1,14 +1,21 @@
 package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -32,48 +39,51 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final int REQUEST_CODE = 1;
+    private static final int PERMISSIONS_REQUEST_LOCATION_CODE = 2;
+    protected LocationManager locationManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
+        searchRestaurantProgressBar = (ProgressBar) findViewById(R.id.search_restaurant_progress_bar);
 
         chooseProvinceButton = (Button) findViewById(R.id.open_choose_province_button);
         searchTextInput = (SearchView) findViewById(R.id.search_restaurant_view);
-        searchRestaurantProgressBar = (ProgressBar) findViewById(R.id.search_restaurant_progress_bar);
-        restaurantRecyclerView = (RecyclerView) findViewById(R.id.restaurant_recycler_view);
 
+        restaurantRecyclerView = (RecyclerView) findViewById(R.id.restaurant_recycler_view);
         restaurantAdapter = new RestaurantAdapter(this);
 
         restaurantRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantRecyclerView.setHasFixedSize(true);
         restaurantRecyclerView.setAdapter(restaurantAdapter);
 
+        searchRestaurantViewModel = ViewModelProviders.of(this).get(SearchRestaurantViewModel.class);
+        searchRestaurantViewModel.init();
+
 
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
 
+//        checkLocationPermission();
+
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-
         searchRestaurantProgressBar.setVisibility(View.VISIBLE);
-        restaurantRecyclerView.setVisibility(View.GONE);
-
-        searchRestaurantViewModel = ViewModelProviders.of(this).get(SearchRestaurantViewModel.class);
-        searchRestaurantViewModel.init();
         searchRestaurantViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 restaurantAdapter.setResults(restaurants);
+                searchRestaurantProgressBar.setVisibility(View.GONE);
             }
         });
-
-        searchRestaurantProgressBar.setVisibility(View.GONE);
-        restaurantRecyclerView.setVisibility(View.VISIBLE);
     }
+
 
     private View.OnClickListener openChooseProvince = new View.OnClickListener() {
         @Override
@@ -114,6 +124,84 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                 // DO NOTHING
             }
         }
+    }
+
+    private boolean checkPermissionLocation() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.app_name)
+                        .setMessage(R.string.app_name)
+                        .setPositiveButton(R.string.app_name, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        PERMISSIONS_REQUEST_LOCATION_CODE);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        PERMISSIONS_REQUEST_LOCATION_CODE);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           String permissions[], int[] grantResults) {
+//        switch (requestCode) {
+//            case PERMISSIONS_REQUEST_LOCATION_CODE: {
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                    // permission was granted, yay! Do the
+//                    // location-related task you need to do.
+//                    if (ContextCompat.checkSelfPermission(this,
+//                            Manifest.permission.ACCESS_FINE_LOCATION)
+//                            == PackageManager.PERMISSION_GRANTED) {
+//
+//                        //Request location updates:
+//                        locationManager.requestLocationUpdates(provider, 400, 1, this);
+//                    }
+//
+//                } else {
+//
+//                    // permission denied, boo! Disable the
+//                    // functionality that depends on this permission.
+//
+//                }
+//                return;
+//            }
+//
+//        }
+//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // searchRestaurantProgressBar.setVisibility(View.GONE);
     }
 
     @Override

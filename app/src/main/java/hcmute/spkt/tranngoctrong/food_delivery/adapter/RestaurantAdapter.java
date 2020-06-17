@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         holder.searchRestaurantSubtitleTextView.setText(restaurants.get(position).getDescription());
         Glide.with(holder.itemView)
                 .load(restaurants.get(position).getAvatarUrl())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.searchRestaurantImageView);
     }
 

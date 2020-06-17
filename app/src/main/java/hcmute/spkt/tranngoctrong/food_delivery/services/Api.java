@@ -7,7 +7,8 @@ public class Api {
 
     private static Api instance;
 
-    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com";
+    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com"; // DEPLOYED
+//    private static final String BASE_URL = "http://localhost:8080";
 
     private GetAsyncTask getAsyncTask;
     private PostAsyncTask postAsyncTask;
@@ -58,11 +59,9 @@ public class Api {
         return null;
     }
 
-
     private String getUrl(String resource) {
         return BASE_URL + resource;
     }
-
 }
 
 

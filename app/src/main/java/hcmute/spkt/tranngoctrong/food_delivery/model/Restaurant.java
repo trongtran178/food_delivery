@@ -1,38 +1,57 @@
 package hcmute.spkt.tranngoctrong.food_delivery.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+
 import java.util.Date;
 import java.util.List;
 
-public class Restaurant {
+import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
 
+public class Restaurant implements Parcelable {
+    private int id;
     private String name;
     private String address;
     private String phone;
+
+    @JsonDeserialize(using = DateDeserializer.class)
     private Date timeOpen;
+
+    @JsonDeserialize(using = DateDeserializer.class)
     private Date timeClose;
+
     private String description;
     private String province;
     private String avatarUrl;
     private List<String> imagesUrl;
     private String wifi;
+    private double latitude;
+    private double longitude;
 
     public Restaurant() {
         super();
     }
 
-    public Restaurant( //
-                       String name, //
-                       String address, //
-                       String phone, //
-                       Date timeOpen, //
-                       Date timeClose, //
-                       String description, //
-                       String province, //
-                       String avatarUrl, //
-                       List<String> imagesUrl, //
-                       String wifi //
+    public Restaurant(
+            int id,
+            String name,
+            String address,
+            String phone,
+            Date timeOpen,
+            Date timeClose,
+            String description,
+            String province,
+            String avatarUrl,
+            List<String> imagesUrl,
+            String wifi,
+            double latitude,
+            double longitude
     ) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -43,6 +62,66 @@ public class Restaurant {
         this.avatarUrl = avatarUrl;
         this.imagesUrl = imagesUrl;
         this.wifi = wifi;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    protected Restaurant(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        address = in.readString();
+        phone = in.readString();
+        description = in.readString();
+        province = in.readString();
+        avatarUrl = in.readString();
+        imagesUrl = in.createStringArrayList();
+        wifi = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        timeOpen = new Date(in.readLong());
+        timeClose = new Date(in.readLong());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeString(phone);
+        dest.writeString(description);
+        dest.writeString(province);
+        dest.writeString(avatarUrl);
+        dest.writeStringList(imagesUrl);
+        dest.writeString(wifi);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeLong(timeOpen.getTime());
+        dest.writeLong(timeClose.getTime());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel in) {
+            return new Restaurant(in);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -125,10 +204,27 @@ public class Restaurant {
         this.wifi = wifi;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", timeOpen=" + timeOpen +
@@ -138,6 +234,8 @@ public class Restaurant {
                 ", avatarUrl='" + avatarUrl + '\'' +
                 ", imagesUrl=" + imagesUrl +
                 ", wifi='" + wifi + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 '}';
     }
 }

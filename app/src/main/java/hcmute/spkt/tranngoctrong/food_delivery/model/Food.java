@@ -1,25 +1,16 @@
 package hcmute.spkt.tranngoctrong.food_delivery.model;
 
-public class Food {
+import java.io.Serializable;
+
+public class Food implements Serializable {
     private int id;
     private String name;
-    private double price;
+    private String slug;
 
-    public Food() {
-    }
-
-    public Food(int id, String name, double price) {
+    public Food(int id, String name, String slug) {
         this.id = id;
         this.name = name;
-        this.price = price;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.slug = slug;
     }
 
     public String getName() {
@@ -30,11 +21,29 @@ public class Food {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public int getId() {
+        return id;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id=" + id +
+                ",name='" + name + '\'' +
+                ",slug='" + slug + '\'' +
+                '}';
+    }
+
 }
