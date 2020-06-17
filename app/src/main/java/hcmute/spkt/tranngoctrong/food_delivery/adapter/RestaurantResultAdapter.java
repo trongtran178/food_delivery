@@ -35,7 +35,7 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
     public RestaurantResultHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater
                 .from(context)
-                .inflate(R.layout.restaurant_search_result_item,
+                .inflate(R.layout.item_restaurant_search_result,
                         parent, false);
         return new RestaurantResultHolder(itemView);
     }

@@ -50,8 +50,9 @@ public class RestaurantRepository {
         List<Restaurant> results;
         try {
             Response response = api.get("/restaurants");
-            results = mapper.readValue(mapper.writeValueAsString(response.getResults()), new TypeReference<List<Restaurant>>() {
-            });
+            results = mapper.readValue(mapper.writeValueAsString(response.getResults()),
+                    new TypeReference<List<Restaurant>>() {
+                    });
             return results;
         } catch (Exception e) {
             e.printStackTrace();

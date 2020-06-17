@@ -8,7 +8,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AlertDialog;
@@ -46,13 +45,12 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_page);
-        searchRestaurantProgressBar = (ProgressBar) findViewById(R.id.search_restaurant_progress_bar);
+        setContentView(R.layout.activity_search_restaurant_page);
+        searchRestaurantProgressBar = findViewById(R.id.search_restaurant_progress_bar);
+        chooseProvinceButton = findViewById(R.id.open_choose_province_button);
+        searchTextInput = findViewById(R.id.search_restaurant_view);
 
-        chooseProvinceButton = (Button) findViewById(R.id.open_choose_province_button);
-        searchTextInput = (SearchView) findViewById(R.id.search_restaurant_view);
-
-        restaurantRecyclerView = (RecyclerView) findViewById(R.id.restaurant_recycler_view);
+        restaurantRecyclerView = findViewById(R.id.restaurant_recycler_view);
         restaurantAdapter = new RestaurantAdapter(this);
 
         restaurantRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -62,12 +60,16 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         searchRestaurantViewModel = ViewModelProviders.of(this).get(SearchRestaurantViewModel.class);
         searchRestaurantViewModel.init();
 
-
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
 
-//        checkLocationPermission();
 
+        searchRestaurantViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
+            @Override
+            public void onChanged(List<Restaurant> restaurants) {
+                restaurantAdapter.setResults(restaurants);
+            }
+        });
     }
 
 
@@ -75,13 +77,6 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         searchRestaurantProgressBar.setVisibility(View.VISIBLE);
-        searchRestaurantViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
-            @Override
-            public void onChanged(List<Restaurant> restaurants) {
-                restaurantAdapter.setResults(restaurants);
-                searchRestaurantProgressBar.setVisibility(View.GONE);
-            }
-        });
     }
 
 
@@ -201,13 +196,22 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // searchRestaurantProgressBar.setVisibility(View.GONE);
+        System.out.println("Resumedddd");
+        if (searchRestaurantViewModel.getRestaurants().getValue().size() <= 0 || searchRestaurantViewModel.getRestaurants().getValue() == null)
+            searchRestaurantProgressBar.setVisibility(View.VISIBLE);
+        else searchRestaurantProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("Paused!");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        System.out.println("SearchActivity stopped");
+        System.out.println(" stopped");
     }
 
     @Override

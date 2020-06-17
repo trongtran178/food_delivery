@@ -128,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                tools:listitem="@layout/favorite_restaurant_item">
+                tools:listitem="@layout/item_favorite_restaurant">
 
             </androidx.recyclerview.widget.RecyclerView>
 

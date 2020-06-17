@@ -8,18 +8,12 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import java.util.List;
-
 import hcmute.spkt.tranngoctrong.food_delivery.R;
-import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantResultAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
-import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantResultsViewModel;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.CommonResults;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.Filters;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.MostRightResults;
@@ -37,7 +31,7 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_results);
+        setContentView(R.layout.activity_search_restaurant_results);
 
         searchRestaurantResultsView = (SearchView) findViewById(R.id.search_restaurant_results_view);
 

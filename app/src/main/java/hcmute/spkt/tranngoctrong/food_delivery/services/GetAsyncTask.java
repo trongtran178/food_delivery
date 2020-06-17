@@ -33,4 +33,9 @@ public class GetAsyncTask extends AsyncTask<String, Void, Object> {
         }
         return null;
     }
+
+    @Override
+    protected void onPostExecute(Object result) {
+        super.onPostExecute(result);
+    }
 }
