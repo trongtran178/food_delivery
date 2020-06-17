@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:elevation="20dp"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <!--   NEED TO RELAYOUT THIS ITEM-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:paddingHorizontal="2dp">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:id="@+id/restaurant_search_result_image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginStart="8dp"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,18 +35,18 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:lines="1"
-            android:maxWidth="240dp"
-            android:minWidth="200dp"
-            android:text="Bún đậu cô Loan"
-            android:textSize="18sp"
+            android:maxWidth="200dp"
+            android:minWidth="150dp"
+            android:text="Bún đậu cô Loan Loan Loan "
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/textView6"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@id/restaurant_search_results_item_restaurant_type_text_view"
+            app:layout_constraintStart_toEndOf="@+id/restaurant_search_result_image_view"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.163" />
 
         <TextView
-            android:id="@+id/ratingNumber"
+            android:id="@+id/restaurant_search_results_item_rating_number_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
@@ -51,27 +55,27 @@
             android:gravity="end"
             android:text="6.3"
             android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@id/address"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/restaurant_search_results_item_address_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toRightOf="@id/restaurant_search_results_item_name_text_view" />
 
         <TextView
-            android:id="@+id/distanceToMe"
+            android:id="@+id/restaurant_search_results_item_distance_to_me_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="8dp"
             android:text="4.8km"
-            app:layout_constraintBottom_toTopOf="@id/textView6"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@id/restaurant_search_results_item_restaurant_type_text_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/address"
-            app:layout_constraintTop_toBottomOf="@id/ratingNumber"
+            app:layout_constraintLeft_toRightOf="@id/restaurant_search_results_item_address_text_view"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_rating_number_text_view"
             app:layout_constraintVertical_bias="0.157" />
 
-
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/restaurant_search_results_item_address_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -79,41 +83,42 @@
             android:layout_marginEnd="32dp"
             android:autoSizeMaxTextSize="64dp"
             android:autoSizeMinTextSize="64dp"
-            android:lines="1"
-            android:maxWidth="240dp"
-            android:minWidth="200dp"
+            android:lines="2"
+            android:maxWidth="200dp"
+            android:maxLines="2"
+            android:minWidth="180dp"
             android:text="75/1 đường 18, khu phố 5, Linh Trung"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toTopOf="@id/restaurant_search_results_item_restaurant_type_text_view"
+            app:layout_constraintEnd_toStartOf="@id/restaurant_search_results_item_restaurant_type_text_view"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/restaurant_search_result_image_view"
             app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_name_text_view"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/restaurant_search_results_item_restaurant_type_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Quán "
-            android:textSize="14dp"
+            android:layout_marginTop="4dp"
+            android:text="Quán"
+            android:textSize="12dp"
 
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@id/address" />
+            app:layout_constraintStart_toEndOf="@+id/restaurant_search_result_image_view"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_address_text_view" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:gravity="end"
-            android:paddingVertical="8dp"
+            android:paddingVertical="4dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/textView6"
-            app:layout_constraintTop_toBottomOf="@id/address">
+            app:layout_constraintLeft_toRightOf="@id/restaurant_search_results_item_restaurant_type_text_view"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_address_text_view">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -121,11 +126,12 @@
                 android:src="@drawable/ic_mode_comment" />
 
             <TextView
+                android:id="@+id/restaurant_search_results_item_comment_number_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
                 android:text="18"
-                android:textSize="18dp" />
+                android:textSize="12dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -133,10 +139,11 @@
                 android:src="@drawable/ic_camera" />
 
             <TextView
+                android:id="@+id/restaurant_search_results_item_take_picture_number_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="18"
-                android:textSize="18dp" />
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -146,21 +153,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/ic_ac_unit"
 
-            app:layout_constraintLeft_toRightOf="@id/imageView"
-            app:layout_constraintTop_toBottomOf="@id/textView6" />
+            app:layout_constraintLeft_toRightOf="@id/restaurant_search_result_image_view"
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_restaurant_type_text_view" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/restaurant_search_results_item_coupon_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Mã khuyến mai"
-            android:textSize="18dp"
+            android:textSize="12dp"
             app:layout_constraintLeft_toRightOf="@id/coupon"
-            app:layout_constraintTop_toBottomOf="@id/textView6" />
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_results_item_restaurant_type_text_view" />
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -169,7 +176,7 @@
             android:layout_marginTop="16dp"
             android:background="#c0c0c0"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
+            app:layout_constraintTop_toBottomOf="@id/restaurant_search_result_image_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

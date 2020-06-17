@@ -20,10 +20,10 @@ import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
 
 public class MenuDetailsActivity extends AppCompatActivity {
 
-    ExpandableListView menuDetailsExpandableListView;
-    ExpandableListAdapter menuDetailsExpandableListAdapter;
-    List<String> itemsMenuGroup;
-    HashMap<String, List<Food>> itemsMenuChild;
+    private ExpandableListView menuDetailsExpandableListView;
+    private ExpandableListAdapter menuDetailsExpandableListAdapter;
+    private List<String> itemsMenuGroup;
+    private HashMap<String, List<Food>> itemsMenuChild;
     private ImageButton menu_detail_back_button;
 
     @Override
@@ -38,7 +38,6 @@ public class MenuDetailsActivity extends AppCompatActivity {
 
         menuDetailsExpandableListAdapter = new MenuDetailsAdapter(this, itemsMenuGroup, itemsMenuChild);
         menuDetailsExpandableListView.setAdapter(menuDetailsExpandableListAdapter);
-
         menuDetailsExpandableListView.expandGroup(0);
 
         DisplayMetrics metrics = new DisplayMetrics();
@@ -63,19 +62,19 @@ public class MenuDetailsActivity extends AppCompatActivity {
         HashMap<String, List<Food>> data = new HashMap<String, List<Food>>();
 
         List<Food> childBeef = new ArrayList<Food>();
-        childBeef.add(new Food(1, "Bo nhung giam nho", 50000));
-        childBeef.add(new Food(2, "Bo nhung giam vua", 70000));
-        childBeef.add(new Food(3, "Bo nhung giam lon", 90000));
+        childBeef.add(new Food(1, "Bo nhung giam nho", "bo-nhung"));
+        childBeef.add(new Food(2, "Bo nhung giam vua", "bo-nhung"));
+        childBeef.add(new Food(3, "Bo nhung giam lon", "bo-nhung"));
 
         List<Food> childBeanVermicelli = new ArrayList<Food>();
-        childBeanVermicelli.add(new Food(1, "Bun dau nho", 50000));
-        childBeanVermicelli.add(new Food(2, "Bun dau vua", 70000));
-        childBeanVermicelli.add(new Food(3, "Bun dau lon", 90000));
+        childBeanVermicelli.add(new Food(1, "Bun dau nho", "bo-nhung"));
+        childBeanVermicelli.add(new Food(2, "Bun dau vua", "bo-nhung"));
+        childBeanVermicelli.add(new Food(3, "Bun dau lon", "bo-nhung"));
 
         List<Food> childExtraDishes = new ArrayList<Food>();
-        childExtraDishes.add(new Food(1, "Bo nhung giam nho", 50000));
-        childExtraDishes.add(new Food(2, "Bo nhung giam vua", 70000));
-        childExtraDishes.add(new Food(3, "Bo nhung giam lon", 90000));
+        childExtraDishes.add(new Food(1, "Bo nhung giam nho", "bo-nhung"));
+        childExtraDishes.add(new Food(2, "Bo nhung giam vua", "bo-nhung"));
+        childExtraDishes.add(new Food(3, "Bo nhung giam lon", "bo-nhung"));
 
         data.put("Beef dipped in vinegar", childBeef);
         data.put("Bean vermicelli", childBeanVermicelli);

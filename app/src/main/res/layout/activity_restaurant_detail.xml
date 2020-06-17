@@ -106,8 +106,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:background="#c0c0c0"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/imageView" />
+            android:orientation="horizontal" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -128,11 +127,13 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
+                    android:id="@+id/restaurant_open_close_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="CHUA MO CUA"></TextView>
 
                 <TextView
+                    android:id="@+id/restaurant_open_close_time_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10:00 - 21:00"></TextView>
@@ -145,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_contact_phone_grey_24dp"
                 android:drawablePadding="8dp"
-                android:text="Lien he"
+                android:text="Liên hệ"
                 android:textAlignment="textEnd"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -193,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="16dp"
-                        android:background="@color/white"
+                        android:background="@null"
                         android:src="@drawable/ic_location_on_24dp"></ImageButton>
 
                     <TextView
@@ -229,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="16dp"
-                        android:background="@color/white"
+                        android:background="@null"
                         android:src="@drawable/ic_near_me_24dp"
                         app:layout_constraintLeft_toRightOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -243,6 +244,7 @@
                         android:maxLines="1"
                         android:text="4.2 km (Tu vi tri hien tai)"
                         android:textSize="16dp"
+                        android:textColor="@color/green"
                         app:layout_constraintStart_toEndOf="@id/restaurant_detail_distance_from_user_image_button"
                         app:layout_constraintTop_toTopOf="parent"></TextView>
 
@@ -254,7 +256,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="16dp"
-                        android:background="@color/white"
+                        android:background="@null"
                         android:src="@drawable/ic_restaurant_24dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/restaurant_detail_distance_from_user_image_button" />
@@ -279,7 +281,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginTop="12dp"
                         android:layout_marginRight="16dp"
-                        android:background="@color/white"
+
+                        android:background="@null"
                         android:src="@drawable/ic_attach_money_24dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/restaurant_detail_name_image_button" />
@@ -317,23 +320,24 @@
             android:padding="8dp">
 
             <ImageButton
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="32dp"
-                android:background="@color/white"
+                android:background="@null"
                 android:src="@drawable/ic_check_circle_black_24dp"></ImageButton>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="32dp"
-                android:background="@color/white"
+                android:background="@null"
                 android:src="@drawable/ic_wifi_green_24dp"></ImageButton>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@null"
                 android:src="@drawable/ic_directions_bike_24dp"></ImageButton>
 
 
@@ -358,13 +362,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                android:background="@color/white"
+                android:background="@null"
                 android:src="@drawable/ic_restaurant_menu_24dp"></ImageButton>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thuc don"
+                android:text="Thực đơn"
                 android:textSize="17dp"></TextView>
 
         </LinearLayout>
@@ -395,18 +399,17 @@
                     android:layout_height="wrap_content">
 
                     <ImageButton
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:background="@color/white"
+                        android:background="@null"
                         android:src="@drawable/ic_wifi_black_24dp"></ImageButton>
 
                     <TextView
                         android:id="@+id/add_wifi_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Them wifi"
+                        android:text="Thêm wifi"
                         android:textColor="@color/blue"
                         android:textSize="17dp"
                         android:textStyle="bold"></TextView>
@@ -419,7 +422,7 @@
                     android:layout_marginRight="8dp"
                     android:layout_toRightOf="@id/add_wifi_layout"
                     android:gravity="end"
-                    android:text="Nhap mat khau"
+                    android:text="Nhập mật khẩu"
                     android:textSize="17dp"></TextView>
             </RelativeLayout>
         </LinearLayout>

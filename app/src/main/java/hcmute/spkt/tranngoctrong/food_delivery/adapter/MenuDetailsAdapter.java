@@ -69,7 +69,6 @@ public class MenuDetailsAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
             convertView = layoutInflater.inflate(R.layout.item_menu_group, null);
         }
 
@@ -77,15 +76,14 @@ public class MenuDetailsAdapter extends BaseExpandableListAdapter {
 
         itemMenuGroupTextView.setTypeface(null, Typeface.BOLD);
         itemMenuGroupTextView.setText(groupTitle);
-
         return convertView;
-
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final String childTitle = (String) getChild(groupPosition, childPosition).getName();
-        float childPrice = (float) getChild(groupPosition, childPosition).getPrice();
+//        float childPrice = (float) getChild(groupPosition, childPosition).getPrice();
+        float childPrice = 150000;
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

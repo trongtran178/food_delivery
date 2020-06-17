@@ -9,5 +9,6 @@
     <color name="white">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
     <color name="black">#000000</color>
+    <color name="green">#73e649</color>
     <color name="google_login_button_color">#dd4b39</color>
 </resources>
