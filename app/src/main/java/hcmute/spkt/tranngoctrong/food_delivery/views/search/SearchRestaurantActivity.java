@@ -8,7 +8,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,15 +32,18 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
     private RestaurantAdapter restaurantAdapter;
     private Button chooseProvinceButton;
-//    private ProgressBar searchRestaurantProgressBar;
     private SearchView searchTextInput;
     private SearchRestaurantViewModel searchRestaurantViewModel;
     private RecyclerView restaurantRecyclerView;
+    //    private ProgressBar searchRestaurantProgressBar;
 
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final int REQUEST_CODE = 1;
     private static final int PERMISSIONS_REQUEST_LOCATION_CODE = 2;
-    protected LocationManager locationManager;
+
+    private int pageSize = 10, pageIndex = 1;
+
+//    protected LocationManager locationManager;
 
 
     @Override

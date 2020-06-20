@@ -7,11 +7,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.util.Date;
 import java.util.List;
 
-import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
-import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.FoodMenuDeserializer;
 import hcmute.spkt.tranngoctrong.food_delivery.services.Api;
 
 public class RestaurantRepository {
@@ -34,6 +32,24 @@ public class RestaurantRepository {
         List<Restaurant> results;
         try {
             Response response = api.get("/restaurants");
+            results = mapper.readValue(mapper.writeValueAsString(response.getResults()), new TypeReference<List<Restaurant>>() {
+            });
+            System.out.println(results.toString());
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Restaurant> getRestaurants(int pageSize, int pageIndex) {
+        api = Api.getInstance();
+        ObjectMapper mapper = new ObjectMapper();
+        // Deserializable complex json
+        mapper.registerModule(new SimpleModule().addDeserializer(Date.class, new DateDeserializer()));
+        List<Restaurant> results;
+        try {
+            Response response = api.get("/restaurants?pageSize=" + pageSize + "&pageIndex=" + pageIndex);
             results = mapper.readValue(mapper.writeValueAsString(response.getResults()), new TypeReference<List<Restaurant>>() {
             });
             System.out.println(results.toString());
