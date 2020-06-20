@@ -30,7 +30,6 @@ public class Response {
         return response;
     }
 
-
     public int getCode() {
         return code;
     }

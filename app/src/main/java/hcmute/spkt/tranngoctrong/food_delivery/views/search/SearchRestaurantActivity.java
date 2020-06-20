@@ -33,7 +33,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
     private RestaurantAdapter restaurantAdapter;
     private Button chooseProvinceButton;
-    private ProgressBar searchRestaurantProgressBar;
+//    private ProgressBar searchRestaurantProgressBar;
     private SearchView searchTextInput;
     private SearchRestaurantViewModel searchRestaurantViewModel;
     private RecyclerView restaurantRecyclerView;
@@ -48,7 +48,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_restaurant_page);
-        searchRestaurantProgressBar = findViewById(R.id.search_restaurant_progress_bar);
+//        searchRestaurantProgressBar = findViewById(R.id.search_restaurant_progress_bar);
         chooseProvinceButton = findViewById(R.id.open_choose_province_button);
         searchTextInput = findViewById(R.id.search_restaurant_view);
 
@@ -57,14 +57,13 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         restaurantAdapter = new RestaurantAdapter(this);
         restaurantRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantRecyclerView.setHasFixedSize(true);
-        restaurantRecyclerView.setAdapter(restaurantAdapter);
 
         searchRestaurantViewModel = ViewModelProviders.of(this).get(SearchRestaurantViewModel.class);
         searchRestaurantViewModel.init();
+        restaurantRecyclerView.setAdapter(restaurantAdapter);
 
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
-
 
         searchRestaurantViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
             @Override
@@ -74,7 +73,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         });
 
         ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE},
                 REQUEST_CODE);
 
     }
@@ -96,7 +95,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        searchRestaurantProgressBar.setVisibility(View.VISIBLE);
+//        searchRestaurantProgressBar.setVisibility(View.VISIBLE);
     }
 
     private View.OnClickListener openChooseProvince = new View.OnClickListener() {
@@ -216,9 +215,9 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         System.out.println("Resumedddd");
-        if (searchRestaurantViewModel.getRestaurants().getValue().size() <= 0 || searchRestaurantViewModel.getRestaurants().getValue() == null)
-            searchRestaurantProgressBar.setVisibility(View.VISIBLE);
-        else searchRestaurantProgressBar.setVisibility(View.GONE);
+//        if (searchRestaurantViewModel.getRestaurants().getValue().size() <= 0 || searchRestaurantViewModel.getRestaurants().getValue() == null)
+//            searchRestaurantProgressBar.setVisibility(View.VISIBLE);
+//        else searchRestaurantProgressBar.setVisibility(View.GONE);
     }
 
     @Override
