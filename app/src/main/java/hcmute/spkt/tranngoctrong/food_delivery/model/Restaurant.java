@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
+import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.FoodMenuDeserializer;
 
 public class Restaurant implements Parcelable {
     private int id;
@@ -19,11 +20,10 @@ public class Restaurant implements Parcelable {
     private String phone;
 
     @JsonDeserialize(using = DateDeserializer.class)
-    private Date timeOpen;
 
+    private Date timeOpen;
     @JsonDeserialize(using = DateDeserializer.class)
     private Date timeClose;
-
     private String description;
     private String province;
     private String avatarUrl;
@@ -32,25 +32,9 @@ public class Restaurant implements Parcelable {
     private double latitude;
     private double longitude;
 
-    public Restaurant() {
-        super();
-    }
+    public Restaurant() { }
 
-    public Restaurant(
-            int id,
-            String name,
-            String address,
-            String phone,
-            Date timeOpen,
-            Date timeClose,
-            String description,
-            String province,
-            String avatarUrl,
-            List<String> imagesUrl,
-            String wifi,
-            double latitude,
-            double longitude
-    ) {
+    public Restaurant(int id, String name, String address, String phone, Date timeOpen, Date timeClose, String description, String province, String avatarUrl, List<String> imagesUrl, String wifi, double latitude, double longitude) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -82,6 +66,24 @@ public class Restaurant implements Parcelable {
         timeClose = new Date(in.readLong());
     }
 
+    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
+        @Override
+        public Restaurant createFromParcel(Parcel in) {
+            return new Restaurant(in);
+        }
+
+        @Override
+        public Restaurant[] newArray(int size) {
+            return new Restaurant[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -98,23 +100,6 @@ public class Restaurant implements Parcelable {
         dest.writeLong(timeOpen.getTime());
         dest.writeLong(timeClose.getTime());
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
-        @Override
-        public Restaurant createFromParcel(Parcel in) {
-            return new Restaurant(in);
-        }
-
-        @Override
-        public Restaurant[] newArray(int size) {
-            return new Restaurant[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -218,6 +203,10 @@ public class Restaurant implements Parcelable {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public static Creator<Restaurant> getCREATOR() {
+        return CREATOR;
     }
 
     @Override

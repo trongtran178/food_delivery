@@ -13,14 +13,6 @@ public class Food implements Serializable {
         this.slug = slug;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getId() {
         return id;
     }
@@ -29,6 +21,15 @@ public class Food implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
     public String getSlug() {
         return slug;
     }
@@ -36,14 +37,4 @@ public class Food implements Serializable {
     public void setSlug(String slug) {
         this.slug = slug;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "id=" + id +
-                ",name='" + name + '\'' +
-                ",slug='" + slug + '\'' +
-                '}';
-    }
-
 }

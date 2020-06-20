@@ -7,10 +7,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,7 +52,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
     private FragmentManager fragmentManager;
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private View restaurantMapView;
-
+    private Button contactButton;
     private Location currentLocation, restaurantLocation;
 
     private TextView addressTextView, distanceFromUserTextView, openCloseTextView, openCloseTimeTextView;
@@ -71,6 +73,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         restaurant_detail_back_button = findViewById(R.id.restaurant_detail_back_button);
         restaurantFoodsRecyclerView = findViewById(R.id.restaurant_foods_recycler_view);
         menuLayout = findViewById(R.id.menu_layout);
+        contactButton = findViewById(R.id.contact_restaurant_button);
 
         restaurant = getIntent().getParcelableExtra("restaurant");
         handleOpenCloseView();
@@ -102,6 +105,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         addWifiTextView.setOnClickListener(addWifiTextViewListener);
         restaurant_detail_back_button.setOnClickListener(restaurantDetailBackButtonListener);
         menuLayout.setOnClickListener(menuLayoutClickListener);
+        contactButton.setOnClickListener(contactRestaurantViewListener);
         handleLocation();
     }
 
@@ -127,6 +131,25 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         public void onClick(View v) {
             AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantDetailsActivity.this);
             builder.setView(LayoutInflater.from(getBaseContext()).inflate(R.layout.dialog_add_wifi, null)).show();
+        }
+    };
+
+    private View.OnClickListener contactRestaurantViewListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String url = "tel:84398497203";
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
+            if (ActivityCompat.checkSelfPermission(RestaurantDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            startActivity(intent);
         }
     };
 
@@ -191,7 +214,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
 
     private String distanceFromUserString() {
         long distance = (long) currentLocation.distanceTo(restaurantLocation);
-        if(distance < 1000) {
+        if (distance < 1000) {
             return String.format("%d", distance) + "mét (từ vị trí hiện tại)";
         } else {
             return String.format("%d", distance / 1000) + " km (từ vị trí hiện tại)";

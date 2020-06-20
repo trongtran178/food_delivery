@@ -9,16 +9,12 @@ import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.FoodMenuDeseri
 @JsonDeserialize(using = FoodMenuDeserializer.class)
 public class FoodMenu {
     private int id;
-
     private Food food;
-
     private Menu menu;
     private double price;
     private String foodAvatarUrl;
 
-    public FoodMenu() {
-
-    }
+    public FoodMenu() { }
 
     public FoodMenu(int id, Food food, Menu menu, double price, String foodAvatarUrl) {
         this.id = id;

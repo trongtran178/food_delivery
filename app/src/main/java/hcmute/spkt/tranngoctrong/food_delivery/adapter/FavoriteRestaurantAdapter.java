@@ -52,7 +52,5 @@ public class FavoriteRestaurantAdapter extends RecyclerView.Adapter<FavoriteRest
             super(itemView);
             testTemp = itemView.findViewById(R.id.texttemp);
         }
-
     }
-
 }

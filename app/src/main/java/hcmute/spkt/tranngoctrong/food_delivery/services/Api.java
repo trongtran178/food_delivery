@@ -15,7 +15,6 @@ public class Api {
     private PutAsyncTask putAsyncTask;
     private DeleteAsyncTask deleteAsyncTask;
 
-
     private OkHttpClient client;
 
     private Api() {
