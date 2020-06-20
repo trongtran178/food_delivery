@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -51,8 +53,8 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         searchTextInput = findViewById(R.id.search_restaurant_view);
 
         restaurantRecyclerView = findViewById(R.id.restaurant_recycler_view);
-        restaurantAdapter = new RestaurantAdapter(this);
 
+        restaurantAdapter = new RestaurantAdapter(this);
         restaurantRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantRecyclerView.setHasFixedSize(true);
         restaurantRecyclerView.setAdapter(restaurantAdapter);
@@ -70,15 +72,32 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                 restaurantAdapter.setResults(restaurants);
             }
         });
+
+        ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_CODE);
+
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_CODE) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+            } else {
+                Toast.makeText(SearchRestaurantActivity.this, "Permission denied to access your location", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
         searchRestaurantProgressBar.setVisibility(View.VISIBLE);
     }
-
 
     private View.OnClickListener openChooseProvince = new View.OnClickListener() {
         @Override

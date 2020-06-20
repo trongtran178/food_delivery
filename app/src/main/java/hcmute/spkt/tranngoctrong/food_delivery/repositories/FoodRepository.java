@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.util.List;
 
-import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
-import hcmute.spkt.tranngoctrong.food_delivery.model.Menu;
-import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.FoodMenuDeserializer;
 import hcmute.spkt.tranngoctrong.food_delivery.services.Api;
@@ -40,7 +37,7 @@ public class FoodRepository {
             results = mapper.readValue(
                     mapper.writeValueAsString(response.getResults()),
                     new TypeReference<List<FoodMenu>>() {
-            });
+                    });
 
 
             System.out.println(results.toString());

@@ -21,26 +21,24 @@ import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragm
 
 public class SearchRestaurantResultsActivity extends AppCompatActivity {
 
-    private SectionsPageAdapter sectionsPagerAdapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private SearchView searchRestaurantResultsView;
     private ImageButton search_results_back_button;
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
-    private Restaurant restaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_restaurant_results);
 
-        searchRestaurantResultsView = (SearchView) findViewById(R.id.search_restaurant_results_view);
+        searchRestaurantResultsView = findViewById(R.id.search_restaurant_results_view);
 
         Intent intent = getIntent();
         String searchQuery = intent.getStringExtra(SEARCH_QUERY_EXTRA);
         searchRestaurantResultsView.setQuery(searchQuery, true);
-        sectionsPagerAdapter = new SectionsPageAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        tabLayout = (TabLayout) findViewById(R.id.search_results_tab);
-        viewPager = (ViewPager) findViewById(R.id.search_results_container);
+        tabLayout = findViewById(R.id.search_results_tab);
+        viewPager = findViewById(R.id.search_results_container);
         setupViewPager(viewPager);
 
         tabLayout.setupWithViewPager(viewPager);
