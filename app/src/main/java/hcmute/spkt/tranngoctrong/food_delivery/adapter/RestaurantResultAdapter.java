@@ -46,7 +46,7 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
         holder.addressTextView.setText(listRestaurantResult.get(position).getAddress());
 
         Glide.with(holder.itemView)
-                .load(listRestaurantResult.get(position).getAvatarUrl())
+                .load(listRestaurantResult.get(position).getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.avatarImageView);
     }

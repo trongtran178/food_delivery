@@ -36,6 +36,7 @@ import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
+import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewModel;
@@ -90,12 +91,22 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         restaurantFoodsRecyclerView.stopNestedScroll();
 
         restaurantDetailsViewModel = ViewModelProviders.of(this).get(RestaurantDetailsViewModel.class);
-        restaurantDetailsViewModel.init();
-        restaurantDetailsViewModel.getFoodsInMenu().observe(this, new Observer<List<FoodMenu>>() {
+//        restaurantDetailsViewModel.init();
+//        restaurantDetailsViewModel.getFoodsInMenu().observe(this, new Observer<List<FoodMenu>>() {
+//            @Override
+//            public void onChanged(List<FoodMenu> foodMenus) {
+//                foodAdapter.setRestaurantFoodsByMenu(foodMenus);
+//                restaurantFoodsRecyclerView.setAdapter(foodAdapter);
+//            }
+//        });
+
+        restaurantDetailsViewModel.getFoodCategories().observe(this, new Observer<List<FoodCategory>>() {
             @Override
-            public void onChanged(List<FoodMenu> foodMenus) {
-                foodAdapter.setRestaurantFoodsByMenu(foodMenus);
+            public void onChanged(List<FoodCategory> foodCategories) {
+                foodAdapter.setRestaurantFoodCategories(foodCategories);
                 restaurantFoodsRecyclerView.setAdapter(foodAdapter);
+//                foodAdapter.set(foodMenus);
+//                restaurantFoodsRecyclerView.setAdapter(foodAdapter);
             }
         });
 

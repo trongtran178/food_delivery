@@ -8,8 +8,10 @@ import java.util.Date;
 import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+import hcmute.spkt.tranngoctrong.food_delivery.model.api.Pagination;
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
+import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.PaginationDeserializer;
 import hcmute.spkt.tranngoctrong.food_delivery.services.Api;
 
 public class RestaurantRepository {
@@ -32,6 +34,7 @@ public class RestaurantRepository {
         List<Restaurant> results;
         try {
             Response response = api.get("/restaurants");
+            System.out.println(response.toString());
             results = mapper.readValue(mapper.writeValueAsString(response.getResults()), new TypeReference<List<Restaurant>>() {
             });
             System.out.println(results.toString());
@@ -60,12 +63,12 @@ public class RestaurantRepository {
         return null;
     }
 
-    public List<Restaurant> searchRestaurants(String keyword) {
+    public List<Restaurant> searchRestaurantsByKeyWord(String keyword) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
         List<Restaurant> results;
         try {
-            Response response = api.get("/restaurants");
+            Response response = api.get("/restaurants?keyword=" + keyword);
             results = mapper.readValue(mapper.writeValueAsString(response.getResults()),
                     new TypeReference<List<Restaurant>>() {
                     });

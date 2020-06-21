@@ -33,7 +33,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
-
+    implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -53,7 +53,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
-
-
 
 }

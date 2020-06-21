@@ -25,7 +25,11 @@ public class MostRightResults extends Fragment {
     private RecyclerView restaurantResultRecyclerView;
     private RestaurantResultAdapter restaurantResultAdapter;
     private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
+    private String keyword;
 
+    public MostRightResults(String keyword) {
+        this.keyword = keyword;
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -40,19 +44,17 @@ public class MostRightResults extends Fragment {
 
         searchRestaurantResultsViewModel = ViewModelProviders.of(this).get(SearchRestaurantResultsViewModel.class);
         searchRestaurantResultsViewModel.init();
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword);
         searchRestaurantResultsViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 restaurantResultAdapter.setResults(restaurants);
             }
         });
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_most_right, container, false);
     }
 }
