@@ -32,6 +32,8 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
         setRestaurants(restaurants);
     }
 
+
+
     public MutableLiveData<List<Restaurant>> getRestaurants() {
         return restaurants;
     }

@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 
 
 public class Filters extends Fragment {
+
+    public Filters() {}
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return null;

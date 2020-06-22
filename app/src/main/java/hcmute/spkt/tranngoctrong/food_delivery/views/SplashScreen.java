@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.SearchRestaurantActivity;
 
-public class Splash extends Activity {
+public class SplashScreen extends Activity {
 
     /**
      * Duration of wait
@@ -26,9 +26,9 @@ public class Splash extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(Splash.this, SearchRestaurantActivity.class);
-                Splash.this.startActivity(mainIntent);
-                Splash.this.finish();
+                Intent mainIntent = new Intent(SplashScreen.this, SearchRestaurantActivity.class);
+                SplashScreen.this.startActivity(mainIntent);
+                SplashScreen.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
 

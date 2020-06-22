@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,16 +16,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+
 public class RestaurantMapFragment extends SupportMapFragment implements OnMapReadyCallback {
 
     private GoogleMap googleMap;
-    private LatLng deviceLatLng;
-    private LatLng restaurantLatLng;
-    private LocationManager locationManager;
-
+    private Restaurant restaurant;
+    private Context context;
 
     public RestaurantMapFragment() {
-//        this.restaurantLatLng = RestaurantMapFragment.this.get;
         getMapAsync(this);
     }
 
@@ -42,16 +42,11 @@ public class RestaurantMapFragment extends SupportMapFragment implements OnMapRe
 //            // for ActivityCompat#requestPermissions for more details.
 //            return;
 //        }
-//        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//        restaurantLatLng = new LatLng(10.843972, 106.767511);
-//        deviceLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         this.googleMap = gMap;
-
-//        LatLng vietnam = new LatLng(14.0583, 108.2772); // 14.0583° N, 108.2772° E
-        LatLng vietnam = new LatLng(10.843972, 106.767511);
-        this.googleMap.addMarker(new MarkerOptions().position(vietnam).title("Bun dau co Chang"));
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(vietnam));
+        LatLng restaurantLatLong = new LatLng(restaurant.getLatitude(), restaurant.getLongitude());
+        this.googleMap.addMarker(new MarkerOptions().position(restaurantLatLong).title(restaurant.getName()));
+        this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(restaurantLatLong));
         this.googleMap.setMinZoomPreference(20.0f);
         this.googleMap.setMaxZoomPreference(50.0f);
         this.googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -68,5 +63,23 @@ public class RestaurantMapFragment extends SupportMapFragment implements OnMapRe
                 googleMap.addMarker(markerOptions);
             }
         });
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    @Nullable
+    @Override
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }

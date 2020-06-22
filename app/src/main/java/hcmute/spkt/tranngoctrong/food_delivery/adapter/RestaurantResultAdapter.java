@@ -1,7 +1,13 @@
 package hcmute.spkt.tranngoctrong.food_delivery.adapter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +24,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.RestaurantDetailsActivity;
@@ -25,9 +33,12 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
 
     private List<Restaurant> listRestaurantResult = new ArrayList<Restaurant>();
     private Context context;
+    private FoodDeliveryApplication foodDeliveryApplication;
+
 
     public RestaurantResultAdapter(Context context) {
         this.context = context;
+        foodDeliveryApplication = (FoodDeliveryApplication) this.context.getApplicationContext();
     }
 
     @NonNull
@@ -42,9 +53,16 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantResultHolder holder, int position) {
+
         holder.nameTextView.setText(listRestaurantResult.get(position).getName());
         holder.addressTextView.setText(listRestaurantResult.get(position).getAddress());
+        holder.restaurantTypeTextView.setText(listRestaurantResult.get(position).getType());
 
+        Location restaurantLocation = new Location("restaurantProvider");
+        restaurantLocation.setLatitude(listRestaurantResult.get(position).getLatitude());
+        restaurantLocation.setLongitude(listRestaurantResult.get(position).getLongitude());
+
+        holder.distanceFromUserTextView.setText(distanceFromUserString(restaurantLocation));
         Glide.with(holder.itemView)
                 .load(listRestaurantResult.get(position).getAvatar())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -61,6 +79,7 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
         notifyDataSetChanged();
     }
 
+
     class RestaurantResultHolder extends RecyclerView.ViewHolder {
 
         private ImageView avatarImageView;
@@ -75,15 +94,15 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
 
         public RestaurantResultHolder(@NonNull final View itemView) {
             super(itemView);
-            avatarImageView = (ImageView) itemView.findViewById(R.id.restaurant_search_result_image_view);
-            nameTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_name_text_view);
-            ratingNumberTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_rating_number_text_view);
-            distanceFromUserTextView = (TextView) itemView.findViewById(R.id.restaurant_detail_distance_from_user_text_view);
-            addressTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_address_text_view);
-            restaurantTypeTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_restaurant_type_text_view);
-            commentNumberTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_comment_number_text_view);
-            takePictureNumberTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_take_picture_number_text_view);
-            couponTextView = (TextView) itemView.findViewById(R.id.restaurant_search_results_item_coupon_text_view);
+            avatarImageView = itemView.findViewById(R.id.restaurant_search_result_image_view);
+            nameTextView = itemView.findViewById(R.id.restaurant_search_results_item_name_text_view);
+            ratingNumberTextView = itemView.findViewById(R.id.restaurant_search_results_item_rating_number_text_view);
+            distanceFromUserTextView = itemView.findViewById(R.id.restaurant_search_results_item_distance_to_me_text_view);
+            addressTextView = itemView.findViewById(R.id.restaurant_search_results_item_address_text_view);
+            restaurantTypeTextView = itemView.findViewById(R.id.restaurant_search_results_item_restaurant_type_text_view);
+            commentNumberTextView = itemView.findViewById(R.id.restaurant_search_results_item_comment_number_text_view);
+            takePictureNumberTextView = itemView.findViewById(R.id.restaurant_search_results_item_take_picture_number_text_view);
+            couponTextView = itemView.findViewById(R.id.restaurant_search_results_item_coupon_text_view);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -93,7 +112,25 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
                 }
             });
         }
-
-
     }
+
+    private String distanceFromUserString(Location restaurantLocation) {
+        System.out.println("--------------");
+        System.out.println(foodDeliveryApplication.getUserLocation().getLatitude());
+        System.out.println(foodDeliveryApplication.getUserLocation().getLongitude());
+        System.out.println("--------------");
+        System.out.println("--------------");
+        System.out.println(restaurantLocation.getLatitude());
+        System.out.println(restaurantLocation.getLongitude());
+        System.out.println("--------------");
+        long distance = (long) (foodDeliveryApplication.getUserLocation().distanceTo(restaurantLocation));
+        if (distance < 1000) {
+            System.out.println(String.format("%d", distance) + " m");
+            return String.format("%d", distance) + "m";
+        } else {
+            System.out.println(String.format("%d", distance / 1000) + " km");
+            return String.format("%d", distance / 1000) + " km";
+        }
+    }
+
 }

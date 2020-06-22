@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -26,7 +27,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.FragmentManager;
 
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -35,9 +35,7 @@ import java.util.TimeZone;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
-import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
-import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewModel;
 
@@ -45,22 +43,29 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
 
     private RecyclerView restaurantFoodsRecyclerView;
     private FoodAdapter foodAdapter;
-    private RestaurantMapFragment restaurantMapFragment;
     private Restaurant restaurant;
+    private RestaurantMapFragment restaurantMapFragment;
     private LinearLayout menuLayout;
-    private TextView addWifiTextView;
     private ImageButton restaurant_detail_back_button;
     private FragmentManager fragmentManager;
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private View restaurantMapView;
     private Button contactButton;
     private Location currentLocation, restaurantLocation;
+    private TextView addWifiTextView,
+            nameTextView,
+            provinceTextView,
+            addressTextView,
+            distanceFromUserTextView,
+            openCloseTextView,
+            openCloseTimeTextView,
+            typeTextView;
 
-    private TextView addressTextView, distanceFromUserTextView, openCloseTextView, openCloseTimeTextView;
+    private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
+    private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
+
     protected LocationManager locationManager;
-    protected LocationListener locationListener;
     protected Context context;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,13 +76,15 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         addressTextView = findViewById(R.id.restaurant_detail_address_text_view);
         distanceFromUserTextView = findViewById(R.id.restaurant_detail_distance_from_user_text_view);
         addWifiTextView = findViewById(R.id.add_wifi_text_view);
+        nameTextView = findViewById(R.id.restaurant_detail_name_text_view);
+        provinceTextView = findViewById(R.id.restaurant_detail_province_text_view);
         restaurant_detail_back_button = findViewById(R.id.restaurant_detail_back_button);
         restaurantFoodsRecyclerView = findViewById(R.id.restaurant_foods_recycler_view);
         menuLayout = findViewById(R.id.menu_layout);
         contactButton = findViewById(R.id.contact_restaurant_button);
-
+        typeTextView = findViewById(R.id.restaurant_detail_type_text_view);
         restaurant = getIntent().getParcelableExtra("restaurant");
-        handleOpenCloseView();
+
         restaurantLocation = new Location("restaurantLocation");
         restaurantLocation.setLatitude(restaurant.getLatitude());
         restaurantLocation.setLongitude(restaurant.getLongitude());
@@ -85,38 +92,34 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         addressTextView.setText(restaurant.getAddress());
         fragmentManager = this.getSupportFragmentManager();
         restaurantMapFragment = (RestaurantMapFragment) fragmentManager.findFragmentById(R.id.restaurant_map_fragment);
-
+        restaurantMapFragment.setRestaurant(restaurant);
         foodAdapter = new FoodAdapter(this);
         restaurantFoodsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantFoodsRecyclerView.stopNestedScroll();
 
         restaurantDetailsViewModel = ViewModelProviders.of(this).get(RestaurantDetailsViewModel.class);
-//        restaurantDetailsViewModel.init();
-//        restaurantDetailsViewModel.getFoodsInMenu().observe(this, new Observer<List<FoodMenu>>() {
-//            @Override
-//            public void onChanged(List<FoodMenu> foodMenus) {
-//                foodAdapter.setRestaurantFoodsByMenu(foodMenus);
-//                restaurantFoodsRecyclerView.setAdapter(foodAdapter);
-//            }
-//        });
+        restaurantDetailsViewModel.init(restaurant);
 
         restaurantDetailsViewModel.getFoodCategories().observe(this, new Observer<List<FoodCategory>>() {
             @Override
             public void onChanged(List<FoodCategory> foodCategories) {
                 foodAdapter.setRestaurantFoodCategories(foodCategories);
                 restaurantFoodsRecyclerView.setAdapter(foodAdapter);
-//                foodAdapter.set(foodMenus);
-//                restaurantFoodsRecyclerView.setAdapter(foodAdapter);
             }
         });
 
         restaurantMapView = this.restaurantMapFragment.getView();
         restaurantMapView.setAlpha(0.25f);
 
+        nameTextView.setText(restaurant.getName());
+        provinceTextView.setText(restaurant.getProvince());
+        typeTextView.setText(restaurant.getType());
         addWifiTextView.setOnClickListener(addWifiTextViewListener);
         restaurant_detail_back_button.setOnClickListener(restaurantDetailBackButtonListener);
         menuLayout.setOnClickListener(menuLayoutClickListener);
         contactButton.setOnClickListener(contactRestaurantViewListener);
+
+        handleTimeOpenCloseView();
         handleLocation();
     }
 
@@ -126,6 +129,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         public void onClick(View v) {
             final Intent goToMenuDetailIntent = new Intent(RestaurantDetailsActivity.this,
                     MenuDetailsActivity.class);
+            goToMenuDetailIntent.putExtra(RESTAURANT_NAME__EXTRA, restaurant.getName());
+            goToMenuDetailIntent.putExtra(FOOD_CATEGORIES_EXTRA, (ArrayList<FoodCategory>) restaurantDetailsViewModel.getFoodCategories().getValue());
             startActivity(goToMenuDetailIntent);
         }
     };
@@ -148,7 +153,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
     private View.OnClickListener contactRestaurantViewListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String url = "tel:84398497203";
+            String url = "tel:" + restaurant.getPhone();
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
             if (ActivityCompat.checkSelfPermission(RestaurantDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -164,7 +169,18 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         }
     };
 
-    private void handleOpenCloseView() {
+    private void handleDistanceFromUserTextView() {
+        long distance = (long) currentLocation.distanceTo(restaurantLocation);
+        if (distance < 1000) {
+            distanceFromUserTextView.setTextColor(Color.GREEN);
+            distanceFromUserTextView.setText(String.format("%d", distance) + "mét (từ vị trí hiện tại)");
+        } else {
+            distanceFromUserTextView.setTextColor(Color.RED);
+            distanceFromUserTextView.setText(String.format("%d", distance / 1000) + " km (từ vị trí hiện tại)");
+        }
+    }
+
+    private void handleTimeOpenCloseView() {
 
         Calendar currentDateTimeCalendar = Calendar.getInstance();
         currentDateTimeCalendar.setTimeZone(TimeZone.getTimeZone("Asia/Saigon")); // 248 - Asia/Bangkok Timezone ID
@@ -210,28 +226,16 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        System.out.println("RestaurantDetailsActivity Destroyed");
-    }
-
-
-    @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
-        distanceFromUserTextView.setText(distanceFromUserString());
+        handleDistanceFromUserTextView();
+//        distanceFromUserTextView.setText(distanceFromUserString());
         System.out.println(currentLocation);
-    }
 
-    private String distanceFromUserString() {
-        long distance = (long) currentLocation.distanceTo(restaurantLocation);
-        if (distance < 1000) {
-            return String.format("%d", distance) + "mét (từ vị trí hiện tại)";
-        } else {
-            return String.format("%d", distance / 1000) + " km (từ vị trí hiện tại)";
-        }
+        // Stop Location Listener
+        // https://stackoverflow.com/questions/6894234/stop-location-listener-in-android
+        locationManager.removeUpdates(this);
     }
-
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -248,4 +252,11 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         Log.d("Latitude", "disable");
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("RestaurantDetailsActivity Destroyed");
+    }
+
 }

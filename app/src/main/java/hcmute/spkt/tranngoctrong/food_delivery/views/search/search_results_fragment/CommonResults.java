@@ -12,6 +12,9 @@ import hcmute.spkt.tranngoctrong.food_delivery.R;
 
 public class CommonResults extends Fragment {
 
+    public CommonResults() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_common_results, container, false);

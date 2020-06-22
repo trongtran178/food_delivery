@@ -1,8 +1,10 @@
 package hcmute.spkt.tranngoctrong.food_delivery.model;
 
+
 import java.io.Serializable;
 
-public class Food {
+public class Food implements Serializable {
+
     private String _id;
     private String name;
     private String slug;

@@ -43,14 +43,14 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     public void onBindViewHolder(@NonNull FoodHolder holder, int position) {
         holder.foodTitleView.setText(restaurantFoodCategories.get(position).getFoods().get(0).getName());
         Glide.with(holder.itemView)
-                .load(restaurantFoodsByMenu.get(position).getFoodAvatarUrl())
+                .load(restaurantFoodCategories.get(position).getFoods().get(0).getImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.foodAvatarImageView);
     }
 
     @Override
     public int getItemCount() {
-        return this.restaurantFoodsByMenu == null ? 0 : this.restaurantFoodsByMenu.size();
+        return this.restaurantFoodCategories == null ? 0 : this.restaurantFoodCategories.size();
     }
 
     class FoodHolder extends RecyclerView.ViewHolder {
@@ -71,24 +71,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
     public void setContext(Context context) {
         this.context = context;
-    }
-
-    public List<Food> getRestaurantFoods() {
-        return restaurantFoods;
-    }
-
-    public List<FoodMenu> getRestaurantFoodsByMenu() {
-        return restaurantFoodsByMenu;
-    }
-
-    public void setRestaurantFoodsByMenu(List<FoodMenu> restaurantFoodsByMenu) {
-        this.restaurantFoodsByMenu = restaurantFoodsByMenu;
-        notifyDataSetChanged();
-    }
-
-    public void setRestaurantFoods(List<Food> restaurantFoods) {
-        this.restaurantFoods = restaurantFoods;
-        notifyDataSetChanged();
     }
 
     public void setRestaurantFoodCategories(List<FoodCategory> foodCategories) {

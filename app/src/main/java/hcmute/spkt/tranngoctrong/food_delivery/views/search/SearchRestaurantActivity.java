@@ -1,9 +1,10 @@
 package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,12 +13,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.MutableLiveData;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -25,14 +24,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnLoadMoreListener;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantViewModel;
 
-public class SearchRestaurantActivity extends AppCompatActivity {
+public class SearchRestaurantActivity extends AppCompatActivity implements LocationListener {
 
+    private FoodDeliveryApplication foodDeliveryApplication;
     private RestaurantAdapter restaurantAdapter;
     private Button chooseProvinceButton;
     private SearchView searchTextInput;
@@ -41,13 +42,10 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final int REQUEST_CODE = 1;
-    private static final int PERMISSIONS_REQUEST_LOCATION_CODE = 2;
-
-    private int pageSize = 10, pageIndex = 1;
-    protected Handler handler;
-
-//    protected LocationManager locationManager;
-
+    private Handler handler;
+    private Location userLocation;
+    private LocationManager locationManager;
+    private boolean hasReceivedLocation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +55,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE},
                 REQUEST_CODE);
+        foodDeliveryApplication = (FoodDeliveryApplication) getApplicationContext();
 
         chooseProvinceButton = findViewById(R.id.open_choose_province_button);
         searchTextInput = findViewById(R.id.search_restaurant_view);
@@ -100,10 +99,11 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                         restaurants.remove(restaurants.size() - 1);
                         restaurants.remove(restaurants.size() - 1);
 
+                        // load restaurants using api
                         searchRestaurantViewModel.getNextPage();
                         searchRestaurantViewModel.setRestaurants(restaurants);
                         restaurantAdapter.setLoaded();
-                        // load api
+
                     }
                 }, 3000);
 
@@ -112,6 +112,8 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
+
+        handleLocation();
     }
 
     @Override
@@ -149,9 +151,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == REQUEST_CODE) {
-
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
             } else {
                 Toast.makeText(SearchRestaurantActivity.this, "Permission denied to access your location", Toast.LENGTH_SHORT).show();
             }
@@ -173,48 +173,6 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         }
     }
 
-    private boolean checkPermissionLocation() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.app_name)
-                        .setMessage(R.string.app_name)
-                        .setPositiveButton(R.string.app_name, new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        PERMISSIONS_REQUEST_LOCATION_CODE);
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        PERMISSIONS_REQUEST_LOCATION_CODE);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
     private View.OnClickListener openChooseProvince = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -227,6 +185,8 @@ public class SearchRestaurantActivity extends AppCompatActivity {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
+            if (!hasReceivedLocation) return false;
+
             System.out.println(query);
             Intent searchResultIntent = new Intent(getApplicationContext(), SearchRestaurantResultsActivity.class);
             searchResultIntent.putExtra(SEARCH_QUERY_EXTRA, query);
@@ -241,35 +201,37 @@ public class SearchRestaurantActivity extends AppCompatActivity {
         }
     };
 
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode,
-//                                           String permissions[], int[] grantResults) {
-//        switch (requestCode) {
-//            case PERMISSIONS_REQUEST_LOCATION_CODE: {
-//                // If request is cancelled, the result arrays are empty.
-//                if (grantResults.length > 0
-//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//
-//                    // permission was granted, yay! Do the
-//                    // location-related task you need to do.
-//                    if (ContextCompat.checkSelfPermission(this,
-//                            Manifest.permission.ACCESS_FINE_LOCATION)
-//                            == PackageManager.PERMISSION_GRANTED) {
-//
-//                        //Request location updates:
-//                        locationManager.requestLocationUpdates(provider, 400, 1, this);
-//                    }
-//
-//                } else {
-//
-//                    // permission denied, boo! Disable the
-//                    // functionality that depends on this permission.
-//
-//                }
-//                return;
-//            }
-//
-//        }
-//    }
+    private void handleLocation() {
+        locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        userLocation = location;
+        foodDeliveryApplication.setUserLocation(location);
+        hasReceivedLocation = true;
+
+        // Stop Location Listener
+        // https://stackoverflow.com/questions/6894234/stop-location-listener-in-android
+        locationManager.removeUpdates(this);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // DO NOTHING
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }

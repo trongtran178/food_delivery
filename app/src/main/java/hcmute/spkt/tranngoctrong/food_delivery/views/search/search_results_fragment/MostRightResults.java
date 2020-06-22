@@ -1,5 +1,6 @@
 package hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment;
 
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
@@ -27,6 +29,11 @@ public class MostRightResults extends Fragment {
     private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
     private String keyword;
 
+    public MostRightResults() {
+
+    }
+
+
     public MostRightResults(String keyword) {
         this.keyword = keyword;
     }
@@ -37,7 +44,7 @@ public class MostRightResults extends Fragment {
 
         restaurantResultAdapter = new RestaurantResultAdapter(this.getContext());
 
-        restaurantResultRecyclerView = (RecyclerView) getView().findViewById(R.id.restaurant_results_recycler_view);
+        restaurantResultRecyclerView = getView().findViewById(R.id.restaurant_results_recycler_view);
         restaurantResultRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         restaurantResultRecyclerView.setHasFixedSize(true);
         restaurantResultRecyclerView.setAdapter(restaurantResultAdapter);
@@ -53,8 +60,21 @@ public class MostRightResults extends Fragment {
         });
     }
 
+
+    public void refreshDataWithNewKeywordSearch() {
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_most_right, container, false);
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

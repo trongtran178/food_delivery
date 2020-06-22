@@ -47,14 +47,14 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
+        searchRestaurantResultsView.setOnQueryTextListener(searchViewQueryTextListener);
         search_results_back_button.setOnClickListener(searchResultsBackButtonClickListener);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager(), SectionsPageAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.addFragment(new MostRightResults(searchQuery), "Most right");
-        adapter.addFragment(new NearMeResults(), "Near me");
+        adapter.addFragment(new NearMeResults(searchQuery), "Near me");
         adapter.addFragment(new CommonResults(), "Common");
         adapter.addFragment(new Filters(), "Filter");
         viewPager.setAdapter(adapter);
@@ -64,6 +64,31 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             SearchRestaurantResultsActivity.super.finish();
+        }
+    };
+
+    private SearchView.OnQueryTextListener searchViewQueryTextListener = new SearchView.OnQueryTextListener() {
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            System.out.println(query);
+            switch (tabLayout.getSelectedTabPosition()) {
+                case 0: {
+                    MostRightResults mostRightResults = (MostRightResults) getSupportFragmentManager().getFragments().get(0);
+                    mostRightResults.setKeyword(query);
+                    mostRightResults.refreshDataWithNewKeywordSearch();
+                }
+                case 1: {
+                    System.out.println("cHUA LAMF");
+                }
+            }
+            System.out.println(tabLayout.getSelectedTabPosition());
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
         }
     };
 

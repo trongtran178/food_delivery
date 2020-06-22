@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,12 +21,15 @@ public class MenuDetailsAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> parentFood;
     private HashMap<String, List<Food>> childFood;
-
+    private NumberFormat format;
 
     public MenuDetailsAdapter(Context context, List<String> parentFood, HashMap<String, List<Food>> childFood) {
         this.context = context;
         this.parentFood = parentFood;
         this.childFood = childFood;
+        format = NumberFormat.getCurrencyInstance();
+        format.setMaximumFractionDigits(0);
+        format.setCurrency(Currency.getInstance("VND"));
     }
 
     @Override
@@ -81,18 +86,17 @@ public class MenuDetailsAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        final String childTitle = (String) getChild(groupPosition, childPosition).getName();
-//        float childPrice = (float) getChild(groupPosition, childPosition).getPrice();
-        float childPrice = 150000;
+        final String childTitle = getChild(groupPosition, childPosition).getName();
+        float childPrice = (float) getChild(groupPosition, childPosition).getPrice();
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.item_menu_child, null);
         }
-        TextView itemMenuChildTitleTextView = (TextView) convertView.findViewById(R.id.item_menu_child_title_text_view);
-        TextView itemMenuChildPriceTextView = (TextView) convertView.findViewById(R.id.item_menu_child_price_text_view);
+        TextView itemMenuChildTitleTextView = convertView.findViewById(R.id.item_menu_child_title_text_view);
+        TextView itemMenuChildPriceTextView = convertView.findViewById(R.id.item_menu_child_price_text_view);
         itemMenuChildTitleTextView.setText(childTitle);
-        String childPriceString = String.valueOf(childPrice);
+        String childPriceString = format.format(childPrice);
         itemMenuChildPriceTextView.setText(childPriceString);
         return convertView;
     }

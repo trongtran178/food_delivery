@@ -1,12 +1,16 @@
 package hcmute.spkt.tranngoctrong.food_delivery.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class FoodCategory {
+public class FoodCategory implements Serializable {
     private String _id;
     private String name;
     private List<Food> foods;
     private int __v;
+
+    public FoodCategory() {
+    }
 
     public FoodCategory(String _id, String name, List<Food> foods, int __v) {
         this._id = _id;

@@ -1,13 +1,12 @@
 package hcmute.spkt.tranngoctrong.food_delivery.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,9 +20,11 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnLoadMoreListener;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.RestaurantDetailsActivity;
 
 public class RestaurantAdapter extends RecyclerView.Adapter {
 
@@ -132,14 +133,22 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
             searchRestaurantTitleTextView = (TextView) itemView.findViewById(R.id.search_restaurant_title_text_view);
             searchRestaurantSubtitleTextView = (TextView) itemView.findViewById(R.id.search_restaurant_subtitle_text_view);
             searchRestaurantImageView = (ImageView) itemView.findViewById(R.id.search_restaurant_image_view);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (((FoodDeliveryApplication) context.getApplicationContext()).getUserLocation() == null)
+                        return;
+                    Intent goToRestaurantDetail = new Intent(context, RestaurantDetailsActivity.class);
+                    goToRestaurantDetail.putExtra("restaurant", restaurants.get(getLayoutPosition()));
+                    context.startActivity(goToRestaurantDetail);
+                }
+            });
         }
     }
 
     public void setLoaded() {
         loading = false;
     }
-
-
 
 
     class ProgressBarViewHolder extends RecyclerView.ViewHolder {

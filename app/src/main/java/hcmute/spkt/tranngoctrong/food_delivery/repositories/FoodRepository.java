@@ -50,6 +50,7 @@ public class FoodRepository {
     }
 
     public List<FoodCategory> getFoodCategory(String restaurantId) {
+        System.out.println(restaurantId);
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -57,7 +58,8 @@ public class FoodRepository {
         mapper.registerModule(new SimpleModule().addDeserializer(Food.class, new FoodDeserializer()));
         List<FoodCategory> results;
         try {
-            Response response = api.get("/restaurant/" + restaurantId + "/menu");
+//            Response response = api.get("/restaurants/5eebdf65b9f3b4e00c36c306/menu");
+            Response response = api.get("/restaurants/" + restaurantId + "/menu");
             results = mapper.readValue(
                     mapper.writeValueAsString(response.getResults()),
                     new TypeReference<List<FoodCategory>>() {

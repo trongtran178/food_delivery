@@ -26,31 +26,27 @@ public class RestaurantDetailsViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void init() {
-        foodsInMenu = new MutableLiveData<List<FoodMenu>>();
+    public void init(Restaurant restaurant) {
+        this.restaurant = restaurant;
         foodRepository = FoodRepository.getInstance();
+        foodCategories = new MutableLiveData<>();
+        getFoodCategoriesByRestaurant(restaurant.get_id());
     }
 
     public void getFoodCategoriesByRestaurant(String restaurantId) {
         List<FoodCategory> fc = new ArrayList<FoodCategory>();
+        System.out.println(restaurantId);
         fc = foodRepository.getFoodCategory(restaurantId);
-        foodCategories.setValue(fc);
+        setFoodCategories(fc);
     }
 
-    public MutableLiveData<List<FoodMenu>> getFoodsInMenu() {
-        return foodsInMenu;
+    public void setFoodCategories(List<FoodCategory> foodCategories) {
+        this.foodCategories.setValue(foodCategories);
     }
 
     public MutableLiveData<List<FoodCategory>> getFoodCategories() {
         return foodCategories;
     }
 
-    public void setFoodsInMenu(List<FoodMenu> foodsWithMenu) {
-        this.foodsInMenu.setValue(foodsWithMenu);
-    }
-
-    public void setFoodCategories(List<FoodCategory> foodCategories) {
-        this.foodCategories.setValue(foodCategories);
-    }
 
 }
