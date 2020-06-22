@@ -7,9 +7,10 @@ public class Api {
 
     private static Api instance;
 
-    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com"; // DEPLOYED
-//    private static final String BASE_URL = "http://localhost:8080";
-
+//    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com"; // DEPLOYED
+    private static final String BASE_URL = "https://murmuring-plains-40357.herokuapp.com/api"; // DEPLOYED
+    //    private static final String BASE_URL = "http://localhost:8080";
+//    http://murmuring-plains-40357.herokuapp.com/api/restaurants?keyword=ngang
     private GetAsyncTask getAsyncTask;
     private PostAsyncTask postAsyncTask;
     private PutAsyncTask putAsyncTask;
@@ -33,6 +34,7 @@ public class Api {
         getAsyncTask = new GetAsyncTask(client);
         try {
             String resultsJsonString = (String) getAsyncTask.execute(getUrl(resource)).get();
+            System.out.println(resultsJsonString);
             Response response = new Response().fromJson(resultsJsonString);
             getAsyncTask.cancel(true);
             return response;

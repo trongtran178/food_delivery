@@ -3,6 +3,7 @@
     package="hcmute.spkt.tranngoctrong.food_delivery">
 
     <application
+        android:name=".FoodDeliveryApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,27 +15,26 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBDrQRAum7jvzarxnQkCMwKnrAio5YFvmY" />
 
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".views.Splash">
+        <activity android:name=".views.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.search.SearchRestaurantActivity">
-
-        </activity>
-        <activity android:name=".views.search.SearchRestaurantResultsActivity" />
-        <activity android:name=".views.search.RestaurantDetailsActivity" />
-        <activity android:name=".views.search.MenuDetailsActivity" />
-        <activity android:name=".views.categories.FilterCategoriesActivity" />
-        <activity android:name=".views.main_page.MainPageActivity" />
         <activity
             android:name=".views.search.ChooseProvincesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".views.categories.CategoriesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".views.search.SearchRestaurantActivity" />
+        <activity android:name=".views.search.SearchRestaurantResultsActivity" />
+        <activity android:name=".views.search.RestaurantDetailsActivity" />
+        <activity android:name=".views.search.MenuDetailsActivity" />
+        <activity android:name=".views.categories.FilterCategoriesActivity" />
+        <activity android:name=".views.main_page.MainPageActivity" />
+
     </application>
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />

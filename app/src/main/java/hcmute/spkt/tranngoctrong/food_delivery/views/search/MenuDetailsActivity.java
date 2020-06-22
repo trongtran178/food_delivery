@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.util.List;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.MenuDetailsAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
+import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 
 public class MenuDetailsActivity extends AppCompatActivity {
 
@@ -25,16 +27,22 @@ public class MenuDetailsActivity extends AppCompatActivity {
     private List<String> itemsMenuGroup;
     private HashMap<String, List<Food>> itemsMenuChild;
     private ImageButton menu_detail_back_button;
+    private ArrayList<FoodCategory> foodCategories;
+    private TextView restaurantName;
+    private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
+    private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_details);
-
+        restaurantName = findViewById(R.id.menu_details_restaurant_name_text_view);
+        menu_detail_back_button = findViewById(R.id.menu_detail_back_button);
         menuDetailsExpandableListView = findViewById(R.id.menu_details_expandable_list_view);
 
-        itemsMenuChild = getData();
-        itemsMenuGroup = new ArrayList<String>(itemsMenuChild.keySet());
+        foodCategories = (ArrayList<FoodCategory>) getIntent().getSerializableExtra(FOOD_CATEGORIES_EXTRA);
+        itemsMenuChild = getData(foodCategories);
+        itemsMenuGroup = new ArrayList<>(itemsMenuChild.keySet());
 
         menuDetailsExpandableListAdapter = new MenuDetailsAdapter(this, itemsMenuGroup, itemsMenuChild);
         menuDetailsExpandableListView.setAdapter(menuDetailsExpandableListAdapter);
@@ -46,7 +54,7 @@ public class MenuDetailsActivity extends AppCompatActivity {
 
         menuDetailsExpandableListView.setIndicatorBounds(width - GetDipsFromPixel(50.0f), width - GetDipsFromPixel(10.0f));
 
-        menu_detail_back_button = findViewById(R.id.menu_detail_back_button);
+        restaurantName.setText(getIntent().getStringExtra(RESTAURANT_NAME__EXTRA));
         menu_detail_back_button.setOnClickListener(menuDetailBackButtonClickListener);
 
     }
@@ -58,30 +66,14 @@ public class MenuDetailsActivity extends AppCompatActivity {
         return (int) (pixels * scale + 0.5f);
     }
 
-    private HashMap<String, List<Food>> getData() {
+    private HashMap<String, List<Food>> getData(List<FoodCategory> foodCategories) {
+
         HashMap<String, List<Food>> data = new HashMap<String, List<Food>>();
 
-        List<Food> childBeef = new ArrayList<Food>();
-        childBeef.add(new Food(1, "Bo nhung giam nho", "bo-nhung"));
-        childBeef.add(new Food(2, "Bo nhung giam vua", "bo-nhung"));
-        childBeef.add(new Food(3, "Bo nhung giam lon", "bo-nhung"));
-
-        List<Food> childBeanVermicelli = new ArrayList<Food>();
-        childBeanVermicelli.add(new Food(1, "Bun dau nho", "bo-nhung"));
-        childBeanVermicelli.add(new Food(2, "Bun dau vua", "bo-nhung"));
-        childBeanVermicelli.add(new Food(3, "Bun dau lon", "bo-nhung"));
-
-        List<Food> childExtraDishes = new ArrayList<Food>();
-        childExtraDishes.add(new Food(1, "Bo nhung giam nho", "bo-nhung"));
-        childExtraDishes.add(new Food(2, "Bo nhung giam vua", "bo-nhung"));
-        childExtraDishes.add(new Food(3, "Bo nhung giam lon", "bo-nhung"));
-
-        data.put("Beef dipped in vinegar", childBeef);
-        data.put("Bean vermicelli", childBeanVermicelli);
-        data.put("Extra dishes", childExtraDishes);
-
+        for (FoodCategory foodCategory : foodCategories) {
+            data.put(foodCategory.getName(), foodCategory.getFoods());
+        }
         return data;
-
     }
 
     View.OnClickListener menuDetailBackButtonClickListener = new View.OnClickListener() {

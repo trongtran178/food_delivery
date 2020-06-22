@@ -24,11 +24,15 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
     public void init() {
         restaurants = new MutableLiveData<List<Restaurant>>();
         restaurantRepository = RestaurantRepository.getInstance();
+    }
 
+    public void searchRestaurantsByKeyword(String keyword) {
         // Fetch searched restaurants result from server
-        List<Restaurant> restaurants = restaurantRepository.searchRestaurants("Bun dau");
+        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword);
         setRestaurants(restaurants);
     }
+
+
 
     public MutableLiveData<List<Restaurant>> getRestaurants() {
         return restaurants;
@@ -37,4 +41,7 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants.setValue(restaurants);
     }
+
+
+
 }

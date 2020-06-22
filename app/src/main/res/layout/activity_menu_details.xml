@@ -65,12 +65,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/red"
-                        android:text="Anh" />
+                        android:text="Ảnh" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Thuc don" />
+                        android:text="Thực đơn" />
 
                 </LinearLayout>
 
@@ -84,6 +84,7 @@
 
 
     <TextView
+        android:id="@+id/menu_details_restaurant_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

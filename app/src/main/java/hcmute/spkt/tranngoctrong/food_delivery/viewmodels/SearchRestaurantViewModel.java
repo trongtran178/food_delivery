@@ -15,6 +15,7 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Restaurant>> restaurants;
     private RestaurantRepository restaurantRepository;
+    private int pageSize = 10, pageIndex = 1;
 
     public SearchRestaurantViewModel(@NonNull Application application) {
         super(application);
@@ -25,9 +26,22 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
         restaurantRepository = RestaurantRepository.getInstance();
 
         // Fetch restaurants from server
-        List<Restaurant> restaurants = restaurantRepository.getRestaurants();
+        List<Restaurant> restaurants = restaurantRepository.getRestaurants(20, getPageIndex());
         setRestaurants(restaurants);
+    }
 
+
+
+    public void getNextPage() {
+        int currentPageIndex = this.getPageIndex();
+        currentPageIndex += 1;
+        this.setPageIndex(currentPageIndex);
+
+        List<Restaurant> nextPageRestaurants = restaurantRepository.getRestaurants(20, getPageIndex());
+
+        List<Restaurant> currentPageRestaurants = getRestaurants().getValue();
+        currentPageRestaurants.addAll(nextPageRestaurants);
+        setRestaurants(currentPageRestaurants);
     }
 
     public MutableLiveData<List<Restaurant>> getRestaurants() {
@@ -36,5 +50,21 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
 
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants.setValue(restaurants);
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public int getPageIndex() {
+        return pageIndex;
+    }
+
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 }

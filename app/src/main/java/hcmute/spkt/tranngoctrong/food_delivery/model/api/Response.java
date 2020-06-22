@@ -2,6 +2,9 @@ package hcmute.spkt.tranngoctrong.food_delivery.model.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.PaginationDeserializer;
 
 public class Response {
 
@@ -9,15 +12,18 @@ public class Response {
     private String status;
     private boolean isSuccess;
     private Object results;
+    private Pagination pagination;
 
-    public Response() {}
+    public Response() {
+    }
 
-    public Response(int code, String status, boolean isSuccess, Object results) {
+    public Response(int code, String status, boolean isSuccess, Object results, Pagination pagination) {
         super();
         this.code = code;
         this.status = status;
         this.isSuccess = isSuccess;
         this.results = results;
+        this.pagination = pagination;
     }
 
     public String toJson(Response response) {
@@ -26,6 +32,7 @@ public class Response {
 
     public Response fromJson(String responseString) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new SimpleModule().addDeserializer(Pagination.class, new PaginationDeserializer()));
         Response response = mapper.readValue(responseString, Response.class);
         return response;
     }
@@ -62,6 +69,14 @@ public class Response {
         this.results = results;
     }
 
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
+
     @Override
     public String toString() {
         return "Response{" +
@@ -69,6 +84,7 @@ public class Response {
                 ", status='" + status + '\'' +
                 ", isSuccess=" + isSuccess +
                 ", results=" + results +
+                ", pagination=" + pagination +
                 '}';
     }
 }

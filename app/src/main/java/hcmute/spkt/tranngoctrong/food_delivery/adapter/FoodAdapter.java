@@ -18,6 +18,7 @@ import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
+import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
@@ -25,6 +26,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
     private Context context;
     private List<Food> restaurantFoods = new ArrayList<Food>();
     private List<FoodMenu> restaurantFoodsByMenu = new ArrayList<FoodMenu>();
+    private List<FoodCategory> restaurantFoodCategories = new ArrayList<FoodCategory>();
 
     public FoodAdapter(Context context) {
         this.context = context;
@@ -39,16 +41,16 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull FoodHolder holder, int position) {
-        holder.foodTitleView.setText(restaurantFoodsByMenu.get(position).getFood().getName());
+        holder.foodTitleView.setText(restaurantFoodCategories.get(position).getFoods().get(0).getName());
         Glide.with(holder.itemView)
-                .load(restaurantFoodsByMenu.get(position).getFoodAvatarUrl())
+                .load(restaurantFoodCategories.get(position).getFoods().get(0).getImage())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.foodAvatarImageView);
     }
 
     @Override
     public int getItemCount() {
-        return this.restaurantFoodsByMenu == null ? 0 : this.restaurantFoodsByMenu.size();
+        return this.restaurantFoodCategories == null ? 0 : this.restaurantFoodCategories.size();
     }
 
     class FoodHolder extends RecyclerView.ViewHolder {
@@ -71,22 +73,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
         this.context = context;
     }
 
-    public List<Food> getRestaurantFoods() {
-        return restaurantFoods;
-    }
-
-    public void setRestaurantFoods(List<Food> restaurantFoods) {
-        this.restaurantFoods = restaurantFoods;
-        notifyDataSetChanged();
-
-    }
-
-    public List<FoodMenu> getRestaurantFoodsByMenu() {
-        return restaurantFoodsByMenu;
-    }
-
-    public void setRestaurantFoodsByMenu(List<FoodMenu> restaurantFoodsByMenu) {
-        this.restaurantFoodsByMenu = restaurantFoodsByMenu;
+    public void setRestaurantFoodCategories(List<FoodCategory> foodCategories) {
+        this.restaurantFoodCategories = foodCategories;
         notifyDataSetChanged();
     }
 }
