@@ -1,7 +1,10 @@
 package hcmute.spkt.tranngoctrong.food_delivery.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Province implements Serializable {
     private String name;
     private boolean isSelected = false;

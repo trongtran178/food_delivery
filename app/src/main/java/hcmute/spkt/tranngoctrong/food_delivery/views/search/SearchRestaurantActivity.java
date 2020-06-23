@@ -50,7 +50,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_restaurant_page);
+        setContentView(R.layout.activity_search_restaurant);
 
         ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE},
@@ -206,7 +206,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
     }
 
     @Override
@@ -214,7 +214,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         userLocation = location;
         foodDeliveryApplication.setUserLocation(location);
         hasReceivedLocation = true;
-
+        System.out.println(217 + ", da lay duoc location" );
         // Stop Location Listener
         // https://stackoverflow.com/questions/6894234/stop-location-listener-in-android
         locationManager.removeUpdates(this);
@@ -223,15 +223,19 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // DO NOTHING
+        System.out.println(226 + ", location status change" );
+
     }
 
     @Override
     public void onProviderEnabled(String provider) {
+        System.out.println(232 + ", onProviderEnabled" );
 
     }
 
     @Override
     public void onProviderDisabled(String provider) {
+        System.out.println(238 + ", onProviderDisabled" );
 
     }
 }

@@ -57,7 +57,7 @@
 
                     <androidx.appcompat.widget.SearchView
                         android:id="@+id/search_restaurant_results_view"
-                        style="@drawable/button_border"
+                        android:background="@drawable/search_view_custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
 

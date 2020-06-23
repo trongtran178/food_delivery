@@ -84,7 +84,7 @@
             android:autoSizeMaxTextSize="64dp"
             android:autoSizeMinTextSize="64dp"
             android:lines="2"
-            android:maxWidth="200dp"
+            android:maxWidth="190dp"
             android:maxLines="2"
             android:minWidth="180dp"
             android:text="75/1 đường 18, khu phố 5, Linh Trung"

@@ -79,7 +79,9 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
                     mostRightResults.refreshDataWithNewKeywordSearch();
                 }
                 case 1: {
-                    System.out.println("cHUA LAMF");
+                    NearMeResults nearMeResults = (NearMeResults) getSupportFragmentManager().getFragments().get(1);
+                    nearMeResults.setKeyword(query);
+                    nearMeResults.refreshDataWithNewKeywordSearch();
                 }
             }
             System.out.println(tabLayout.getSelectedTabPosition());

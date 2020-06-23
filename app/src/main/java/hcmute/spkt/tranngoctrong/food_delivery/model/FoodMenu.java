@@ -1,12 +1,14 @@
 package hcmute.spkt.tranngoctrong.food_delivery.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.FoodMenuDeserializer;
 
 
 @JsonDeserialize(using = FoodMenuDeserializer.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FoodMenu {
     private int id;
     private Food food;
@@ -14,7 +16,8 @@ public class FoodMenu {
     private double price;
     private String foodAvatarUrl;
 
-    public FoodMenu() { }
+    public FoodMenu() {
+    }
 
     public FoodMenu(int id, Food food, Menu menu, double price, String foodAvatarUrl) {
         this.id = id;

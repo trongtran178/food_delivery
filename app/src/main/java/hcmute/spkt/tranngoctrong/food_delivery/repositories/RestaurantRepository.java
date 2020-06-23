@@ -7,21 +7,23 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.util.Date;
 import java.util.List;
 
+import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
-import hcmute.spkt.tranngoctrong.food_delivery.model.api.Pagination;
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
-import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.PaginationDeserializer;
 import hcmute.spkt.tranngoctrong.food_delivery.services.Api;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.FragmentType;
 
 public class RestaurantRepository {
 
     private static RestaurantRepository instance;
     private Api api;
+    private FoodDeliveryApplication foodDeliveryApplication;
 
     public static RestaurantRepository getInstance() {
         if (instance == null) {
             instance = new RestaurantRepository();
+
         }
         return instance;
     }
@@ -63,12 +65,24 @@ public class RestaurantRepository {
         return null;
     }
 
-    public List<Restaurant> searchRestaurantsByKeyWord(String keyword) {
+    public List<Restaurant> searchRestaurantsByKeyWord(String keyword, FragmentType fragmentType) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
         List<Restaurant> results;
         try {
-            Response response = api.get("/restaurants?keyword=" + keyword);
+            Response response = null;
+            switch (fragmentType) {
+                case MOST_RIGHT: {
+                    response = api.get("/restaurants?keyword=" + keyword);
+                    break;
+                }
+                case NEAR_ME: {
+                    response = api.get("/restaurants?keyword=" + keyword
+                            + "&latitude=" + foodDeliveryApplication.getUserLocation().getLatitude()
+                            + "&longitude=" + foodDeliveryApplication.getUserLocation().getLongitude());
+                    break;
+                }
+            }
             results = mapper.readValue(mapper.writeValueAsString(response.getResults()),
                     new TypeReference<List<Restaurant>>() {
                     });
@@ -79,4 +93,11 @@ public class RestaurantRepository {
         return null;
     }
 
+    public FoodDeliveryApplication getFoodDeliveryApplication() {
+        return foodDeliveryApplication;
+    }
+
+    public void setFoodDeliveryApplication(FoodDeliveryApplication foodDeliveryApplication) {
+        this.foodDeliveryApplication = foodDeliveryApplication;
+    }
 }
