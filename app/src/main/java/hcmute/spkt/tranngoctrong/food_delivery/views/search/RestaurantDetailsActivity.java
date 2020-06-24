@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -175,12 +176,16 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         currentLocation = ((FoodDeliveryApplication) getApplicationContext()).getUserLocation();
 
         long distance = (long) currentLocation.distanceTo(restaurantLocation);
-        if (distance < 1000) {
+        if (distance <= 1000) {
             distanceFromUserTextView.setTextColor(Color.GREEN);
-            distanceFromUserTextView.setText(String.format("%d", distance) + "mét (từ vị trí hiện tại)");
+            distanceFromUserTextView.setText(Html.fromHtml(
+                    "<b style='color:green;'>" + String.format("%d", distance) + "mét </b> " +
+                            "<span style='color: black;'>(từ vị trí hiện tại)</span>"
+            ));
         } else {
             distanceFromUserTextView.setTextColor(Color.RED);
-            distanceFromUserTextView.setText(String.format("%d", distance / 1000) + " km (từ vị trí hiện tại)");
+            distanceFromUserTextView.setText(Html.fromHtml(
+                    "<b style='color=red;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
         }
     }
 

@@ -1,6 +1,7 @@
 package hcmute.spkt.tranngoctrong.food_delivery.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +17,14 @@ import java.util.List;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Province;
 
-public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceHolder>  {
+public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceHolder> {
 
     private List<Province> provinces;
     private LayoutInflater layoutInflater;
     private Context context;
     private int selectedItemIndex;
     private OnItemClickListener listener;
+
     public ProvinceAdapter(Context context, List<Province> listProvinces) {
         this.context = context;
         this.provinces = listProvinces;
@@ -40,17 +42,20 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
     @Override
     public void onBindViewHolder(@NonNull ProvinceHolder holder, final int position) {
         Province currentProvince = provinces.get(position);
-        if(this.selectedItemIndex == position) {
+        holder.provinceNameTextView.setText(currentProvince.getName());
+        if (this.selectedItemIndex == position) {
             holder.isSelectedProvinceButton.setImageResource(R.drawable.ic_check);
+            holder.provinceNameTextView.setTextColor(Color.rgb(59, 88, 152));
         } else {
             holder.isSelectedProvinceButton.setImageResource(R.drawable.ic_check_empty);
+            holder.provinceNameTextView.setTextColor(Color.rgb(91, 91, 92));
+
         }
-        holder.provinceNameTextView.setText(currentProvince.getName());
     }
 
     @Override
     public long getItemId(int position) {
-         return position;
+        return position;
     }
 
     @Override
@@ -58,19 +63,19 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         return provinces.size();
     }
 
-    class ProvinceHolder extends RecyclerView.ViewHolder  {
+    class ProvinceHolder extends RecyclerView.ViewHolder {
         AppCompatImageButton isSelectedProvinceButton;
         TextView provinceNameTextView;
 
-         ProvinceHolder(View itemView) {
+        ProvinceHolder(View itemView) {
             super(itemView);
-            isSelectedProvinceButton  = (AppCompatImageButton) itemView.findViewById(R.id.isSelectedProvinceButton);
+            isSelectedProvinceButton = itemView.findViewById(R.id.isSelectedProvinceButton);
             provinceNameTextView = (TextView) itemView.findViewById(R.id.provinceName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    if(listener != null && position != RecyclerView.NO_POSITION) {
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
                         selectedItemIndex = position;
                         listener.onItemClick(provinces.get(position));
                     }

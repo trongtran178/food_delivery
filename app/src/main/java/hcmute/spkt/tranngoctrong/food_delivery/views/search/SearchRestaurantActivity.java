@@ -35,17 +35,21 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
 
     private FoodDeliveryApplication foodDeliveryApplication;
     private RestaurantAdapter restaurantAdapter;
-    private Button chooseProvinceButton;
     private SearchView searchTextInput;
     private SearchRestaurantViewModel searchRestaurantViewModel;
     private RecyclerView restaurantRecyclerView;
 
-    private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
-    private static final int REQUEST_CODE = 1;
     private Handler handler;
     private Location userLocation;
     private LocationManager locationManager;
     private boolean hasReceivedLocation = false;
+    private Button chooseProvinceButton;
+    private StringBuilder provinceSearch;
+
+    private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
+    private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
+
+    private static final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE},
                 REQUEST_CODE);
         foodDeliveryApplication = (FoodDeliveryApplication) getApplicationContext();
+
+        handleLocation();
 
         chooseProvinceButton = findViewById(R.id.open_choose_province_button);
         searchTextInput = findViewById(R.id.search_restaurant_view);
@@ -112,8 +118,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
 
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
-
-        handleLocation();
+        provinceSearch = new StringBuilder(chooseProvinceButton.getText());
     }
 
     @Override
@@ -167,6 +172,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
                 final String province = data.getStringExtra(ChooseProvincesActivity.EXTRA_PROVINCE_SELECTED);
                 chooseProvinceButton.setText(province);
                 System.out.println(province);
+                provinceSearch = new StringBuilder(province);
             } else {
                 // DO NOTHING
             }
@@ -190,6 +196,8 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
             System.out.println(query);
             Intent searchResultIntent = new Intent(getApplicationContext(), SearchRestaurantResultsActivity.class);
             searchResultIntent.putExtra(SEARCH_QUERY_EXTRA, query);
+            searchResultIntent.putExtra(SEARCH_PROVINCE_EXTRA, provinceSearch.toString());
+
             startActivity(searchResultIntent);
 
             return false;
@@ -214,7 +222,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         userLocation = location;
         foodDeliveryApplication.setUserLocation(location);
         hasReceivedLocation = true;
-        System.out.println(217 + ", da lay duoc location" );
+        System.out.println(217 + ", da lay duoc location");
         // Stop Location Listener
         // https://stackoverflow.com/questions/6894234/stop-location-listener-in-android
         locationManager.removeUpdates(this);
@@ -223,19 +231,19 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // DO NOTHING
-        System.out.println(226 + ", location status change" );
+        System.out.println(226 + ", location status change");
 
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        System.out.println(232 + ", onProviderEnabled" );
+        System.out.println(232 + ", onProviderEnabled");
 
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        System.out.println(238 + ", onProviderDisabled" );
+        System.out.println(238 + ", onProviderDisabled");
 
     }
 }

@@ -27,6 +27,7 @@
             android:layout_marginLeft="8dp"
             android:layout_toRightOf="@id/isSelectedProvinceButton"
             android:text="Quang Ngai"
+            android:textColor="#5b5b5c"
             android:textSize="17dp"
             android:textStyle="bold" />
     </RelativeLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
@@ -48,47 +48,20 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-
+    <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
+        android:background="@drawable/custom_search_province_view"
+        app:defaultQueryHint="Tìm tỉnh thành">
 
-        android:background="@color/cardview_shadow_start_color"
-        app:boxCornerRadiusBottomEnd="15dp"
-        app:boxCornerRadiusBottomStart="15dp"
-        app:boxCornerRadiusTopEnd="15dp"
-        app:boxCornerRadiusTopStart="25dp">
-
-        <androidx.appcompat.widget.SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:defaultQueryHint="Tìm tỉnh thành">
-
-
-        </androidx.appcompat.widget.SearchView>
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-<!--    <androidx.appcompat.widget.AppCompatCheckBox-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="temp"-->
-<!--        android:checked="false"-->
-<!--        android:button="@drawable/ic_check_black_24dp"-->
-
-<!--        />-->
-
-
+    </androidx.appcompat.widget.SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/provinceRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_province"
-        />
+        tools:listitem="@layout/item_province" />
 
 </LinearLayout>

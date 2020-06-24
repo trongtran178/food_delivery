@@ -2,8 +2,11 @@ package hcmute.spkt.tranngoctrong.food_delivery.views.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableString;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -28,8 +31,11 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private SearchView searchRestaurantResultsView;
     private ImageButton search_results_back_button;
+    private TextView searchRestaurantResultsProvinceTextView;
     private String searchQuery;
+    private String provinceSearch;
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
+    private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,10 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.search_results_tab);
         viewPager = findViewById(R.id.search_results_container);
         search_results_back_button = findViewById(R.id.search_results_back_button);
+        searchRestaurantResultsProvinceTextView = findViewById(R.id.search_restaurant_results_province);
 
         Intent intent = getIntent();
+        provinceSearch = intent.getStringExtra(SEARCH_PROVINCE_EXTRA);
         searchQuery = intent.getStringExtra(SEARCH_QUERY_EXTRA);
         searchRestaurantResultsView.setQuery(searchQuery, true);
 
@@ -49,14 +57,21 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         searchRestaurantResultsView.setOnQueryTextListener(searchViewQueryTextListener);
         search_results_back_button.setOnClickListener(searchResultsBackButtonClickListener);
+
+
+//        SpannableString text = new SpannableString("Địa điểm ở " + provinceSearch);
+
+        searchRestaurantResultsProvinceTextView.setText(Html.fromHtml(
+                "<b> Địa điểm </b> ở <b> " + provinceSearch + "</b>"
+        ));
     }
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager(), SectionsPageAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFragment(new MostRightResults(searchQuery), "Most right");
-        adapter.addFragment(new NearMeResults(searchQuery), "Near me");
-        adapter.addFragment(new CommonResults(), "Common");
-        adapter.addFragment(new Filters(), "Filter");
+        adapter.addFragment(new MostRightResults(searchQuery), "Đúng nhất");
+        adapter.addFragment(new NearMeResults(searchQuery), "Gần tôi");
+        adapter.addFragment(new CommonResults(), "Phổ biến");
+        adapter.addFragment(new Filters(), "Bộ lọc");
         viewPager.setAdapter(adapter);
     }
 
@@ -71,7 +86,6 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
-            System.out.println(query);
             switch (tabLayout.getSelectedTabPosition()) {
                 case 0: {
                     MostRightResults mostRightResults = (MostRightResults) getSupportFragmentManager().getFragments().get(0);
@@ -84,7 +98,6 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity {
                     nearMeResults.refreshDataWithNewKeywordSearch();
                 }
             }
-            System.out.println(tabLayout.getSelectedTabPosition());
             return false;
         }
 
