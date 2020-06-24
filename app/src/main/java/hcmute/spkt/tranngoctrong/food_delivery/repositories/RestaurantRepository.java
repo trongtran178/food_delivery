@@ -9,8 +9,10 @@ import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+import hcmute.spkt.tranngoctrong.food_delivery.model.Wifi;
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
+import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.WifiDeserializer;
 import hcmute.spkt.tranngoctrong.food_delivery.services.Api;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.FragmentType;
 
@@ -52,6 +54,8 @@ public class RestaurantRepository {
         ObjectMapper mapper = new ObjectMapper();
         // Deserializable complex json
         mapper.registerModule(new SimpleModule().addDeserializer(Date.class, new DateDeserializer()));
+        mapper.registerModule(new SimpleModule().addDeserializer(Wifi.class, new WifiDeserializer()));
+
         List<Restaurant> results;
         try {
             Response response = api.get("/restaurants?pageSize=" + pageSize + "&pageIndex=" + pageIndex);
@@ -68,6 +72,8 @@ public class RestaurantRepository {
     public List<Restaurant> searchRestaurantsByKeyWord(String keyword, FragmentType fragmentType) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new SimpleModule().addDeserializer(Date.class, new DateDeserializer()));
+        mapper.registerModule(new SimpleModule().addDeserializer(Wifi.class, new WifiDeserializer()));
         List<Restaurant> results;
         try {
             Response response = null;
