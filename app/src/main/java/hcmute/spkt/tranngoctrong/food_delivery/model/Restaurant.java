@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
+import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.WifiDeserializer;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Restaurant implements Parcelable {
@@ -27,7 +28,8 @@ public class Restaurant implements Parcelable {
     private Date timeClose;
 
     private String phone;
-    private String wifi;
+    @JsonDeserialize(using = WifiDeserializer.class)
+    private Wifi wifi;
     private String description;
     private String province;
     private String avatar;
@@ -42,11 +44,23 @@ public class Restaurant implements Parcelable {
     public Restaurant() {
     }
 
-    public Restaurant(String name) {
-        this.name = name;
-    }
-
-    public Restaurant(String _id, String name, String address, String type, Date timeOpen, Date timeClose, String phone, String wifi, String description, String province, String avatar, String image, List<String> imagesUrl, List<String> foodQuery, double latitude, double longitude, int __v) {
+    public Restaurant(String _id,
+                      String name,
+                      String address,
+                      String type,
+                      Date timeOpen,
+                      Date timeClose,
+                      String phone,
+                      Wifi wifi,
+                      String description,
+                      String province,
+                      String avatar,
+                      String image,
+                      List<String> imagesUrl,
+                      List<String> foodQuery,
+                      double latitude,
+                      double longitude,
+                      int __v) {
         this._id = _id;
         this.name = name;
         this.address = address;
@@ -74,7 +88,6 @@ public class Restaurant implements Parcelable {
         timeOpen = new Date(in.readLong());
         timeClose = new Date(in.readLong());
         phone = in.readString();
-        wifi = in.readString();
         description = in.readString();
         province = in.readString();
         avatar = in.readString();
@@ -83,8 +96,27 @@ public class Restaurant implements Parcelable {
         foodQuery = in.createStringArrayList();
         latitude = in.readDouble();
         longitude = in.readDouble();
-
         __v = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeString(type);
+        dest.writeLong(timeOpen.getTime());
+        dest.writeLong(timeClose.getTime());
+        dest.writeString(phone);
+        dest.writeString(description);
+        dest.writeString(province);
+        dest.writeString(avatar);
+        dest.writeString(image);
+        dest.writeStringList(imagesUrl);
+        dest.writeStringList(foodQuery);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeInt(__v);
     }
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
@@ -155,11 +187,11 @@ public class Restaurant implements Parcelable {
         this.phone = phone;
     }
 
-    public String getWifi() {
+    public Wifi getWifi() {
         return wifi;
     }
 
-    public void setWifi(String wifi) {
+    public void setWifi(Wifi wifi) {
         this.wifi = wifi;
     }
 
@@ -240,24 +272,5 @@ public class Restaurant implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(_id);
-        dest.writeString(name);
-        dest.writeString(address);
-        dest.writeString(type);
-        dest.writeLong(timeOpen.getTime());
-        dest.writeLong(timeClose.getTime());
-        dest.writeString(phone);
-        dest.writeString(wifi);
-        dest.writeString(description);
-        dest.writeString(province);
-        dest.writeString(avatar);
-        dest.writeString(image);
-        dest.writeStringList(imagesUrl);
-        dest.writeStringList(foodQuery);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writeInt(__v);
-    }
+
 }
