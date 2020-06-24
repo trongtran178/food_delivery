@@ -247,7 +247,7 @@
                         android:layout_marginLeft="16dp"
                         android:maxLines="1"
                         android:text="4.2 km (Tu vi tri hien tai)"
-                        android:textColor="@color/green"
+                        android:textColor="@color/black"
                         android:textSize="16dp"
                         app:layout_constraintStart_toEndOf="@id/restaurant_detail_distance_from_user_image_button"
                         app:layout_constraintTop_toTopOf="parent"></TextView>

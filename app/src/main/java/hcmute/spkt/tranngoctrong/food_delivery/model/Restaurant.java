@@ -4,6 +4,7 @@ package hcmute.spkt.tranngoctrong.food_delivery.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.model.deserializer.DateDeserializer;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Restaurant implements Parcelable {
     private String _id;
     private String name;
@@ -37,7 +39,8 @@ public class Restaurant implements Parcelable {
     private double longitude;
     private int __v;
 
-    public Restaurant() { }
+    public Restaurant() {
+    }
 
     public Restaurant(String name) {
         this.name = name;

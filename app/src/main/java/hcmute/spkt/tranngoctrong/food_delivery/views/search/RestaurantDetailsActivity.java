@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
@@ -39,7 +41,7 @@ import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewModel;
 
-public class RestaurantDetailsActivity extends AppCompatActivity implements LocationListener {
+public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private RecyclerView restaurantFoodsRecyclerView;
     private FoodAdapter foodAdapter;
@@ -119,8 +121,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         menuLayout.setOnClickListener(menuLayoutClickListener);
         contactButton.setOnClickListener(contactRestaurantViewListener);
 
+
         handleTimeOpenCloseView();
-        handleLocation();
+        handleDistanceFromUserTextView();
     }
 
     private View.OnClickListener menuLayoutClickListener = new View.OnClickListener() {
@@ -170,13 +173,19 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
     };
 
     private void handleDistanceFromUserTextView() {
+        currentLocation = ((FoodDeliveryApplication) getApplicationContext()).getUserLocation();
+
         long distance = (long) currentLocation.distanceTo(restaurantLocation);
-        if (distance < 1000) {
+        if (distance <= 1000) {
             distanceFromUserTextView.setTextColor(Color.GREEN);
-            distanceFromUserTextView.setText(String.format("%d", distance) + "mét (từ vị trí hiện tại)");
+            distanceFromUserTextView.setText(Html.fromHtml(
+                    "<b style='color:green;'>" + String.format("%d", distance) + "mét </b> " +
+                            "<span style='color: black;'>(từ vị trí hiện tại)</span>"
+            ));
         } else {
             distanceFromUserTextView.setTextColor(Color.RED);
-            distanceFromUserTextView.setText(String.format("%d", distance / 1000) + " km (từ vị trí hiện tại)");
+            distanceFromUserTextView.setText(Html.fromHtml(
+                    "<b style='color=red;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
         }
     }
 
@@ -203,9 +212,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
         int timeCloseInt = (timeCloseHour * 60 + timeOpenMinute);
         int currentTimeInt = currentHour * 60 + currentMinute;
         if (currentTimeInt > timeOpenInt && currentTimeInt < timeCloseInt) {
-            openCloseTextView.setText("Đang mở cửa");
+            openCloseTextView.setText("ĐANG MỞ CỬA");
         } else {
-            openCloseTextView.setText("Đã đóng cửa");
+            openCloseTextView.setText("ĐÃ ĐÓNG CỬA");
         }
         openCloseTimeTextView.setText(
                 (timeOpenHour >= 10 ? timeOpenHour : "0" + String.valueOf(timeOpenHour))
@@ -215,42 +224,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity implements Loca
                         + (timeCloseHour >= 10 ? timeCloseHour : "0" + String.valueOf(timeCloseHour))
                         + ":"
                         + (timeCloseMinute >= 10 ? timeCloseMinute : "0" + String.valueOf(timeCloseMinute)));
-    }
-
-    private void handleLocation() {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        currentLocation = location;
-        handleDistanceFromUserTextView();
-//        distanceFromUserTextView.setText(distanceFromUserString());
-        System.out.println(currentLocation);
-
-        // Stop Location Listener
-        // https://stackoverflow.com/questions/6894234/stop-location-listener-in-android
-        locationManager.removeUpdates(this);
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.d("Latitude", "status");
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        Log.d("Latitude", "enable");
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        Log.d("Latitude", "disable");
-
     }
 
     @Override

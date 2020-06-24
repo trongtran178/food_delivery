@@ -9,29 +9,33 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.repositories.RestaurantRepository;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.FragmentType;
 
 public class SearchRestaurantResultsViewModel extends AndroidViewModel {
 
     private MutableLiveData<List<Restaurant>> restaurants;
     private RestaurantRepository restaurantRepository;
+    private FoodDeliveryApplication foodDeliveryApplication;
 
     public SearchRestaurantResultsViewModel(@NonNull Application application) {
         super(application);
+        foodDeliveryApplication = (FoodDeliveryApplication) getApplication().getApplicationContext();
     }
 
     public void init() {
         restaurants = new MutableLiveData<List<Restaurant>>();
         restaurantRepository = RestaurantRepository.getInstance();
+        restaurantRepository.setFoodDeliveryApplication(foodDeliveryApplication);
     }
 
-    public void searchRestaurantsByKeyword(String keyword) {
+    public void searchRestaurantsByKeyword(String keyword, FragmentType fragmentType) {
         // Fetch searched restaurants result from server
-        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword);
+        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword, fragmentType);
         setRestaurants(restaurants);
     }
-
 
 
     public MutableLiveData<List<Restaurant>> getRestaurants() {
@@ -41,7 +45,6 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants.setValue(restaurants);
     }
-
 
 
 }

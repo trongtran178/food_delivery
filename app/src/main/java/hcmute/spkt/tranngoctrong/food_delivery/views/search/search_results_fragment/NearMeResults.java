@@ -39,22 +39,26 @@ public class NearMeResults extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        restaurantResultAdapter = new RestaurantResultAdapter(this.getContext());
-//
-//        restaurantResultRecyclerView = getView().findViewById(R.id.restaurant_results_recycler_view);
-//        restaurantResultRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        restaurantResultRecyclerView.setHasFixedSize(true);
-//        restaurantResultRecyclerView.setAdapter(restaurantResultAdapter);
-//
-//        searchRestaurantResultsViewModel = ViewModelProviders.of(this).get(SearchRestaurantResultsViewModel.class);
-//        searchRestaurantResultsViewModel.init();
-//        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword);
-//        searchRestaurantResultsViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
-//            @Override
-//            public void onChanged(List<Restaurant> restaurants) {
-//                restaurantResultAdapter.setResults(restaurants);
-//            }
-//        });
+        restaurantResultAdapter = new RestaurantResultAdapter(this.getContext());
+
+        restaurantResultRecyclerView = getView().findViewById(R.id.restaurant_results_recycler_view);
+        restaurantResultRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        restaurantResultRecyclerView.setHasFixedSize(true);
+        restaurantResultRecyclerView.setAdapter(restaurantResultAdapter);
+
+        searchRestaurantResultsViewModel = ViewModelProviders.of(this).get(SearchRestaurantResultsViewModel.class);
+        searchRestaurantResultsViewModel.init();
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.NEAR_ME);
+        searchRestaurantResultsViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
+            @Override
+            public void onChanged(List<Restaurant> restaurants) {
+                restaurantResultAdapter.setResults(restaurants);
+            }
+        });
+    }
+
+    public void refreshDataWithNewKeywordSearch() {
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.NEAR_ME);
     }
 
     @Override
@@ -62,4 +66,7 @@ public class NearMeResults extends Fragment {
         return inflater.inflate(R.layout.fragment_near_me, container, false);
     }
 
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 }

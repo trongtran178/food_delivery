@@ -31,7 +31,6 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
     }
 
 
-
     public void getNextPage() {
         int currentPageIndex = this.getPageIndex();
         currentPageIndex += 1;
@@ -40,8 +39,10 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
         List<Restaurant> nextPageRestaurants = restaurantRepository.getRestaurants(20, getPageIndex());
 
         List<Restaurant> currentPageRestaurants = getRestaurants().getValue();
-        currentPageRestaurants.addAll(nextPageRestaurants);
-        setRestaurants(currentPageRestaurants);
+        if (nextPageRestaurants != null) {
+            currentPageRestaurants.addAll(nextPageRestaurants);
+            setRestaurants(currentPageRestaurants);
+        }
     }
 
     public MutableLiveData<List<Restaurant>> getRestaurants() {

@@ -22,66 +22,69 @@
             android:paddingBottom="8dp"
             android:text="Tim kiếm"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@id/search_text_input_layout"
+            app:layout_constraintBottom_toTopOf="@id/search_restaurant_results_toolbar"
             app:layout_constraintLeft_toRightOf="parent"
             app:layout_constraintRight_toLeftOf="parent"></TextView>
 
         <androidx.appcompat.widget.Toolbar
+            android:id="@+id/search_restaurant_results_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/search_results_back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="-16dp"
+                    android:layout_marginRight="24dp"
                     android:background="@color/red"
-                    android:src="@drawable/ic_chevron_left_white">
+                    android:src="@drawable/ic_chevron_left_white"></ImageButton>
 
-                </ImageButton>
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_restaurant_results_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/search_results_back_button"
+                    android:layout_weight="1"
+                    android:background="@drawable/custom_search_view"
+                    android:paddingRight="14dp"
+                    app:closeIcon="@drawable/empty_drawable"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Tìm địa điểm, món ăn, địa chỉ"></androidx.appcompat.widget.SearchView>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/search_text_input_layout"
+                <Button
+                    android:id="@+id/search_restaurant_results_province"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="-14dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_toEndOf="@+id/search_results_back_button"
-                    android:background="@color/white">
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/search_restaurant_results_view"
-                        style="@drawable/button_border"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        app:iconifiedByDefault="false"
-
-                        app:queryHint="Tìm địa điểm, món ăn, địa chỉ">
-
-                    </androidx.appcompat.widget.SearchView>
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </RelativeLayout>
-
-
+                    android:layout_toEndOf="@id/search_restaurant_results_view"
+                    android:background="@drawable/custom_button"
+                    android:elevation="0dp"
+                    android:minWidth="128dp"
+                    android:text="TP.HCM"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"></Button>
+            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/search_results_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabIndicatorColor="@android:color/white"
+            android:background="@color/white"
+            android:elevation="0dp"
+            app:tabIndicatorColor="@android:color/holo_blue_light"
             app:tabIndicatorHeight="2dp"
-            app:tabSelectedTextColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/black"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="@android:color/white">
+            app:tabTextColor="@android:color/black">
 
         </com.google.android.material.tabs.TabLayout>
 
