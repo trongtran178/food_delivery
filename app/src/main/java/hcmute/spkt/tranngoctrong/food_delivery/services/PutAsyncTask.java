@@ -18,16 +18,16 @@ public class PutAsyncTask extends AsyncTask<String, Void, Object> {
         this.client = client;
     }
 
+    // resource: params[0]
+    // body: params[1]
     @Override
     protected Object doInBackground(String... params) {
-        RequestBody body = RequestBody.create(JSON, params[1]);
+        RequestBody body = RequestBody.Companion.create(params[1], JSON);
         Request.Builder requestBuilder = new Request.Builder();
         requestBuilder
                 .url(params[0])
                 .put(body);
-
         Request request = requestBuilder.build();
-        System.out.println(request.toString());
         Response response = null;
         try {
             response = client.newCall(request).execute();

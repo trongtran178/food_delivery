@@ -35,6 +35,7 @@ import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+import hcmute.spkt.tranngoctrong.food_delivery.model.Wifi;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.UpdateWifiPasswordDialog;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewModel;
 
@@ -45,13 +46,14 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private Restaurant restaurant;
     private RestaurantMapFragment restaurantMapFragment;
     private LinearLayout menuLayout;
+    private Button contactButton;
     private ImageButton restaurant_detail_back_button;
     private FragmentManager fragmentManager;
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private View restaurantMapView;
-    private Button contactButton, updateWifiPasswordDialogButton;
     private Location currentLocation, restaurantLocation;
-    private TextView updateWifiTextView,
+    private TextView wifiNameTextView,
+            wifiPasswordTextView,
             nameTextView,
             provinceTextView,
             addressTextView,
@@ -63,7 +65,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
     private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
 
-    protected LocationManager locationManager;
     protected Context context;
 
     @Override
@@ -74,7 +75,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         openCloseTimeTextView = findViewById(R.id.restaurant_open_close_time_text_view);
         addressTextView = findViewById(R.id.restaurant_detail_address_text_view);
         distanceFromUserTextView = findViewById(R.id.restaurant_detail_distance_from_user_text_view);
-        updateWifiTextView = findViewById(R.id.update_wifi_text_view);
+        wifiNameTextView = findViewById(R.id.restaurant_detail_wifi_name_text_view);
+        wifiPasswordTextView = findViewById(R.id.restaurant_detail_wifi_password_text_view);
         nameTextView = findViewById(R.id.restaurant_detail_name_text_view);
         provinceTextView = findViewById(R.id.restaurant_detail_province_text_view);
         restaurant_detail_back_button = findViewById(R.id.restaurant_detail_back_button);
@@ -113,11 +115,19 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         nameTextView.setText(restaurant.getName());
         provinceTextView.setText(restaurant.getProvince());
         typeTextView.setText(restaurant.getType());
-        updateWifiTextView.setOnClickListener(updateWifiTextViewListener);
+
+        wifiNameTextView.setText(!restaurant.getWifi().getName().isEmpty()
+                ? restaurant.getWifi().getName()
+                : "Thêm wifi");
+        wifiPasswordTextView.setText(!restaurant.getWifi().getPassword().isEmpty()
+                ? Html.fromHtml("Pass - " + "<b style='color: blue;'>" + restaurant.getWifi().getPassword())
+                : "Nhập mật khẩu"
+        );
+
+        wifiNameTextView.setOnClickListener(updateWifiTextViewListener);
         restaurant_detail_back_button.setOnClickListener(restaurantDetailBackButtonListener);
         menuLayout.setOnClickListener(menuLayoutClickListener);
         contactButton.setOnClickListener(contactRestaurantViewListener);
-
 
         handleTimeOpenCloseView();
         handleDistanceFromUserTextView();
@@ -146,30 +156,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             UpdateWifiPasswordDialog updateWifiPasswordDialog = new UpdateWifiPasswordDialog(RestaurantDetailsActivity.this);
+            updateWifiPasswordDialog.setRestaurant(restaurant);
             updateWifiPasswordDialog.show();
-//            AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantDetailsActivity.this).set;
-//            builder.setView(LayoutInflater
-//                    .from(getBaseContext()).inflate(R.layout.dialog_add_wifi, null))
-//                    .show();
-////            updateWifiPasswordDialogButton = findViewById(R.id.update_wifi_password_button);
-////            updateWifiPasswordDialogButton.setOnClickListener(onUpdateWifiPasswordDialogButtonClick);
-//
-//            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                @Override
-//                public void onCancel(DialogInterface dialog) {
-//                    updateWifiPasswordDialogButton.setOnClickListener(null);
-//                    updateWifiPasswordDialogButton = null;
-//
-//                }
-//            });
-
-//            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//                @Override
-//                public void onDismiss(DialogInterface dialog) {
-//                    updateWifiPasswordDialogButton.setOnClickListener(null);
-//                    updateWifiPasswordDialogButton = null;
-//                }
-//            });
         }
     };
 
@@ -252,6 +240,14 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
                         + (timeCloseHour >= 10 ? timeCloseHour : "0" + String.valueOf(timeCloseHour))
                         + ":"
                         + (timeCloseMinute >= 10 ? timeCloseMinute : "0" + String.valueOf(timeCloseMinute)));
+    }
+
+    public void handleUpdatedWifi(Wifi wifi) {
+        restaurant.setWifi(wifi);
+        wifiNameTextView.setText(wifi.getName());
+        wifiPasswordTextView.setText(wifi.getPassword());
+        System.out.println(246 + "," + wifi.toString());
+
     }
 
     @Override

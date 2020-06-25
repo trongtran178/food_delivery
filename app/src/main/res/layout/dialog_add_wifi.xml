@@ -12,6 +12,7 @@
 
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/restaurant_wifi_name_text_input_edit_text"
         style="@style/update_wifi_text_input_style"
         android:layout_width="match_parent"
         android:layout_height="32dp"
@@ -25,6 +26,7 @@
         android:textSize="13dp" />
 
     <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/restaurant_wifi_password_text_input_edit_text"
         style="@style/update_wifi_text_input_style"
         android:layout_width="match_parent"
         android:layout_height="32dp"

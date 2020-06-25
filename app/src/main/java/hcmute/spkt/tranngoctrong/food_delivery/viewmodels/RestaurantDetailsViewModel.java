@@ -24,6 +24,7 @@ public class RestaurantDetailsViewModel extends AndroidViewModel {
     private FoodRepository foodRepository;
     private RestaurantRepository restaurantRepository;
     private boolean isLoading;
+
     public RestaurantDetailsViewModel(@NonNull Application application) {
         super(application);
     }
@@ -42,11 +43,11 @@ public class RestaurantDetailsViewModel extends AndroidViewModel {
         setFoodCategories(fc);
     }
 
-    public void updateWifi(String password) {
+    public boolean updateWifi(String restaurantId, String password) {
         restaurantRepository = RestaurantRepository.getInstance();
-        restaurantRepository.updateWifi(password);
+        boolean isUpdated = restaurantRepository.updateWifi(restaurantId, password);
+        return isUpdated;
     }
-
 
     public void setFoodCategories(List<FoodCategory> foodCategories) {
         this.foodCategories.setValue(foodCategories);

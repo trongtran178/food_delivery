@@ -81,7 +81,7 @@ public class RestaurantRepository {
         mapper.registerModule(new SimpleModule().addDeserializer(Wifi.class, new WifiDeserializer()));
         List<Restaurant> results;
         try {
-            Response response = null;   
+            Response response = null;
             switch (fragmentType) {
                 case MOST_RIGHT: {
                     response = api.get("/restaurants?keyword=" + keyword);
@@ -104,18 +104,17 @@ public class RestaurantRepository {
         return null;
     }
 
-    public boolean updateWifi(String password) {
+    public boolean updateWifi(String restaurantId, String password) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
         try {
             Map<String, String> body = new HashMap<>();
             body.put("password", password);
-            Response response = api.put("/restaurants/1123121", body);
-            boolean results =
-                    (Boolean) mapper.readValue(mapper.writeValueAsString(response.getResults()),
-                            new TypeReference<Boolean>() {
-                            });
-            return results;
+            Response response = api.put("/restaurants/" + restaurantId + "/wifi", body);
+            if (response.getCode() == 200) {
+                return true;
+            }
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
         }

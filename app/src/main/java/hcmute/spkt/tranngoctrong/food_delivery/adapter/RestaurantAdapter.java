@@ -144,6 +144,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
                     }
                     Intent goToRestaurantDetail = new Intent(context, RestaurantDetailsActivity.class);
                     goToRestaurantDetail.putExtra("restaurant", restaurants.get(getLayoutPosition()));
+
                     context.startActivity(goToRestaurantDetail);
                 }
             });

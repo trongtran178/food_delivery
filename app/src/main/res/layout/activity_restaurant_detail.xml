@@ -408,16 +408,15 @@
                         android:src="@drawable/ic_wifi_black_24dp"></ImageButton>
 
                     <TextView
-                        android:id="@+id/update_wifi_text_view"
+                        android:id="@+id/restaurant_detail_wifi_name_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Thêm wifi"
-                        android:textColor="@color/blue"
-                        android:textSize="17dp"
-                        android:textStyle="bold"></TextView>
+                        android:textSize="17dp"></TextView>
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/restaurant_detail_wifi_password_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

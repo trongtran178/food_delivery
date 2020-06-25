@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
-import android.text.SpannableString;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -12,17 +11,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
-import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnFoodDeliveryApplicationLoading;
-import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantResultsViewModel;
-import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantViewModel;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.CommonResults;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.Filters;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.MostRightResults;
@@ -123,16 +117,10 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        System.out.println("SearchResultsActivity Destroyed");
-    }
-
     private void handleLoading(boolean isLoading) {
         if (isLoading) {
-            System.out.println(134 + " loading");
             handler.post(new Runnable() {
+
                 @Override
                 public void run() {
                     searchRestaurantResultsLoadingLayout.setVisibility(View.VISIBLE);
@@ -142,7 +130,6 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
 
             @Override
             public void run() {
-                System.out.println(146 + " not load");
                 searchRestaurantResultsLoadingLayout.setVisibility(View.GONE);
             }
         });
@@ -150,8 +137,13 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
 
     @Override
     public void onHandleLoading(boolean isLoading) {
-        System.out.println(152 + ", here");
         handleLoading(isLoading);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        System.out.println("SearchResultsActivity Destroyed");
     }
 
 

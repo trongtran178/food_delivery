@@ -25,9 +25,9 @@ public class MenuDetailsActivity extends AppCompatActivity {
     private ExpandableListView menuDetailsExpandableListView;
     private ExpandableListAdapter menuDetailsExpandableListAdapter;
     private List<String> itemsMenuGroup;
+    private ArrayList<FoodCategory> foodCategories;
     private HashMap<String, List<Food>> itemsMenuChild;
     private ImageButton menu_detail_back_button;
-    private ArrayList<FoodCategory> foodCategories;
     private TextView restaurantName;
     private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
     private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
@@ -52,14 +52,14 @@ public class MenuDetailsActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
 
-        menuDetailsExpandableListView.setIndicatorBounds(width - GetDipsFromPixel(50.0f), width - GetDipsFromPixel(10.0f));
+        menuDetailsExpandableListView.setIndicatorBounds(width - getDipsFromPixel(50.0f), width - getDipsFromPixel(10.0f));
 
         restaurantName.setText(getIntent().getStringExtra(RESTAURANT_NAME__EXTRA));
         menu_detail_back_button.setOnClickListener(menuDetailBackButtonClickListener);
 
     }
 
-    private int GetDipsFromPixel(float pixels) {
+    private int getDipsFromPixel(float pixels) {
         // Get the screen's density scale
         final float scale = getResources().getDisplayMetrics().density;
         // Convert the dps to pixels, based on density scale
