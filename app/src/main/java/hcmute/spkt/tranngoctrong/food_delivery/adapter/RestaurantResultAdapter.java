@@ -28,6 +28,8 @@ import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.RestaurantDetailsActivity;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.SearchRestaurantActivity;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.SearchRestaurantResultsActivity;
 
 public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResultAdapter.RestaurantResultHolder> {
 
@@ -106,6 +108,9 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (context instanceof SearchRestaurantResultsActivity) {
+                        ((SearchRestaurantResultsActivity) context).onHandleLoading(true);
+                    }
                     Intent goToRestaurantDetail = new Intent(context, RestaurantDetailsActivity.class);
                     goToRestaurantDetail.putExtra("restaurant", listRestaurantResult.get(getLayoutPosition()));
                     context.startActivity(goToRestaurantDetail);

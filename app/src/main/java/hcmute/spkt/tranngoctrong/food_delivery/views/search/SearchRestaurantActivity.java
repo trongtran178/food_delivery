@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,23 +30,24 @@ import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+import hcmute.spkt.tranngoctrong.food_delivery.utils.OnFoodDeliveryApplicationLoading;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnLoadMoreListener;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantViewModel;
 
-public class SearchRestaurantActivity extends AppCompatActivity implements LocationListener {
+public class SearchRestaurantActivity extends AppCompatActivity implements LocationListener, OnFoodDeliveryApplicationLoading {
 
     private FoodDeliveryApplication foodDeliveryApplication;
     private RestaurantAdapter restaurantAdapter;
     private SearchView searchTextInput;
     private SearchRestaurantViewModel searchRestaurantViewModel;
     private RecyclerView restaurantRecyclerView;
-
+    private LinearLayout searchRestaurantLoadingLayout;
     private Handler handler;
     private Location userLocation;
     private LocationManager locationManager;
-    private boolean hasReceivedLocation = false;
     private Button chooseProvinceButton;
     private StringBuilder provinceSearch;
+    private boolean hasReceivedLocation = false;
 
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
@@ -61,10 +64,9 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
                 REQUEST_CODE);
         foodDeliveryApplication = (FoodDeliveryApplication) getApplicationContext();
 
-        handleLocation();
-
         chooseProvinceButton = findViewById(R.id.open_choose_province_button);
         searchTextInput = findViewById(R.id.search_restaurant_view);
+        searchRestaurantLoadingLayout = findViewById(R.id.search_restaurant_loading_layout);
         handler = new Handler();
         restaurantRecyclerView = findViewById(R.id.restaurant_recycler_view);
         restaurantRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -81,6 +83,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 restaurantAdapter.setResults(restaurants);
+                handleLoading(false);
             }
         });
 
@@ -111,7 +114,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
                         restaurantAdapter.setLoaded();
 
                     }
-                }, 3000);
+                }, 1000);
 
             }
         });
@@ -129,7 +132,11 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     @Override
     protected void onResume() {
         super.onResume();
+        if (searchRestaurantLoadingLayout.getVisibility() == View.VISIBLE) {
+            handleLoading(false);
+        }
         System.out.println("Resumedddd");
+        handleLocation();
     }
 
 
@@ -187,17 +194,16 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         }
     };
 
+
     private SearchView.OnQueryTextListener searchViewQueryTextListener = new SearchView.OnQueryTextListener() {
 
         @Override
         public boolean onQueryTextSubmit(String query) {
             if (!hasReceivedLocation) return false;
-
-            System.out.println(query);
+            handleLoading(true);
             Intent searchResultIntent = new Intent(getApplicationContext(), SearchRestaurantResultsActivity.class);
             searchResultIntent.putExtra(SEARCH_QUERY_EXTRA, query);
             searchResultIntent.putExtra(SEARCH_PROVINCE_EXTRA, provinceSearch.toString());
-
             startActivity(searchResultIntent);
 
             return false;
@@ -211,11 +217,12 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
 
     private void handleLocation() {
         locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
+
 
     @Override
     public void onLocationChanged(Location location) {
@@ -245,5 +252,29 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     public void onProviderDisabled(String provider) {
         System.out.println(238 + ", onProviderDisabled");
 
+    }
+
+    @Override
+    public void onHandleLoading(boolean loading) {
+        handleLoading(loading);
+    }
+
+    public void handleLoading(boolean isLoading) {
+        if (isLoading) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    searchRestaurantLoadingLayout.setVisibility(View.VISIBLE);
+                }
+            });
+            return;
+        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                searchRestaurantLoadingLayout.setVisibility(View.GONE);
+                restaurantRecyclerView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }

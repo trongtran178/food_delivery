@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/restaurant_detail_toolbar"
             android:layout_width="match_parent"
@@ -103,6 +102,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
@@ -133,8 +133,8 @@
                     android:id="@+id/restaurant_open_close_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
-                    android:text="CHUA MO CUA"></TextView>
+                    android:text="CHUA MO CUA"
+                    android:textSize="18dp"></TextView>
 
                 <TextView
                     android:id="@+id/restaurant_open_close_time_text_view"
@@ -156,7 +156,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -354,7 +353,6 @@
             android:background="#c0c0c0"
             android:orientation="horizontal" />
 
-
         <LinearLayout
             android:id="@+id/menu_layout"
             android:layout_width="match_parent"
@@ -410,7 +408,7 @@
                         android:src="@drawable/ic_wifi_black_24dp"></ImageButton>
 
                     <TextView
-                        android:id="@+id/add_wifi_text_view"
+                        android:id="@+id/update_wifi_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Thêm wifi"
@@ -437,7 +435,6 @@
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_food" />
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

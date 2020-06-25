@@ -6,20 +6,16 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
@@ -39,6 +35,7 @@ import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
+import hcmute.spkt.tranngoctrong.food_delivery.utils.UpdateWifiPasswordDialog;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewModel;
 
 public class RestaurantDetailsActivity extends AppCompatActivity {
@@ -52,9 +49,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private View restaurantMapView;
-    private Button contactButton;
+    private Button contactButton, updateWifiPasswordDialogButton;
     private Location currentLocation, restaurantLocation;
-    private TextView addWifiTextView,
+    private TextView updateWifiTextView,
             nameTextView,
             provinceTextView,
             addressTextView,
@@ -77,7 +74,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         openCloseTimeTextView = findViewById(R.id.restaurant_open_close_time_text_view);
         addressTextView = findViewById(R.id.restaurant_detail_address_text_view);
         distanceFromUserTextView = findViewById(R.id.restaurant_detail_distance_from_user_text_view);
-        addWifiTextView = findViewById(R.id.add_wifi_text_view);
+        updateWifiTextView = findViewById(R.id.update_wifi_text_view);
         nameTextView = findViewById(R.id.restaurant_detail_name_text_view);
         provinceTextView = findViewById(R.id.restaurant_detail_province_text_view);
         restaurant_detail_back_button = findViewById(R.id.restaurant_detail_back_button);
@@ -116,7 +113,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         nameTextView.setText(restaurant.getName());
         provinceTextView.setText(restaurant.getProvince());
         typeTextView.setText(restaurant.getType());
-        addWifiTextView.setOnClickListener(addWifiTextViewListener);
+        updateWifiTextView.setOnClickListener(updateWifiTextViewListener);
         restaurant_detail_back_button.setOnClickListener(restaurantDetailBackButtonListener);
         menuLayout.setOnClickListener(menuLayoutClickListener);
         contactButton.setOnClickListener(contactRestaurantViewListener);
@@ -145,11 +142,42 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener addWifiTextViewListener = new View.OnClickListener() {
+    private View.OnClickListener updateWifiTextViewListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantDetailsActivity.this);
-            builder.setView(LayoutInflater.from(getBaseContext()).inflate(R.layout.dialog_add_wifi, null)).show();
+            UpdateWifiPasswordDialog updateWifiPasswordDialog = new UpdateWifiPasswordDialog(RestaurantDetailsActivity.this);
+            updateWifiPasswordDialog.show();
+//            AlertDialog.Builder builder = new AlertDialog.Builder(RestaurantDetailsActivity.this).set;
+//            builder.setView(LayoutInflater
+//                    .from(getBaseContext()).inflate(R.layout.dialog_add_wifi, null))
+//                    .show();
+////            updateWifiPasswordDialogButton = findViewById(R.id.update_wifi_password_button);
+////            updateWifiPasswordDialogButton.setOnClickListener(onUpdateWifiPasswordDialogButtonClick);
+//
+//            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                @Override
+//                public void onCancel(DialogInterface dialog) {
+//                    updateWifiPasswordDialogButton.setOnClickListener(null);
+//                    updateWifiPasswordDialogButton = null;
+//
+//                }
+//            });
+
+//            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//                @Override
+//                public void onDismiss(DialogInterface dialog) {
+//                    updateWifiPasswordDialogButton.setOnClickListener(null);
+//                    updateWifiPasswordDialogButton = null;
+//                }
+//            });
+        }
+    };
+
+    View.OnClickListener onUpdateWifiPasswordDialogButtonClick = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            System.out.println("1234567");
         }
     };
 

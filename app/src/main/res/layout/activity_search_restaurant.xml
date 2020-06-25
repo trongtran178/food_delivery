@@ -66,10 +66,25 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
+    <LinearLayout
+        android:id="@+id/search_restaurant_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/restaurant_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         tools:listitem="@layout/item_restaurant">
 
     </androidx.recyclerview.widget.RecyclerView>

@@ -1,5 +1,7 @@
 package hcmute.spkt.tranngoctrong.food_delivery.services;
 
+import java.util.Map;
+
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import okhttp3.OkHttpClient;
 
@@ -7,7 +9,7 @@ public class Api {
 
     private static Api instance;
 
-//    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com"; // DEPLOYED
+    //    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com"; // DEPLOYED
     private static final String BASE_URL = "https://murmuring-plains-40357.herokuapp.com/api"; // DEPLOYED
     //    private static final String BASE_URL = "http://localhost:8080";
 //    http://murmuring-plains-40357.herokuapp.com/api/restaurants?keyword=ngang
@@ -29,7 +31,8 @@ public class Api {
         return instance;
     }
 
-    // sample url: /restaurants
+    /// sample:
+    /// resource: /restaurants
     public Response get(String resource) {
         getAsyncTask = new GetAsyncTask(client);
         try {
@@ -45,16 +48,30 @@ public class Api {
         return null;
     }
 
+    // Unused
     public Response post(String resource) {
         postAsyncTask = new PostAsyncTask();
         return null;
     }
 
-    public Response put(String resource) {
-        putAsyncTask = new PutAsyncTask();
+    /// sample:
+    /// resource: /restaurants
+    /// data: {
+    //      password: 123456
+    // }
+    public Response put(String resource, Map<String, String> data) {
+        putAsyncTask = new PutAsyncTask(client);
+        try {
+            String resultsJsonString = (String) putAsyncTask.doInBackground(getUrl(resource),
+                    data.toString());
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return null;
     }
 
+    // Unused
     public Response delete(String resource) {
         deleteAsyncTask = new DeleteAsyncTask();
         return null;

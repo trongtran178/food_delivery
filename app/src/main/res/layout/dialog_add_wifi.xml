@@ -7,42 +7,46 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:background="@drawable/custom_dialog"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:minWidth="200dp"
+    android:orientation="vertical">
 
 
     <com.google.android.material.textfield.TextInputEditText
         style="@style/update_wifi_text_input_style"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="16dp"
         android:background="@drawable/custom_text_input_edit_text"
         android:drawableStart="@drawable/ic_wifi_black_24dp"
         android:drawablePadding="16dp"
-        android:hint="Ten wifi show san neu da ket noi"
-        android:paddingHorizontal="8dp" />
+        android:hint="Tên wifi show sẵn nếu đã kết n"
+        android:paddingHorizontal="8dp"
+        android:textSize="13dp" />
 
     <com.google.android.material.textfield.TextInputEditText
         style="@style/update_wifi_text_input_style"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="32dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="8dp"
         android:background="@drawable/custom_text_input_edit_text"
         android:drawableStart="@drawable/ic_lock_grey_24dp"
         android:drawablePadding="16dp"
-        android:hint="Nhap mat khau"
-        android:paddingHorizontal="8dp" />
+        android:hint="Nhập mật khẩu"
+        android:paddingHorizontal="8dp"
+        android:textSize="16dp" />
 
     <Button
+        android:id="@+id/update_wifi_password_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/add_wifi_button_custom"
         android:text="Cap nhat Wifi password"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="14dp" />
 
 </LinearLayout>

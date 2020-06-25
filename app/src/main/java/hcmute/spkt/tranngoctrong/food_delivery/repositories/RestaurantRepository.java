@@ -3,9 +3,14 @@ package hcmute.spkt.tranngoctrong.food_delivery.repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
@@ -76,7 +81,7 @@ public class RestaurantRepository {
         mapper.registerModule(new SimpleModule().addDeserializer(Wifi.class, new WifiDeserializer()));
         List<Restaurant> results;
         try {
-            Response response = null;
+            Response response = null;   
             switch (fragmentType) {
                 case MOST_RIGHT: {
                     response = api.get("/restaurants?keyword=" + keyword);
@@ -99,9 +104,24 @@ public class RestaurantRepository {
         return null;
     }
 
-    public FoodDeliveryApplication getFoodDeliveryApplication() {
-        return foodDeliveryApplication;
+    public boolean updateWifi(String password) {
+        api = Api.getInstance();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Map<String, String> body = new HashMap<>();
+            body.put("password", password);
+            Response response = api.put("/restaurants/1123121", body);
+            boolean results =
+                    (Boolean) mapper.readValue(mapper.writeValueAsString(response.getResults()),
+                            new TypeReference<Boolean>() {
+                            });
+            return results;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
 
     public void setFoodDeliveryApplication(FoodDeliveryApplication foodDeliveryApplication) {
         this.foodDeliveryApplication = foodDeliveryApplication;

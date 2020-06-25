@@ -14,6 +14,7 @@ import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.repositories.FoodRepository;
+import hcmute.spkt.tranngoctrong.food_delivery.repositories.RestaurantRepository;
 
 public class RestaurantDetailsViewModel extends AndroidViewModel {
 
@@ -21,7 +22,8 @@ public class RestaurantDetailsViewModel extends AndroidViewModel {
     private MutableLiveData<List<FoodMenu>> foodsInMenu;
     private MutableLiveData<List<FoodCategory>> foodCategories;
     private FoodRepository foodRepository;
-
+    private RestaurantRepository restaurantRepository;
+    private boolean isLoading;
     public RestaurantDetailsViewModel(@NonNull Application application) {
         super(application);
     }
@@ -39,6 +41,12 @@ public class RestaurantDetailsViewModel extends AndroidViewModel {
         fc = foodRepository.getFoodCategory(restaurantId);
         setFoodCategories(fc);
     }
+
+    public void updateWifi(String password) {
+        restaurantRepository = RestaurantRepository.getInstance();
+        restaurantRepository.updateWifi(password);
+    }
+
 
     public void setFoodCategories(List<FoodCategory> foodCategories) {
         this.foodCategories.setValue(foodCategories);

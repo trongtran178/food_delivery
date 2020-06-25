@@ -44,23 +44,25 @@ public class Restaurant implements Parcelable {
     public Restaurant() {
     }
 
-    public Restaurant(String _id,
-                      String name,
-                      String address,
-                      String type,
-                      Date timeOpen,
-                      Date timeClose,
-                      String phone,
-                      Wifi wifi,
-                      String description,
-                      String province,
-                      String avatar,
-                      String image,
-                      List<String> imagesUrl,
-                      List<String> foodQuery,
-                      double latitude,
-                      double longitude,
-                      int __v) {
+    public Restaurant(
+            String _id,
+            String name,
+            String address,
+            String type,
+            Date timeOpen,
+            Date timeClose,
+            String phone,
+            Wifi wifi,
+            String description,
+            String province,
+            String avatar,
+            String image,
+            List<String> imagesUrl,
+            List<String> foodQuery,
+            double latitude,
+            double longitude,
+            int __v
+    ) {
         this._id = _id;
         this.name = name;
         this.address = address;
