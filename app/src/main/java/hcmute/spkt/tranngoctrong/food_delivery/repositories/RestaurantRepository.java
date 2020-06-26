@@ -3,9 +3,14 @@ package hcmute.spkt.tranngoctrong.food_delivery.repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
@@ -99,9 +104,23 @@ public class RestaurantRepository {
         return null;
     }
 
-    public FoodDeliveryApplication getFoodDeliveryApplication() {
-        return foodDeliveryApplication;
+    public boolean updateWifi(String restaurantId, String password) {
+        api = Api.getInstance();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Map<String, String> body = new HashMap<>();
+            body.put("password", password);
+            Response response = api.put("/restaurants/" + restaurantId + "/wifi", body);
+            if (response.getCode() == 200) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+
 
     public void setFoodDeliveryApplication(FoodDeliveryApplication foodDeliveryApplication) {
         this.foodDeliveryApplication = foodDeliveryApplication;

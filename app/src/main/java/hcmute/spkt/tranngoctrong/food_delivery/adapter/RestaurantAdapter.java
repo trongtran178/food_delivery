@@ -25,6 +25,7 @@ import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnLoadMoreListener;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.RestaurantDetailsActivity;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.SearchRestaurantActivity;
 
 public class RestaurantAdapter extends RecyclerView.Adapter {
 
@@ -138,8 +139,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     if (((FoodDeliveryApplication) context.getApplicationContext()).getUserLocation() == null)
                         return;
+                    if (context instanceof SearchRestaurantActivity) {
+                        ((SearchRestaurantActivity) context).onHandleLoading(true);
+                    }
                     Intent goToRestaurantDetail = new Intent(context, RestaurantDetailsActivity.class);
                     goToRestaurantDetail.putExtra("restaurant", restaurants.get(getLayoutPosition()));
+
                     context.startActivity(goToRestaurantDetail);
                 }
             });
@@ -149,7 +154,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter {
     public void setLoaded() {
         loading = false;
     }
-
 
     class ProgressBarViewHolder extends RecyclerView.ViewHolder {
 

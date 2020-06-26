@@ -1,5 +1,9 @@
 package hcmute.spkt.tranngoctrong.food_delivery.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Map;
+
 import hcmute.spkt.tranngoctrong.food_delivery.model.api.Response;
 import okhttp3.OkHttpClient;
 
@@ -7,10 +11,9 @@ public class Api {
 
     private static Api instance;
 
-//    private static final String BASE_URL = "https://whispering-citadel-24521.herokuapp.com"; // DEPLOYED
+    // private static final String BASE_URL = "http://localhost:8080";
     private static final String BASE_URL = "https://murmuring-plains-40357.herokuapp.com/api"; // DEPLOYED
-    //    private static final String BASE_URL = "http://localhost:8080";
-//    http://murmuring-plains-40357.herokuapp.com/api/restaurants?keyword=ngang
+
     private GetAsyncTask getAsyncTask;
     private PostAsyncTask postAsyncTask;
     private PutAsyncTask putAsyncTask;
@@ -29,7 +32,8 @@ public class Api {
         return instance;
     }
 
-    // sample url: /restaurants
+    /// sample:
+    /// resource: /restaurants
     public Response get(String resource) {
         getAsyncTask = new GetAsyncTask(client);
         try {
@@ -45,16 +49,37 @@ public class Api {
         return null;
     }
 
+    // Unused
     public Response post(String resource) {
         postAsyncTask = new PostAsyncTask();
         return null;
     }
 
-    public Response put(String resource) {
-        putAsyncTask = new PutAsyncTask();
+    /// sample:
+    /// resource: /restaurants/:restaurantId
+    /// data: {
+    //      password: 123456
+    // }
+    public Response put(String resource, Map<String, String> data) {
+        putAsyncTask = new PutAsyncTask(client);
+        try {
+            System.out.println(data.toString());
+            ObjectMapper objectMapper = new ObjectMapper();
+            String dataJsonString = objectMapper.writeValueAsString(data);
+            String resultsJsonString = (String) putAsyncTask.execute(getUrl(resource), dataJsonString).get();
+            System.out.println(resultsJsonString);
+            Response response = new Response().fromJson(resultsJsonString);
+
+            putAsyncTask.cancel(true);
+
+            return response;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         return null;
     }
 
+    // Unused
     public Response delete(String resource) {
         deleteAsyncTask = new DeleteAsyncTask();
         return null;

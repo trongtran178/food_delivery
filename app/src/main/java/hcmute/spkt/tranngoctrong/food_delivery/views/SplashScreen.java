@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
@@ -23,7 +22,7 @@ public class SplashScreen extends Activity {
     /**
      * Duration of wait
      **/
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private final int SPLASH_DISPLAY_LENGTH = 3500;
     private ImageView splashIcon1, splashIcon2, splashIcon3, splashIcon4;
     private AssetManager assetManager;
     private InputStream inputStream;

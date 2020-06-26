@@ -17,15 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
-import hcmute.spkt.tranngoctrong.food_delivery.model.Food;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
-import hcmute.spkt.tranngoctrong.food_delivery.model.FoodMenu;
 
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodHolder> {
 
     private Context context;
-    private List<Food> restaurantFoods = new ArrayList<Food>();
-    private List<FoodMenu> restaurantFoodsByMenu = new ArrayList<FoodMenu>();
     private List<FoodCategory> restaurantFoodCategories = new ArrayList<FoodCategory>();
 
     public FoodAdapter(Context context) {

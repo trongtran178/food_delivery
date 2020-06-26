@@ -19,17 +19,19 @@ public class Restaurant implements Parcelable {
     private String _id;
     private String name;
     private String address;
-
     private String type;
-    @JsonDeserialize(using = DateDeserializer.class)
 
+    @JsonDeserialize(using = DateDeserializer.class)
     private Date timeOpen;
+
     @JsonDeserialize(using = DateDeserializer.class)
     private Date timeClose;
 
     private String phone;
+
     @JsonDeserialize(using = WifiDeserializer.class)
     private Wifi wifi;
+
     private String description;
     private String province;
     private String avatar;
@@ -44,23 +46,25 @@ public class Restaurant implements Parcelable {
     public Restaurant() {
     }
 
-    public Restaurant(String _id,
-                      String name,
-                      String address,
-                      String type,
-                      Date timeOpen,
-                      Date timeClose,
-                      String phone,
-                      Wifi wifi,
-                      String description,
-                      String province,
-                      String avatar,
-                      String image,
-                      List<String> imagesUrl,
-                      List<String> foodQuery,
-                      double latitude,
-                      double longitude,
-                      int __v) {
+    public Restaurant(
+            String _id,
+            String name,
+            String address,
+            String type,
+            Date timeOpen,
+            Date timeClose,
+            String phone,
+            Wifi wifi,
+            String description,
+            String province,
+            String avatar,
+            String image,
+            List<String> imagesUrl,
+            List<String> foodQuery,
+            double latitude,
+            double longitude,
+            int __v
+    ) {
         this._id = _id;
         this.name = name;
         this.address = address;
@@ -80,6 +84,7 @@ public class Restaurant implements Parcelable {
         this.__v = __v;
     }
 
+
     protected Restaurant(Parcel in) {
         _id = in.readString();
         name = in.readString();
@@ -88,6 +93,7 @@ public class Restaurant implements Parcelable {
         timeOpen = new Date(in.readLong());
         timeClose = new Date(in.readLong());
         phone = in.readString();
+        wifi = in.readParcelable(Wifi.class.getClassLoader());
         description = in.readString();
         province = in.readString();
         avatar = in.readString();
@@ -97,26 +103,6 @@ public class Restaurant implements Parcelable {
         latitude = in.readDouble();
         longitude = in.readDouble();
         __v = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(_id);
-        dest.writeString(name);
-        dest.writeString(address);
-        dest.writeString(type);
-        dest.writeLong(timeOpen.getTime());
-        dest.writeLong(timeClose.getTime());
-        dest.writeString(phone);
-        dest.writeString(description);
-        dest.writeString(province);
-        dest.writeString(avatar);
-        dest.writeString(image);
-        dest.writeStringList(imagesUrl);
-        dest.writeStringList(foodQuery);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writeInt(__v);
     }
 
     public static final Creator<Restaurant> CREATOR = new Creator<Restaurant>() {
@@ -272,5 +258,47 @@ public class Restaurant implements Parcelable {
         return 0;
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeString(type);
+        dest.writeLong(timeOpen.getTime());
+        dest.writeLong(timeClose.getTime());
+        dest.writeString(phone);
+        dest.writeParcelable(wifi, flags);
+        dest.writeString(description);
+        dest.writeString(province);
+        dest.writeString(avatar);
+        dest.writeString(image);
+        dest.writeStringList(imagesUrl);
+        dest.writeStringList(foodQuery);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeInt(__v);
+    }
 
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "_id='" + _id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", type='" + type + '\'' +
+                ", timeOpen=" + timeOpen +
+                ", timeClose=" + timeClose +
+                ", phone='" + phone + '\'' +
+                ", wifi=" + wifi +
+                ", description='" + description + '\'' +
+                ", province='" + province + '\'' +
+                ", avatar='" + avatar + '\'' +
+                ", image='" + image + '\'' +
+                ", imagesUrl=" + imagesUrl +
+                ", foodQuery=" + foodQuery +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", __v=" + __v +
+                '}';
+    }
 }
