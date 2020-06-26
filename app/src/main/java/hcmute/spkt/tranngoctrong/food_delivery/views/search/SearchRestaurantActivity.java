@@ -164,6 +164,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
 
         if (requestCode == REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                handleLocation();
             } else {
                 Toast.makeText(SearchRestaurantActivity.this, "Permission denied to access your location", Toast.LENGTH_SHORT).show();
             }
@@ -220,7 +221,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
     }
 
 
