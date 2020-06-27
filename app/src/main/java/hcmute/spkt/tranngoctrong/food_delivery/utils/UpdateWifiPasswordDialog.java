@@ -29,8 +29,6 @@ public class UpdateWifiPasswordDialog extends Dialog {
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private Restaurant restaurant;
     private Context context;
-    private SearchRestaurantViewModel searchRestaurantViewModel;
-    private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
 
     public UpdateWifiPasswordDialog(@NonNull Context context) {
         super(context);
@@ -52,12 +50,6 @@ public class UpdateWifiPasswordDialog extends Dialog {
         updateWifiPasswordDialogButton.setOnClickListener(onUpdateWifiPasswordDialogButtonClick);
     }
 
-    @Override
-    public boolean isShowing() {
-        return super.isShowing();
-    }
-
-
     View.OnClickListener onUpdateWifiPasswordDialogButtonClick = new View.OnClickListener() {
 
         @Override
@@ -70,7 +62,8 @@ public class UpdateWifiPasswordDialog extends Dialog {
                 return;
             }
 
-            boolean isUpdated = restaurantDetailsViewModel.updateWifi(restaurant.get_id(), wifiPasswordTextInputEditText.getText().toString());
+            boolean isUpdated = restaurantDetailsViewModel.updateWifi(restaurant.get_id(),
+                    wifiPasswordTextInputEditText.getText().toString());
             if (isUpdated) {
                 Toast.makeText(context, "successfull !!!", Toast.LENGTH_SHORT).show();
                 restaurant.setWifi(new Wifi(

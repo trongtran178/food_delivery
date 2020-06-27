@@ -32,8 +32,6 @@
         <activity android:name=".views.search.SearchRestaurantResultsActivity" />
         <activity android:name=".views.search.RestaurantDetailsActivity" />
         <activity android:name=".views.search.MenuDetailsActivity" />
-        <activity android:name=".views.categories.FilterCategoriesActivity" />
-        <activity android:name=".views.main_page.MainPageActivity" />
 
     </application>
 

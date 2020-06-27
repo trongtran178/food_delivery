@@ -11,12 +11,16 @@ public class Api {
 
     private static Api instance;
 
-    // private static final String BASE_URL = "http://localhost:8080";
     private static final String BASE_URL = "https://murmuring-plains-40357.herokuapp.com/api"; // DEPLOYED
 
     private GetAsyncTask getAsyncTask;
+
+    // Unused
     private PostAsyncTask postAsyncTask;
+
     private PutAsyncTask putAsyncTask;
+
+    // Unused
     private DeleteAsyncTask deleteAsyncTask;
 
     private OkHttpClient client;
@@ -38,7 +42,6 @@ public class Api {
         getAsyncTask = new GetAsyncTask(client);
         try {
             String resultsJsonString = (String) getAsyncTask.execute(getUrl(resource)).get();
-            System.out.println(resultsJsonString);
             Response response = new Response().fromJson(resultsJsonString);
             getAsyncTask.cancel(true);
             return response;
@@ -63,11 +66,9 @@ public class Api {
     public Response put(String resource, Map<String, String> data) {
         putAsyncTask = new PutAsyncTask(client);
         try {
-            System.out.println(data.toString());
             ObjectMapper objectMapper = new ObjectMapper();
             String dataJsonString = objectMapper.writeValueAsString(data);
             String resultsJsonString = (String) putAsyncTask.execute(getUrl(resource), dataJsonString).get();
-            System.out.println(resultsJsonString);
             Response response = new Response().fromJson(resultsJsonString);
 
             putAsyncTask.cancel(true);

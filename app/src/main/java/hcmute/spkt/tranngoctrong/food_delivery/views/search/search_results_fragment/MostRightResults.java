@@ -33,9 +33,7 @@ public class MostRightResults extends Fragment {
     private String keyword;
     private Province province;
 
-    public MostRightResults() {
-
-    }
+    public MostRightResults() { }
 
     public MostRightResults(String keyword, Province province) {
         this.keyword = keyword;
