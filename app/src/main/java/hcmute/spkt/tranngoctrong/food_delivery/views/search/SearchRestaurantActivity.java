@@ -199,6 +199,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         @Override
         public void onClick(View v) {
             final Intent intent = new Intent(SearchRestaurantActivity.this, ChooseProvincesActivity.class);
+            intent.putExtra(SEARCH_PROVINCE_SLUG_EXTRA, provinceSlugSearch != null ? provinceSlugSearch.toString() : null);
             startActivityForResult(intent, REQUEST_CODE);
         }
     };

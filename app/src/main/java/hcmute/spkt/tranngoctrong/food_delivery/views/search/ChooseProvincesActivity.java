@@ -23,15 +23,13 @@ public class ChooseProvincesActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROVINCE_SELECTED = "EXTRA_PROVINCE_SELECTED";
     public static final String EXTRA_PROVINCE_SLUG_SELECTED = "EXTRA_PROVINCE_SLUG_SELECTED";
+    public static final String SEARCH_PROVINCE_SLUG_EXTRA = "SEARCH_PROVINCE_SLUG_EXTRA";
 
     RecyclerView provinceRecycleView;
     TextView doneTextView, backTextView;
     ProvinceAdapter provinceAdapter;
     Province currentProvinceSelected;
 
-    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
-    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
-    private static final Pattern SEPARATORS = Pattern.compile("[\\s\\p{Punct}&&[^-]]");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +38,22 @@ public class ChooseProvincesActivity extends AppCompatActivity {
         doneTextView = findViewById(R.id.doneTextView);
         backTextView = findViewById(R.id.backTextView);
         provinceRecycleView = findViewById(R.id.provinceRecycleView);
+
         provinceRecycleView.setLayoutManager(new LinearLayoutManager(this));
         provinceRecycleView.setHasFixedSize(true);
+
         final List<Province> provinces = getListProvinces();
+
         currentProvinceSelected = provinces.get(0);
-        System.out.println(provinces.size());
+
+        if (getIntent().getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA) != null) {
+            for (int i = 0; i < provinces.size(); i++) {
+                if (provinces.get(i).getSlug().equalsIgnoreCase(getIntent().getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA))) {
+                    provinces.get(i).setSelected(true);
+                }
+            }
+        }
+
         provinceAdapter = new ProvinceAdapter(this, provinces);
         provinceRecycleView.setAdapter(provinceAdapter);
 
@@ -52,7 +61,6 @@ public class ChooseProvincesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(Province province) {
                 currentProvinceSelected = province;
-                System.out.println(province.getName());
                 provinceAdapter.notifyDataSetChanged();
             }
         });
@@ -70,22 +78,12 @@ public class ChooseProvincesActivity extends AppCompatActivity {
             // send data back to search activity
             String result = currentProvinceSelected.getName().toLowerCase();
             System.out.println(result);
-            System.out.println(toSlug(result));
             Intent resultIntent = new Intent();
             resultIntent.putExtra(EXTRA_PROVINCE_SELECTED, currentProvinceSelected.getName());
             resultIntent.putExtra(EXTRA_PROVINCE_SLUG_SELECTED, currentProvinceSelected.getSlug());
             setResult(RESULT_OK, resultIntent);
             finish();
         }
-    }
-
-    private String toSlug(String input) {
-
-        String noseparators = SEPARATORS.matcher(input).replaceAll("-");
-        String normalized = Normalizer.normalize(noseparators, Normalizer.Form.NFKC);
-        String slug = NONLATIN.matcher(normalized).replaceAll("");
-        return slug.toLowerCase(Locale.CANADA).replaceAll("-{2,}", "-").replaceAll("^-|-$", "");
-
     }
 
     private class OnBackTextClickListener implements View.OnClickListener {
