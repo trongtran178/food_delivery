@@ -47,10 +47,12 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     private LocationManager locationManager;
     private Button chooseProvinceButton;
     private StringBuilder provinceSearch;
+    private StringBuilder provinceSlugSearch;
     private boolean hasReceivedLocation = false;
 
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
+    public static final String SEARCH_PROVINCE_SLUG_EXTRA = "SEARCH_PROVINCE_SLUG_EXTRA";
 
     private static final int REQUEST_CODE = 1;
 
@@ -126,6 +128,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
         provinceSearch = new StringBuilder(chooseProvinceButton.getText());
+        provinceSlugSearch = new StringBuilder("ho-chi-minh");
     }
 
     @Override
@@ -142,7 +145,6 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         System.out.println("Resumedddd");
         handleLocation();
     }
-
 
     @Override
     protected void onPause() {
@@ -184,9 +186,9 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         if (requestCode == REQUEST_CODE) {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 final String province = data.getStringExtra(ChooseProvincesActivity.EXTRA_PROVINCE_SELECTED);
-                chooseProvinceButton.setText(province);
-                System.out.println(province);
+                provinceSlugSearch = new StringBuilder(data.getStringExtra(ChooseProvincesActivity.EXTRA_PROVINCE_SLUG_SELECTED));
                 provinceSearch = new StringBuilder(province);
+                chooseProvinceButton.setText(province);
             } else {
                 // DO NOTHING
             }
@@ -210,6 +212,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
             Intent searchResultIntent = new Intent(getApplicationContext(), SearchRestaurantResultsActivity.class);
             searchResultIntent.putExtra(SEARCH_QUERY_EXTRA, query);
             searchResultIntent.putExtra(SEARCH_PROVINCE_EXTRA, provinceSearch.toString());
+            searchResultIntent.putExtra(SEARCH_PROVINCE_SLUG_EXTRA, provinceSlugSearch.toString());
             startActivity(searchResultIntent);
 
             return false;
@@ -229,7 +232,6 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
-
 
     @Override
     public void onLocationChanged(Location location) {

@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
+import hcmute.spkt.tranngoctrong.food_delivery.model.Province;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnFoodDeliveryApplicationLoading;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.CommonResults;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.search_results_fragment.Filters;
@@ -32,9 +33,11 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
     private LinearLayout searchRestaurantResultsLoadingLayout;
     private String searchQuery;
     private String provinceSearch;
+    private String provinceSlugSearch;
     private Handler handler;
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
+    private static final String SEARCH_PROVINCE_SLUG_EXTRA = "SEARCH_PROVINCE_SLUG_EXTRA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
 
         Intent intent = getIntent();
         provinceSearch = intent.getStringExtra(SEARCH_PROVINCE_EXTRA);
+        provinceSlugSearch = intent.getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA);
+
         searchQuery = intent.getStringExtra(SEARCH_QUERY_EXTRA);
         searchRestaurantResultsView.setQuery(searchQuery, true);
 
@@ -68,8 +73,9 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager(), SectionsPageAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFragment(new MostRightResults(searchQuery, provinceSearch), "Đúng nhất");
-        adapter.addFragment(new NearMeResults(searchQuery, provinceSearch), "Gần tôi");
+        adapter.addFragment(new MostRightResults(searchQuery, new Province(provinceSearch, provinceSlugSearch, false)), "Đúng nhất");
+        adapter.addFragment(new NearMeResults(searchQuery, new Province(provinceSearch, provinceSlugSearch, false)), "Gần tôi");
+
         adapter.addFragment(new CommonResults(), "Phổ biến");
         adapter.addFragment(new Filters(), "Bộ lọc");
         viewPager.setAdapter(adapter);

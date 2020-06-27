@@ -23,9 +23,6 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
     private RestaurantRepository restaurantRepository;
     private FoodDeliveryApplication foodDeliveryApplication;
 
-    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
-    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
-
     public SearchRestaurantResultsViewModel(@NonNull Application application) {
         super(application);
         foodDeliveryApplication = (FoodDeliveryApplication) getApplication().getApplicationContext();
@@ -39,7 +36,7 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
 
     public void searchRestaurantsByKeyword(String keyword, String province, FragmentType fragmentType) {
         // Fetch searched restaurants result from server
-        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword, toSlug(province), fragmentType);
+        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword, province, fragmentType);
         setRestaurants(restaurants);
     }
 
@@ -50,12 +47,5 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
 
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants.setValue(restaurants);
-    }
-
-    private String toSlug(String input) {
-        String nowhitespace = WHITESPACE.matcher(input).replaceAll("-");
-        String normalized = Normalizer.normalize(nowhitespace, Normalizer.Form.NFD);
-        String slug = NONLATIN.matcher(normalized).replaceAll("");
-        return slug.toLowerCase(Locale.ENGLISH);
     }
 }

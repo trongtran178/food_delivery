@@ -32,6 +32,7 @@ import java.util.TimeZone;
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
+import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantImageAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
 import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
@@ -41,8 +42,9 @@ import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewM
 
 public class RestaurantDetailsActivity extends AppCompatActivity {
 
-    private RecyclerView restaurantFoodsRecyclerView;
+    private RecyclerView restaurantImagesRecyclerView;
     private FoodAdapter foodAdapter;
+    private RestaurantImageAdapter restaurantImageAdapter;
     private Restaurant restaurant;
     private RestaurantMapFragment restaurantMapFragment;
     private LinearLayout menuLayout;
@@ -62,8 +64,9 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
             openCloseTimeTextView,
             typeTextView;
 
-    private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
+    private static final String RESTAURANT_ID_EXTRA = "RESTAURANT_ID_EXTRA";
     private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
+    private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
 
     protected Context context;
 
@@ -80,7 +83,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         nameTextView = findViewById(R.id.restaurant_detail_name_text_view);
         provinceTextView = findViewById(R.id.restaurant_detail_province_text_view);
         restaurant_detail_back_button = findViewById(R.id.restaurant_detail_back_button);
-        restaurantFoodsRecyclerView = findViewById(R.id.restaurant_foods_recycler_view);
+        restaurantImagesRecyclerView = findViewById(R.id.restaurant_images_recycler_view);
         menuLayout = findViewById(R.id.menu_layout);
         contactButton = findViewById(R.id.contact_restaurant_button);
         typeTextView = findViewById(R.id.restaurant_detail_type_text_view);
@@ -95,19 +98,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         restaurantMapFragment = (RestaurantMapFragment) fragmentManager.findFragmentById(R.id.restaurant_map_fragment);
         restaurantMapFragment.setRestaurant(restaurant);
         foodAdapter = new FoodAdapter(this);
-        restaurantFoodsRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        restaurantFoodsRecyclerView.stopNestedScroll();
+        restaurantImageAdapter = new RestaurantImageAdapter(this, restaurant.getImagesUrl());
 
-        restaurantDetailsViewModel = ViewModelProviders.of(this).get(RestaurantDetailsViewModel.class);
-        restaurantDetailsViewModel.init(restaurant);
+        restaurantImagesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        restaurantImagesRecyclerView.stopNestedScroll();
 
-        restaurantDetailsViewModel.getFoodCategories().observe(this, new Observer<List<FoodCategory>>() {
-            @Override
-            public void onChanged(List<FoodCategory> foodCategories) {
-                foodAdapter.setRestaurantFoodCategories(foodCategories);
-                restaurantFoodsRecyclerView.setAdapter(foodAdapter);
-            }
-        });
+        restaurantImagesRecyclerView.setAdapter(restaurantImageAdapter);
 
         restaurantMapView = this.restaurantMapFragment.getView();
 
@@ -138,8 +134,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         public void onClick(View v) {
             final Intent goToMenuDetailIntent = new Intent(RestaurantDetailsActivity.this,
                     MenuDetailsActivity.class);
+            goToMenuDetailIntent.putExtra(RESTAURANT_ID_EXTRA, restaurant.get_id());
             goToMenuDetailIntent.putExtra(RESTAURANT_NAME__EXTRA, restaurant.getName());
-            goToMenuDetailIntent.putExtra(FOOD_CATEGORIES_EXTRA, (ArrayList<FoodCategory>) restaurantDetailsViewModel.getFoodCategories().getValue());
             startActivity(goToMenuDetailIntent);
         }
     };
@@ -160,27 +156,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener onUpdateWifiPasswordDialogButtonClick = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            System.out.println("1234567");
-        }
-    };
-
     private View.OnClickListener contactRestaurantViewListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             String url = "tel:" + restaurant.getPhone();
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
             if (ActivityCompat.checkSelfPermission(RestaurantDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             startActivity(intent);

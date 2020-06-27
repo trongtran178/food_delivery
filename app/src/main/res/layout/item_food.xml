@@ -20,7 +20,6 @@
             android:scaleType="fitXY"
             android:src="@mipmap/capture" />
 
-
         <TextView
             android:id="@+id/item_food_title"
             android:layout_width="match_parent"
