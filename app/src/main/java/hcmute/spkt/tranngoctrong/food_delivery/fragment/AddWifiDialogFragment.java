@@ -19,9 +19,7 @@ public class AddWifiDialogFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         builder.setView(inflater.inflate(R.layout.dialog_add_wifi, null));
-
         return builder.create();
-
 
     }
 }

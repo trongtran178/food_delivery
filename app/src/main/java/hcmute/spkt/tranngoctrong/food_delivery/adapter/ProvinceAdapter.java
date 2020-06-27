@@ -30,6 +30,10 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         this.provinces = listProvinces;
         this.layoutInflater = LayoutInflater.from(context);
         this.selectedItemIndex = 0;
+        for (Province province : listProvinces) {
+            if (province.isSelected())
+                this.selectedItemIndex = listProvinces.indexOf(province);
+        }
     }
 
     @NonNull
