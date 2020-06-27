@@ -26,7 +26,7 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
         restaurantRepository = RestaurantRepository.getInstance();
 
         // Fetch restaurants from server
-        List<Restaurant> restaurants = restaurantRepository.getRestaurants(20, getPageIndex());
+        List<Restaurant> restaurants = restaurantRepository.getRestaurants(10, getPageIndex());
         setRestaurants(restaurants);
     }
 
@@ -36,7 +36,7 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
         currentPageIndex += 1;
         this.setPageIndex(currentPageIndex);
 
-        List<Restaurant> nextPageRestaurants = restaurantRepository.getRestaurants(20, getPageIndex());
+        List<Restaurant> nextPageRestaurants = restaurantRepository.getRestaurants(10, getPageIndex());
 
         List<Restaurant> currentPageRestaurants = getRestaurants().getValue();
         if (nextPageRestaurants != null) {
@@ -50,7 +50,8 @@ public class SearchRestaurantViewModel extends AndroidViewModel {
     }
 
     public void setRestaurants(List<Restaurant> restaurants) {
-        this.restaurants.setValue(restaurants);
+        if(restaurants != null && restaurants.size() > 0)
+            this.restaurants.setValue(restaurants);
     }
 
     public int getPageSize() {

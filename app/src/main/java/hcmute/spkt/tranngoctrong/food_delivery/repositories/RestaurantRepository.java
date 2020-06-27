@@ -74,7 +74,8 @@ public class RestaurantRepository {
         return null;
     }
 
-    public List<Restaurant> searchRestaurantsByKeyWord(String keyword, FragmentType fragmentType) {
+
+    public List<Restaurant> searchRestaurantsByKeyWord(String keyword, String provinceSlug, FragmentType fragmentType) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new SimpleModule().addDeserializer(Date.class, new DateDeserializer()));
@@ -84,11 +85,12 @@ public class RestaurantRepository {
             Response response = null;
             switch (fragmentType) {
                 case MOST_RIGHT: {
-                    response = api.get("/restaurants?keyword=" + keyword);
+                    response = api.get("/restaurants?keyword=" + keyword + "&province=" + provinceSlug);
                     break;
                 }
                 case NEAR_ME: {
                     response = api.get("/restaurants?keyword=" + keyword
+                            + "&province=" + provinceSlug
                             + "&latitude=" + foodDeliveryApplication.getUserLocation().getLatitude()
                             + "&longitude=" + foodDeliveryApplication.getUserLocation().getLongitude());
                     break;

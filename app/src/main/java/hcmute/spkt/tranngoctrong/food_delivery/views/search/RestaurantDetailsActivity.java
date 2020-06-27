@@ -110,7 +110,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         });
 
         restaurantMapView = this.restaurantMapFragment.getView();
-        restaurantMapView.setAlpha(0.25f);
 
         nameTextView.setText(restaurant.getName());
         provinceTextView.setText(restaurant.getProvince());
@@ -190,18 +189,20 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
 
     private void handleDistanceFromUserTextView() {
         currentLocation = ((FoodDeliveryApplication) getApplicationContext()).getUserLocation();
-
         long distance = (long) currentLocation.distanceTo(restaurantLocation);
         if (distance <= 1000) {
-            distanceFromUserTextView.setTextColor(Color.GREEN);
             distanceFromUserTextView.setText(Html.fromHtml(
-                    "<b style='color:green;'>" + String.format("%d", distance) + "mét </b> " +
+                    "<b style='color:green important!;'>" + String.format("%d", distance) + "mét </b> " +
                             "<span style='color: black;'>(từ vị trí hiện tại)</span>"
             ));
         } else {
-            distanceFromUserTextView.setTextColor(Color.RED);
-            distanceFromUserTextView.setText(Html.fromHtml(
-                    "<b style='color=red;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+            if ((distance / 1000) > 10) {
+                distanceFromUserTextView.setText(Html.fromHtml(
+                        "<b style='color: red important!;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+            } else {
+                distanceFromUserTextView.setText(Html.fromHtml(
+                        "<b style='color: green important!;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+            }
         }
     }
 
@@ -246,8 +247,6 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         restaurant.setWifi(wifi);
         wifiNameTextView.setText(wifi.getName());
         wifiPasswordTextView.setText(wifi.getPassword());
-        System.out.println(246 + "," + wifi.toString());
-
     }
 
     @Override

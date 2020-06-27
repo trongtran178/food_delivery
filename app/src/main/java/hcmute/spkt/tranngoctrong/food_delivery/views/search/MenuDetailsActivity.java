@@ -29,6 +29,7 @@ public class MenuDetailsActivity extends AppCompatActivity {
     private HashMap<String, List<Food>> itemsMenuChild;
     private ImageButton menu_detail_back_button;
     private TextView restaurantName;
+
     private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
     private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
 

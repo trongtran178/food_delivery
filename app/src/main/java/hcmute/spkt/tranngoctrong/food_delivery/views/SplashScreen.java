@@ -18,7 +18,6 @@ import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.SearchRestaurantActivity;
 
 public class SplashScreen extends Activity {
-
     /**
      * Duration of wait
      **/

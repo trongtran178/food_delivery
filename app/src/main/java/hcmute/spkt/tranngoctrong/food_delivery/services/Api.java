@@ -56,7 +56,7 @@ public class Api {
     }
 
     /// sample:
-    /// resource: /restaurants/:restaurantId
+    /// resource: /restaurants/:restaurantId/edit
     /// data: {
     //      password: 123456
     // }

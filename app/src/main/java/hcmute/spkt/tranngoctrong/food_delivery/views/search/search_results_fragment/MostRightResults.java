@@ -30,13 +30,15 @@ public class MostRightResults extends Fragment {
     private LinearLayout mostRightLoadingLayout;
     private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
     private String keyword;
+    private String province;
 
     public MostRightResults() {
 
     }
 
-    public MostRightResults(String keyword) {
+    public MostRightResults(String keyword, String province) {
         this.keyword = keyword;
+        this.province = province;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class MostRightResults extends Fragment {
 
         searchRestaurantResultsViewModel = ViewModelProviders.of(this).get(SearchRestaurantResultsViewModel.class);
         searchRestaurantResultsViewModel.init();
-        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.MOST_RIGHT);
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, province, FragmentType.MOST_RIGHT);
         searchRestaurantResultsViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(final List<Restaurant> restaurants) {
@@ -76,11 +78,15 @@ public class MostRightResults extends Fragment {
     }
 
     public void refreshDataWithNewKeywordSearch() {
-        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.MOST_RIGHT);
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, province, FragmentType.MOST_RIGHT);
     }
 
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 }

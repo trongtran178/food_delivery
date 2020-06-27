@@ -163,152 +163,295 @@
             android:background="#c0c0c0"
             android:orientation="horizontal" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp">
 
             <fragment
                 android:id="@+id/restaurant_map_fragment"
                 android:name="hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="160dp">
-
-
-            </fragment>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginTop="-160dp"
-                android:orientation="vertical">
+                android:id="@+id/linear_cover1"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:background="#fff"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.4" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="72dp"
-                    android:layout_marginRight="8dp"
-                    android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:background="@drawable/bg_gradient_map"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toRightOf="@id/linear_cover1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6" />
 
-                    <ImageButton
-                        android:id="@+id/restaurant_detailt_address_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:background="@null"
-                        android:src="@drawable/ic_location_on_24dp"></ImageButton>
+            <ImageView
+                android:id="@+id/icon_location"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="12dp"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_location_on_24dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/restaurant_detail_address_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/restaurant_detailt_address_icon"
-                        android:layout_toRightOf="@id/restaurant_detailt_address_icon"
-                        android:maxLines="2"
-                        android:text="Cho Bui Duc, Quoc lo 1A, P. Tam Hoa, Tp. Bien Hoa, Dong Nai"></TextView>
+            <TextView
+                android:id="@+id/tv_dot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:rotation="90"
+                android:text=".........."
+                android:textSize="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/icon_location" />
 
-                </RelativeLayout>
+            <ImageView
+                android:id="@+id/icon_record"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_near_me_24dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_dot" />
 
-                <View
-                    android:id="@+id/dotted_line"
-                    android:layout_width="64dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginLeft="-20dp"
-                    android:layout_toEndOf="@id/restaurant_detailt_address_icon"
-                    android:background="@drawable/dotted"></View>
+            <ImageView
+                android:id="@+id/icon_spoon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="12dp"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_restaurant_24dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon_record" />
 
+            <ImageView
+                android:id="@+id/icon_money"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@null"
+                android:scaleType="center"
+                android:src="@drawable/ic_attach_money_24dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/icon_spoon" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="72dp"
-                    android:layout_marginRight="8dp">
+            <TextView
+                android:id="@+id/restaurant_detail_address_text_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:text="1 Vo Van Ngan - Linh Chieu - Thu Duc - Tp.HCM"
+                app:layout_constraintLeft_toRightOf="@id/icon_location"
+                app:layout_constraintTop_toTopOf="@id/icon_location"
+                app:layout_constraintWidth_percent="0.6" />
 
-                    <ImageButton
-                        android:id="@+id/restaurant_detail_distance_from_user_image_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:background="@null"
-                        android:src="@drawable/ic_near_me_24dp"
-                        app:layout_constraintLeft_toRightOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"></ImageButton>
+            <TextView
+                android:id="@+id/restaurant_detail_distance_from_user_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:text="4.2km (từ vị trí hiện tại)"
+                android:textColor="@color/green"
+                app:layout_constraintLeft_toRightOf="@id/icon_location"
+                app:layout_constraintTop_toTopOf="@id/icon_record" />
 
-                    <TextView
-                        android:id="@+id/restaurant_detail_distance_from_user_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:maxLines="1"
-                        android:text="4.2 km (Tu vi tri hien tai)"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"
-                        app:layout_constraintStart_toEndOf="@id/restaurant_detail_distance_from_user_image_button"
-                        app:layout_constraintTop_toTopOf="parent"></TextView>
+            <TextView
+                android:id="@+id/restaurant_detail_type_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:text="Quán ăn - Món Việt"
+                app:layout_constraintLeft_toRightOf="@id/icon_location"
+                app:layout_constraintTop_toTopOf="@id/icon_spoon" />
 
-
-                    <ImageButton
-                        android:id="@+id/restaurant_detail_name_image_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginRight="16dp"
-                        android:background="@null"
-                        android:src="@drawable/ic_restaurant_24dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_distance_from_user_image_button" />
-
-                    <TextView
-                        android:id="@+id/restaurant_detail_type_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:maxLines="1"
-                        android:text="Quan an - mon viet"
-                        android:textSize="16dp"
-                        app:layout_constraintStart_toEndOf="@id/restaurant_detail_name_image_button"
-                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_distance_from_user_text_view"></TextView>
-
-
-                    <ImageButton
-                        android:id="@+id/restaurant_detail_price_image_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginRight="16dp"
-
-                        android:background="@null"
-                        android:src="@drawable/ic_attach_money_24dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_name_image_button" />
-
-                    <TextView
-                        android:id="@+id/restaurant_detail_price_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:maxLines="1"
-                        android:text="10,000d - 160,000d"
-                        android:textSize="16dp"
-                        app:layout_constraintStart_toEndOf="@id/restaurant_detail_price_image_button"
-                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_type_text_view"></TextView>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/restaurant_detail_price_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:text="10,000đ - 160,000đ"
+                app:layout_constraintLeft_toRightOf="@id/icon_location"
+                app:layout_constraintTop_toTopOf="@id/icon_money" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            </LinearLayout>
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:padding="8dp">-->
 
-        </LinearLayout>
+        <!--            <fragment-->
+        <!--                android:id="@+id/restaurant_map_fragment"-->
+        <!--                android:name="hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="160dp">-->
+
+
+        <!--            </fragment>-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="160dp"-->
+        <!--                android:layout_marginTop="-160dp"-->
+        <!--                android:orientation="vertical">-->
+
+        <!--                <RelativeLayout-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginEnd="72dp"-->
+        <!--                    android:layout_marginRight="8dp"-->
+        <!--                    android:orientation="horizontal">-->
+
+        <!--                    <ImageButton-->
+        <!--                        android:id="@+id/restaurant_detailt_address_icon"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_centerVertical="true"-->
+        <!--                        android:layout_marginRight="16dp"-->
+        <!--                        android:background="@null"-->
+        <!--                        android:src="@drawable/ic_location_on_24dp"></ImageButton>-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/restaurant_detail_address_text_view"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_alignBaseline="@id/restaurant_detailt_address_icon"-->
+        <!--                        android:layout_toRightOf="@id/restaurant_detailt_address_icon"-->
+        <!--                        android:maxLines="2"-->
+        <!--                        android:text="Cho Bui Duc, Quoc lo 1A, P. Tam Hoa, Tp. Bien Hoa, Dong Nai"></TextView>-->
+
+        <!--                </RelativeLayout>-->
+
+        <!--                <View-->
+        <!--                    android:id="@+id/dotted_line"-->
+        <!--                    android:layout_width="64dp"-->
+        <!--                    android:layout_height="20dp"-->
+        <!--                    android:layout_alignParentLeft="true"-->
+        <!--                    android:layout_marginLeft="-20dp"-->
+        <!--                    android:layout_toEndOf="@id/restaurant_detailt_address_icon"-->
+        <!--                    android:background="@drawable/dotted"></View>-->
+
+
+        <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginEnd="72dp"-->
+        <!--                    android:layout_marginRight="8dp">-->
+
+        <!--                    <ImageButton-->
+        <!--                        android:id="@+id/restaurant_detail_distance_from_user_image_button"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_centerVertical="true"-->
+        <!--                        android:layout_marginRight="16dp"-->
+        <!--                        android:background="@null"-->
+        <!--                        android:src="@drawable/ic_near_me_24dp"-->
+        <!--                        app:layout_constraintLeft_toRightOf="parent"-->
+        <!--                        app:layout_constraintStart_toStartOf="parent"-->
+        <!--                        app:layout_constraintTop_toTopOf="parent"></ImageButton>-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/restaurant_detail_distance_from_user_text_view"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginLeft="16dp"-->
+        <!--                        android:maxLines="1"-->
+        <!--                        android:text="4.2 km (Tu vi tri hien tai)"-->
+        <!--                        android:textColor="@color/black"-->
+        <!--                        android:textSize="16dp"-->
+        <!--                        app:layout_constraintStart_toEndOf="@id/restaurant_detail_distance_from_user_image_button"-->
+        <!--                        app:layout_constraintTop_toTopOf="parent"></TextView>-->
+
+
+        <!--                    <ImageButton-->
+        <!--                        android:id="@+id/restaurant_detail_name_image_button"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_centerVertical="true"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:layout_marginRight="16dp"-->
+        <!--                        android:background="@null"-->
+        <!--                        android:src="@drawable/ic_restaurant_24dp"-->
+        <!--                        app:layout_constraintStart_toStartOf="parent"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_distance_from_user_image_button" />-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/restaurant_detail_type_text_view"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginStart="16dp"-->
+        <!--                        android:layout_marginTop="16dp"-->
+        <!--                        android:maxLines="1"-->
+        <!--                        android:text="Quan an - mon viet"-->
+        <!--                        android:textSize="16dp"-->
+        <!--                        app:layout_constraintStart_toEndOf="@id/restaurant_detail_name_image_button"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_distance_from_user_text_view"></TextView>-->
+
+
+        <!--                    <ImageButton-->
+        <!--                        android:id="@+id/restaurant_detail_price_image_button"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_centerVertical="true"-->
+        <!--                        android:layout_marginTop="12dp"-->
+        <!--                        android:layout_marginRight="16dp"-->
+
+        <!--                        android:background="@null"-->
+        <!--                        android:src="@drawable/ic_attach_money_24dp"-->
+        <!--                        app:layout_constraintStart_toStartOf="parent"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_name_image_button" />-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/restaurant_detail_price_value"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_marginStart="16dp"-->
+        <!--                        android:layout_marginTop="16dp"-->
+        <!--                        android:maxLines="1"-->
+        <!--                        android:text="10,000d - 160,000d"-->
+        <!--                        android:textSize="16dp"-->
+        <!--                        app:layout_constraintStart_toEndOf="@id/restaurant_detail_price_image_button"-->
+        <!--                        app:layout_constraintTop_toBottomOf="@id/restaurant_detail_type_text_view"></TextView>-->
+
+
+        <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+        <!--            </LinearLayout>-->
+
+        <!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

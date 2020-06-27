@@ -68,8 +68,8 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager(), SectionsPageAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        adapter.addFragment(new MostRightResults(searchQuery), "Đúng nhất");
-        adapter.addFragment(new NearMeResults(searchQuery), "Gần tôi");
+        adapter.addFragment(new MostRightResults(searchQuery, provinceSearch), "Đúng nhất");
+        adapter.addFragment(new NearMeResults(searchQuery, provinceSearch), "Gần tôi");
         adapter.addFragment(new CommonResults(), "Phổ biến");
         adapter.addFragment(new Filters(), "Bộ lọc");
         viewPager.setAdapter(adapter);
