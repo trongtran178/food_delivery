@@ -54,6 +54,7 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
         holder.restaurantTypeTextView.setText(listRestaurantResult.get(position).getType());
 
         Location restaurantLocation = new Location("restaurantProvider");
+
         restaurantLocation.setLatitude(listRestaurantResult.get(position).getLatitude());
         restaurantLocation.setLongitude(listRestaurantResult.get(position).getLongitude());
 
@@ -123,5 +124,4 @@ public class RestaurantResultAdapter extends RecyclerView.Adapter<RestaurantResu
             return String.format("%d", distance / 1000) + " km";
         }
     }
-
 }

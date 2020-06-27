@@ -31,8 +31,8 @@ public class RestaurantMapFragment extends SupportMapFragment implements OnMapRe
         this.googleMap.addMarker(new MarkerOptions().position(restaurantLatLong).title(restaurant.getName()));
 
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(restaurantLatLong));
-        this.googleMap.setMinZoomPreference(20.0f);
-        this.googleMap.setMaxZoomPreference(50.0f);
+        this.googleMap.setMinZoomPreference(15.0f);
+        this.googleMap.setMaxZoomPreference(30.0f);
         this.googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -42,7 +42,7 @@ public class RestaurantMapFragment extends SupportMapFragment implements OnMapRe
                 // Clear previously click position.
                 googleMap.clear();
                 // Zoom the Marker
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
                 // Add Marker on Map
                 googleMap.addMarker(markerOptions);
             }

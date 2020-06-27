@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -62,14 +63,17 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/menu_images_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/red"
+                        android:background="@null"
                         android:text="Ảnh" />
 
                     <Button
+                        android:id="@+id/menu_foods_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
                         android:text="Thực đơn" />
 
                 </LinearLayout>
@@ -100,7 +104,14 @@
         android:id="@+id/menu_details_expandable_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:groupIndicator="@drawable/group_indicator" />
+        android:groupIndicator="@drawable/group_indicator"
+        android:visibility="visible" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/menu_details_food_images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:listitem="@layout/item_food" />
 
 </LinearLayout>

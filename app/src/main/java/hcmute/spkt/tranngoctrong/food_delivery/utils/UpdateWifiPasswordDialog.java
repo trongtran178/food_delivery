@@ -1,11 +1,8 @@
 package hcmute.spkt.tranngoctrong.food_delivery.utils;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
-import android.view.ActionMode;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,7 +17,10 @@ import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Wifi;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.RestaurantDetailsViewModel;
+import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantResultsViewModel;
+import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantViewModel;
 import hcmute.spkt.tranngoctrong.food_delivery.views.search.RestaurantDetailsActivity;
+import hcmute.spkt.tranngoctrong.food_delivery.views.search.SearchRestaurantResultsActivity;
 
 public class UpdateWifiPasswordDialog extends Dialog {
 
@@ -29,6 +29,8 @@ public class UpdateWifiPasswordDialog extends Dialog {
     private RestaurantDetailsViewModel restaurantDetailsViewModel;
     private Restaurant restaurant;
     private Context context;
+    private SearchRestaurantViewModel searchRestaurantViewModel;
+    private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
 
     public UpdateWifiPasswordDialog(@NonNull Context context) {
         super(context);
@@ -36,7 +38,6 @@ public class UpdateWifiPasswordDialog extends Dialog {
         setContentView(R.layout.dialog_add_wifi);
         restaurantDetailsViewModel = ViewModelProviders.of((AppCompatActivity) context).get(RestaurantDetailsViewModel.class);
     }
-
 
     @Override
     public void show() {

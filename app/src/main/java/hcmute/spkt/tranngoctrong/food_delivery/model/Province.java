@@ -7,10 +7,13 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Province implements Serializable {
     private String name;
+    private String slug;
     private boolean isSelected = false;
 
-    public Province(String name, boolean isSelected) {
+
+    public Province(String name, String slug, boolean isSelected) {
         this.name = name;
+        this.slug = slug;
         this.isSelected = isSelected;
     }
 
@@ -28,6 +31,14 @@ public class Province implements Serializable {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     @Override

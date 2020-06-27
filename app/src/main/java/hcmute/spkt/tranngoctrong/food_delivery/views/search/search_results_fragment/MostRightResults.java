@@ -20,6 +20,7 @@ import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantResultAdapter;
+import hcmute.spkt.tranngoctrong.food_delivery.model.Province;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantResultsViewModel;
 
@@ -30,13 +31,15 @@ public class MostRightResults extends Fragment {
     private LinearLayout mostRightLoadingLayout;
     private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
     private String keyword;
+    private Province province;
 
     public MostRightResults() {
 
     }
 
-    public MostRightResults(String keyword) {
+    public MostRightResults(String keyword, Province province) {
         this.keyword = keyword;
+        this.province = province;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class MostRightResults extends Fragment {
 
         searchRestaurantResultsViewModel = ViewModelProviders.of(this).get(SearchRestaurantResultsViewModel.class);
         searchRestaurantResultsViewModel.init();
-        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.MOST_RIGHT);
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, province.getSlug(), FragmentType.MOST_RIGHT);
         searchRestaurantResultsViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(final List<Restaurant> restaurants) {
@@ -76,11 +79,12 @@ public class MostRightResults extends Fragment {
     }
 
     public void refreshDataWithNewKeywordSearch() {
-        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.MOST_RIGHT);
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, province.getSlug(), FragmentType.MOST_RIGHT);
     }
 
 
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
+
 }

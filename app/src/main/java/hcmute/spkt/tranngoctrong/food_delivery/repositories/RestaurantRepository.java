@@ -3,14 +3,14 @@ package hcmute.spkt.tranngoctrong.food_delivery.repositories;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
+import java.text.Normalizer;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
@@ -26,6 +26,10 @@ public class RestaurantRepository {
     private static RestaurantRepository instance;
     private Api api;
     private FoodDeliveryApplication foodDeliveryApplication;
+
+    private static final Pattern NONLATIN = Pattern.compile("[^\\w-]");
+    private static final Pattern WHITESPACE = Pattern.compile("[\\s]");
+    private static final Pattern SEPARATORS = Pattern.compile("[\\s\\p{Punct}&&[^-]]");
 
     public static RestaurantRepository getInstance() {
         if (instance == null) {
@@ -74,21 +78,25 @@ public class RestaurantRepository {
         return null;
     }
 
-    public List<Restaurant> searchRestaurantsByKeyWord(String keyword, FragmentType fragmentType) {
+
+    public List<Restaurant> searchRestaurantsByKeyWord(String keyword, String provinceSlug, FragmentType fragmentType) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new SimpleModule().addDeserializer(Date.class, new DateDeserializer()));
         mapper.registerModule(new SimpleModule().addDeserializer(Wifi.class, new WifiDeserializer()));
         List<Restaurant> results;
+
         try {
             Response response = null;
             switch (fragmentType) {
                 case MOST_RIGHT: {
-                    response = api.get("/restaurants?keyword=" + keyword);
+                    response = api.get("/restaurants?keyword=" + keyword + "&province=" + provinceSlug);
                     break;
                 }
                 case NEAR_ME: {
-                    response = api.get("/restaurants?keyword=" + keyword
+                    response = api.get("/restaurants"
+                            + "?keyword=" + keyword
+                            + "&province=" + provinceSlug
                             + "&latitude=" + foodDeliveryApplication.getUserLocation().getLatitude()
                             + "&longitude=" + foodDeliveryApplication.getUserLocation().getLongitude());
                     break;

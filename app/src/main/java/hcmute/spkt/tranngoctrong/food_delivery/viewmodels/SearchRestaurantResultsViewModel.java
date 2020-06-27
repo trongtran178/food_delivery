@@ -7,7 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import java.text.Normalizer;
 import java.util.List;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
@@ -31,9 +34,9 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
         restaurantRepository.setFoodDeliveryApplication(foodDeliveryApplication);
     }
 
-    public void searchRestaurantsByKeyword(String keyword, FragmentType fragmentType) {
+    public void searchRestaurantsByKeyword(String keyword, String province, FragmentType fragmentType) {
         // Fetch searched restaurants result from server
-        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword, fragmentType);
+        List<Restaurant> restaurants = restaurantRepository.searchRestaurantsByKeyWord(keyword, province, fragmentType);
         setRestaurants(restaurants);
     }
 
@@ -45,6 +48,4 @@ public class SearchRestaurantResultsViewModel extends AndroidViewModel {
     public void setRestaurants(List<Restaurant> restaurants) {
         this.restaurants.setValue(restaurants);
     }
-
-
 }

@@ -18,22 +18,18 @@ import hcmute.spkt.tranngoctrong.food_delivery.repositories.RestaurantRepository
 
 public class RestaurantDetailsViewModel extends AndroidViewModel {
 
-    private Restaurant restaurant;
-    private MutableLiveData<List<FoodMenu>> foodsInMenu;
     private MutableLiveData<List<FoodCategory>> foodCategories;
     private FoodRepository foodRepository;
     private RestaurantRepository restaurantRepository;
-    private boolean isLoading;
 
     public RestaurantDetailsViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void init(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void init(String restaurantId) {
         foodRepository = FoodRepository.getInstance();
         foodCategories = new MutableLiveData<>();
-        getFoodCategoriesByRestaurant(restaurant.get_id());
+//        getFoodCategoriesByRestaurant(restaurantId);
     }
 
     public void getFoodCategoriesByRestaurant(String restaurantId) {

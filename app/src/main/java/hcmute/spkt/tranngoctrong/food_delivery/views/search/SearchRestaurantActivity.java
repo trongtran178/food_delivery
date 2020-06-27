@@ -47,10 +47,12 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     private LocationManager locationManager;
     private Button chooseProvinceButton;
     private StringBuilder provinceSearch;
+    private StringBuilder provinceSlugSearch;
     private boolean hasReceivedLocation = false;
 
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
+    public static final String SEARCH_PROVINCE_SLUG_EXTRA = "SEARCH_PROVINCE_SLUG_EXTRA";
 
     private static final int REQUEST_CODE = 1;
 
@@ -60,8 +62,12 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         setContentView(R.layout.activity_search_restaurant);
 
         ActivityCompat.requestPermissions(SearchRestaurantActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE},
-                REQUEST_CODE);
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.CALL_PHONE
+                }, REQUEST_CODE);
+
+
         foodDeliveryApplication = (FoodDeliveryApplication) getApplicationContext();
 
         chooseProvinceButton = findViewById(R.id.open_choose_province_button);
@@ -76,10 +82,11 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
 
         restaurantRecyclerView.setAdapter(restaurantAdapter);
 
-        searchRestaurantViewModel = ViewModelProviders.of(this).get(SearchRestaurantViewModel.class);
+
+        searchRestaurantViewModel = ViewModelProviders.of(SearchRestaurantActivity.this).get(SearchRestaurantViewModel.class);
         searchRestaurantViewModel.init();
 
-        searchRestaurantViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
+        searchRestaurantViewModel.getRestaurants().observe(SearchRestaurantActivity.this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
                 restaurantAdapter.setResults(restaurants);
@@ -90,19 +97,18 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         restaurantAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                //add null , so the adapter will check view_type and show progress bar at bottom
+                // add null , so the adapter will check view_type and show progress bar at bottom
                 List<Restaurant> restaurants = searchRestaurantViewModel.getRestaurants().getValue();
                 restaurants.add(null);
                 restaurants.add(null);
                 restaurants.add(null);
                 restaurants.add(null);
                 searchRestaurantViewModel.setRestaurants(restaurants);
-
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         //   remove progress item
-                        List<Restaurant> restaurants = searchRestaurantViewModel.getRestaurants().getValue();
+                        final List<Restaurant> restaurants = searchRestaurantViewModel.getRestaurants().getValue();
                         restaurants.remove(restaurants.size() - 1);
                         restaurants.remove(restaurants.size() - 1);
                         restaurants.remove(restaurants.size() - 1);
@@ -114,14 +120,15 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
                         restaurantAdapter.setLoaded();
 
                     }
-                }, 1000);
-
+                }, 3000);
+                restaurantAdapter.notifyDataSetChanged();
             }
         });
 
         searchTextInput.setOnQueryTextListener(searchViewQueryTextListener);
         chooseProvinceButton.setOnClickListener(openChooseProvince);
         provinceSearch = new StringBuilder(chooseProvinceButton.getText());
+        provinceSlugSearch = new StringBuilder("ho-chi-minh");
     }
 
     @Override
@@ -138,7 +145,6 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         System.out.println("Resumedddd");
         handleLocation();
     }
-
 
     @Override
     protected void onPause() {
@@ -159,14 +165,16 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (requestCode == REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 handleLocation();
             } else {
-                Toast.makeText(SearchRestaurantActivity.this, "Permission denied to access your location", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchRestaurantActivity.this,
+                        "Permission denied to access your location", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -178,9 +186,9 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         if (requestCode == REQUEST_CODE) {
             if (resultCode == AppCompatActivity.RESULT_OK) {
                 final String province = data.getStringExtra(ChooseProvincesActivity.EXTRA_PROVINCE_SELECTED);
-                chooseProvinceButton.setText(province);
-                System.out.println(province);
+                provinceSlugSearch = new StringBuilder(data.getStringExtra(ChooseProvincesActivity.EXTRA_PROVINCE_SLUG_SELECTED));
                 provinceSearch = new StringBuilder(province);
+                chooseProvinceButton.setText(province);
             } else {
                 // DO NOTHING
             }
@@ -195,7 +203,6 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         }
     };
 
-
     private SearchView.OnQueryTextListener searchViewQueryTextListener = new SearchView.OnQueryTextListener() {
 
         @Override
@@ -205,6 +212,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
             Intent searchResultIntent = new Intent(getApplicationContext(), SearchRestaurantResultsActivity.class);
             searchResultIntent.putExtra(SEARCH_QUERY_EXTRA, query);
             searchResultIntent.putExtra(SEARCH_PROVINCE_EXTRA, provinceSearch.toString());
+            searchResultIntent.putExtra(SEARCH_PROVINCE_SLUG_EXTRA, provinceSlugSearch.toString());
             startActivity(searchResultIntent);
 
             return false;
@@ -218,12 +226,12 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
 
     private void handleLocation() {
         locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
-
 
     @Override
     public void onLocationChanged(Location location) {

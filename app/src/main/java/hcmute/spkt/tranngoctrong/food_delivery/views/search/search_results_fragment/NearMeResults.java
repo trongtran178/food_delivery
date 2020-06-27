@@ -17,6 +17,7 @@ import java.util.List;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantResultAdapter;
+import hcmute.spkt.tranngoctrong.food_delivery.model.Province;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantResultsViewModel;
 
@@ -26,13 +27,15 @@ public class NearMeResults extends Fragment {
     private RestaurantResultAdapter restaurantResultAdapter;
     private SearchRestaurantResultsViewModel searchRestaurantResultsViewModel;
     private String keyword;
+    private Province province;
 
     public NearMeResults() {
 
     }
 
-    public NearMeResults(String keyword) {
+    public NearMeResults(String keyword, Province province) {
         this.keyword = keyword;
+        this.province = province;
     }
 
     @Override
@@ -48,7 +51,7 @@ public class NearMeResults extends Fragment {
 
         searchRestaurantResultsViewModel = ViewModelProviders.of(this).get(SearchRestaurantResultsViewModel.class);
         searchRestaurantResultsViewModel.init();
-        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.NEAR_ME);
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, province.getSlug(), FragmentType.NEAR_ME);
         searchRestaurantResultsViewModel.getRestaurants().observe(this, new Observer<List<Restaurant>>() {
             @Override
             public void onChanged(List<Restaurant> restaurants) {
@@ -58,7 +61,7 @@ public class NearMeResults extends Fragment {
     }
 
     public void refreshDataWithNewKeywordSearch() {
-        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, FragmentType.NEAR_ME);
+        searchRestaurantResultsViewModel.searchRestaurantsByKeyword(keyword, province.getSlug(), FragmentType.NEAR_ME);
     }
 
     @Override
@@ -69,4 +72,5 @@ public class NearMeResults extends Fragment {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
+
 }

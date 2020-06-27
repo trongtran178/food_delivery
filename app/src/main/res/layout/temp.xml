@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEE"
+    android:orientation="vertical"
+    >
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar_ds"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="@color/colorPrimary"-->
+<!--        app:contentInsetEnd="0dp"-->
+<!--        app:contentInsetStart="0dp">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:paddingRight="8dp">-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/img_btn_back_ds"-->
+<!--                android:layout_width="36dp"-->
+<!--                android:layout_height="36dp"-->
+<!--                android:background="@drawable/ic_navigate_before_black_24dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/tv_name_shoop_ds"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_name_shoop_ds"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:text="Bún đậu Cô Giang"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/img_btn_more_ds"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/img_btn_back_ds"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tv_province_ds"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:text="Đồng Nai"-->
+<!--                android:textColor="#fff"-->
+<!--                android:textSize="12sp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/img_btn_more_ds"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/img_btn_back_ds"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/tv_name_shoop_ds" />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/img_btn_more_ds"-->
+<!--                android:layout_width="36dp"-->
+<!--                android:layout_height="36dp"-->
+<!--                android:background="@drawable/ic_more_horiz_white_24dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/tv_name_shoop_ds"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--    </androidx.appcompat.widget.Toolbar>-->
+
+<!--    <androidx.core.widget.NestedScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:descendantFocusability="blocksDescendants"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="12dp"-->
+<!--                android:background="#fff" />-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginTop="1dp"-->
+<!--                android:background="#fff"-->
+<!--                android:paddingHorizontal="10dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_open_status"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="CHƯA MỞ CỬA"-->
+<!--                    android:textColor="#D7D7D7"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintBottom_toTopOf="@+id/tv_time_active_ds"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintVertical_chainStyle="packed" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_time_active_ds"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="10:00 - 21:00"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tv_open_status" />-->
+
+<!--                <Button-->
+<!--                    android:id="@+id/btn_contact_ds"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableLeft="@drawable/ic_contact"-->
+<!--                    android:drawablePadding="10dp"-->
+<!--                    android:minHeight="0dp"-->
+<!--                    android:paddingHorizontal="16dp"-->
+<!--                    android:paddingVertical="12dp"-->
+<!--                    android:text="Liên hệ"-->
+<!--                    android:textAllCaps="false"-->
+<!--                    android:textSize="16dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            // Contact-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_marginTop="8dp">-->
+
+<!--                <fragment-->
+<!--                    android:id="@+id/myMap"-->
+<!--                    android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintWidth_percent="0.6" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/linear_cover1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:background="#fff"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintWidth_percent="0.4" />-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="200dp"-->
+<!--                    android:background="@drawable/bg_gradient_map"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    app:layout_constraintLeft_toRightOf="@id/linear_cover1"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintWidth_percent="0.6" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/icon_location"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="2dp"-->
+<!--                    android:layout_marginTop="12dp"-->
+<!--                    android:background="@drawable/circle"-->
+<!--                    android:scaleType="center"-->
+<!--                    android:src="@drawable/ic_location_on_black_24dp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_dot"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="2dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:rotation="90"-->
+<!--                    android:text=".........."-->
+<!--                    android:textSize="16dp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/icon_location" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/icon_record"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="2dp"-->
+<!--                    android:layout_marginTop="2dp"-->
+<!--                    android:background="@drawable/circle"-->
+<!--                    android:scaleType="center"-->
+<!--                    android:src="@drawable/ic_fiber_manual_record_black_24dp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/tv_dot" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/icon_spoon"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="2dp"-->
+<!--                    android:layout_marginTop="12dp"-->
+<!--                    android:background="@drawable/circle"-->
+<!--                    android:scaleType="center"-->
+<!--                    android:src="@drawable/ic_restaurant_24px"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/icon_record" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/icon_money"-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginLeft="2dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:background="@drawable/circle"-->
+<!--                    android:scaleType="center"-->
+<!--                    android:src="@drawable/ic_attach_money_black_24dp"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/icon_spoon" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_location_ds"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="1 Vo Van Ngan - Linh Chieu - Thu Duc - Tp.HCM"-->
+<!--                    app:layout_constraintLeft_toRightOf="@id/icon_location"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/icon_location"-->
+<!--                    app:layout_constraintWidth_percent="0.6" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_distance_ds"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="4.2km"-->
+<!--                    android:textColor="@color/green"-->
+<!--                    app:layout_constraintLeft_toRightOf="@id/icon_location"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/icon_record" />-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="(Từ vị trí hiện tại)"-->
+<!--                    app:layout_constraintLeft_toRightOf="@id/tv_distance_ds"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/icon_record" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_category_ds"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="Quán ăn - Món Việt"-->
+<!--                    app:layout_constraintLeft_toRightOf="@id/icon_location"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/icon_spoon" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_price_ds"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="8dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="10,000đ - 160,000đ"-->
+<!--                    app:layout_constraintLeft_toRightOf="@id/icon_location"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/icon_money" />-->
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--            // Map-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:paddingTop="1dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:background="#fff"-->
+<!--                    android:orientation="horizontal">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="70dp"-->
+<!--                        android:layout_height="50dp"-->
+<!--                        android:paddingLeft="5dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:src="@drawable/ic_check_circle_black_24dp" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="70dp"-->
+<!--                        android:layout_height="50dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:src="@drawable/ic_wifi" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="70dp"-->
+<!--                        android:layout_height="50dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:src="@drawable/ic_delivery" />-->
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--            // Delivery-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:paddingTop="1dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/item_menu"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:background="#fff"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingLeft="5dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:background="@drawable/circle"-->
+<!--                        android:scaleType="center"-->
+<!--                        android:src="@drawable/ic_event_note_black_24dp" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:text="Thực đơn"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--            // Menu-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:paddingTop="1dp">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:background="#fff"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:paddingLeft="5dp">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="30dp"-->
+<!--                        android:layout_height="30dp"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:background="@drawable/circle"-->
+<!--                        android:scaleType="centerInside"-->
+<!--                        android:src="@drawable/ic_wifi_black_16dp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textView_wifi"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:text="Thêm wifi"-->
+<!--                        android:textSize="18sp" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_pass_wifi_ds"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:paddingLeft="120dp"-->
+<!--                        android:text="Nhập mật khẩu"-->
+<!--                        android:textColor="#000"-->
+<!--                        android:textSize="18sp" />-->
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+<!--            //Picture-->
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/recycler_view_food_highlight"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="#fff"-->
+<!--                android:nestedScrollingEnabled="false" />-->
+<!--        </LinearLayout>-->
+<!--    </androidx.core.widget.NestedScrollView>-->
+
+
+</LinearLayout>
