@@ -79,13 +79,14 @@ public class RestaurantRepository {
     }
 
 
-    public List<Restaurant> searchRestaurantsByKeyWord(String keyword, String provinceSlug, FragmentType fragmentType) {
+    public List<Restaurant> searchRestaurantsByKeyWord(String keyword,
+                                                       String provinceSlug,
+                                                       FragmentType fragmentType) {
         api = Api.getInstance();
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new SimpleModule().addDeserializer(Date.class, new DateDeserializer()));
         mapper.registerModule(new SimpleModule().addDeserializer(Wifi.class, new WifiDeserializer()));
         List<Restaurant> results;
-
         try {
             Response response = null;
             switch (fragmentType) {

@@ -35,6 +35,7 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
     private String provinceSearch;
     private String provinceSlugSearch;
     private Handler handler;
+
     private static final String SEARCH_QUERY_EXTRA = "SEARCH_QUERY_EXTRA";
     private static final String SEARCH_PROVINCE_EXTRA = "SEARCH_PROVINCE_EXTRA";
     private static final String SEARCH_PROVINCE_SLUG_EXTRA = "SEARCH_PROVINCE_SLUG_EXTRA";
@@ -45,25 +46,25 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
         setContentView(R.layout.activity_search_restaurant_results);
 
         searchRestaurantResultsView = findViewById(R.id.search_restaurant_results_view);
-        tabLayout = findViewById(R.id.search_results_tab);
-        viewPager = findViewById(R.id.search_results_container);
         search_results_back_button = findViewById(R.id.search_results_back_button);
         searchRestaurantResultsProvinceTextView = findViewById(R.id.search_restaurant_results_province);
         searchRestaurantResultsLoadingLayout = findViewById(R.id.search_restaurant_results_loading_layout);
 
+        tabLayout = findViewById(R.id.search_results_tab);
+        viewPager = findViewById(R.id.search_results_container);
+
         Intent intent = getIntent();
         provinceSearch = intent.getStringExtra(SEARCH_PROVINCE_EXTRA);
         provinceSlugSearch = intent.getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA);
-
         searchQuery = intent.getStringExtra(SEARCH_QUERY_EXTRA);
+
         searchRestaurantResultsView.setQuery(searchQuery, true);
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         searchRestaurantResultsView.setOnQueryTextListener(searchViewQueryTextListener);
         search_results_back_button.setOnClickListener(searchResultsBackButtonClickListener);
-
-
+        
         handler = new Handler();
 
         searchRestaurantResultsProvinceTextView.setText(Html.fromHtml(

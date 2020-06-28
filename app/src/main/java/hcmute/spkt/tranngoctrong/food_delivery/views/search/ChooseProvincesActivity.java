@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.regex.Pattern;
 
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.ProvinceAdapter;
@@ -23,13 +20,14 @@ public class ChooseProvincesActivity extends AppCompatActivity {
 
     public static final String EXTRA_PROVINCE_SELECTED = "EXTRA_PROVINCE_SELECTED";
     public static final String EXTRA_PROVINCE_SLUG_SELECTED = "EXTRA_PROVINCE_SLUG_SELECTED";
+
+    // receive value from SearchRestaurantActivity
     public static final String SEARCH_PROVINCE_SLUG_EXTRA = "SEARCH_PROVINCE_SLUG_EXTRA";
 
     RecyclerView provinceRecycleView;
     TextView doneTextView, backTextView;
-    ProvinceAdapter provinceAdapter;
     Province currentProvinceSelected;
-
+    ProvinceAdapter provinceAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,8 @@ public class ChooseProvincesActivity extends AppCompatActivity {
 
         if (getIntent().getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA) != null) {
             for (int i = 0; i < provinces.size(); i++) {
-                if (provinces.get(i).getSlug().equalsIgnoreCase(getIntent().getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA))) {
+                if (provinces.get(i).getSlug()
+                        .equalsIgnoreCase(getIntent().getStringExtra(SEARCH_PROVINCE_SLUG_EXTRA))) {
                     provinces.get(i).setSelected(true);
                 }
             }

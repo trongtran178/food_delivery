@@ -34,7 +34,8 @@ import hcmute.spkt.tranngoctrong.food_delivery.utils.OnFoodDeliveryApplicationLo
 import hcmute.spkt.tranngoctrong.food_delivery.utils.OnLoadMoreListener;
 import hcmute.spkt.tranngoctrong.food_delivery.viewmodels.SearchRestaurantViewModel;
 
-public class SearchRestaurantActivity extends AppCompatActivity implements LocationListener, OnFoodDeliveryApplicationLoading {
+public class SearchRestaurantActivity extends AppCompatActivity implements LocationListener,
+        OnFoodDeliveryApplicationLoading {
 
     private FoodDeliveryApplication foodDeliveryApplication;
     private RestaurantAdapter restaurantAdapter;
@@ -83,7 +84,8 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         restaurantRecyclerView.setAdapter(restaurantAdapter);
 
 
-        searchRestaurantViewModel = ViewModelProviders.of(SearchRestaurantActivity.this).get(SearchRestaurantViewModel.class);
+        searchRestaurantViewModel = ViewModelProviders.of(SearchRestaurantActivity.this)
+                .get(SearchRestaurantViewModel.class);
         searchRestaurantViewModel.init();
 
         searchRestaurantViewModel.getRestaurants().observe(SearchRestaurantActivity.this, new Observer<List<Restaurant>>() {

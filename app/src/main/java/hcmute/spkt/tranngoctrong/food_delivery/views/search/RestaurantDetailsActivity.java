@@ -4,9 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -18,15 +16,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.FragmentManager;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 import hcmute.spkt.tranngoctrong.food_delivery.FoodDeliveryApplication;
@@ -34,7 +28,6 @@ import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.FoodAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.adapter.RestaurantImageAdapter;
 import hcmute.spkt.tranngoctrong.food_delivery.fragment.RestaurantMapFragment;
-import hcmute.spkt.tranngoctrong.food_delivery.model.FoodCategory;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Restaurant;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Wifi;
 import hcmute.spkt.tranngoctrong.food_delivery.utils.UpdateWifiPasswordDialog;
@@ -65,8 +58,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
             typeTextView;
 
     private static final String RESTAURANT_ID_EXTRA = "RESTAURANT_ID_EXTRA";
-    private static final String RESTAURANT_NAME__EXTRA = "RESTAURANT_NAME__EXTRA";
-    private static final String FOOD_CATEGORIES_EXTRA = "FOOD_CATEGORIES_EXTRA";
+    private static final String RESTAURANT_NAME_EXTRA = "RESTAURANT_NAME_EXTRA";
 
     protected Context context;
 
@@ -98,10 +90,11 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         restaurantMapFragment = (RestaurantMapFragment) fragmentManager.findFragmentById(R.id.restaurant_map_fragment);
         restaurantMapFragment.setRestaurant(restaurant);
         foodAdapter = new FoodAdapter(this);
-        restaurantImageAdapter = new RestaurantImageAdapter(this, restaurant.getImagesUrl());
 
         restaurantImagesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantImagesRecyclerView.stopNestedScroll();
+
+        restaurantImageAdapter = new RestaurantImageAdapter(this, restaurant.getImagesUrl());
 
         restaurantImagesRecyclerView.setAdapter(restaurantImageAdapter);
 
@@ -135,7 +128,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
             final Intent goToMenuDetailIntent = new Intent(RestaurantDetailsActivity.this,
                     MenuDetailsActivity.class);
             goToMenuDetailIntent.putExtra(RESTAURANT_ID_EXTRA, restaurant.get_id());
-            goToMenuDetailIntent.putExtra(RESTAURANT_NAME__EXTRA, restaurant.getName());
+            goToMenuDetailIntent.putExtra(RESTAURANT_NAME_EXTRA, restaurant.getName());
             startActivity(goToMenuDetailIntent);
         }
     };
@@ -150,7 +143,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
     private View.OnClickListener updateWifiTextViewListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            UpdateWifiPasswordDialog updateWifiPasswordDialog = new UpdateWifiPasswordDialog(RestaurantDetailsActivity.this);
+            UpdateWifiPasswordDialog updateWifiPasswordDialog
+                    = new UpdateWifiPasswordDialog(RestaurantDetailsActivity.this);
             updateWifiPasswordDialog.setRestaurant(restaurant);
             updateWifiPasswordDialog.show();
         }
@@ -161,7 +155,8 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         public void onClick(View v) {
             String url = "tel:" + restaurant.getPhone();
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse(url));
-            if (ActivityCompat.checkSelfPermission(RestaurantDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(RestaurantDetailsActivity.this,
+                    Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             startActivity(intent);
@@ -173,16 +168,16 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         long distance = (long) currentLocation.distanceTo(restaurantLocation);
         if (distance <= 1000) {
             distanceFromUserTextView.setText(Html.fromHtml(
-                    "<b style='color:green important!;'>" + String.format("%d", distance) + "mét </b> " +
+                    "<span style='color:green important!;'>" + String.format("%d", distance) + "mét </span> " +
                             "<span style='color: black;'>(từ vị trí hiện tại)</span>"
             ));
         } else {
-            if ((distance / 1000) > 10) {
+            if ((distance / 1000) > 15) {
                 distanceFromUserTextView.setText(Html.fromHtml(
-                        "<b style='color: red important!;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+                        "<span style='color: red;'>" + String.format("%d", distance / 1000) + "km </span> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
             } else {
                 distanceFromUserTextView.setText(Html.fromHtml(
-                        "<b style='color: green important!;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+                        "<span style='color: green;'>" + String.format("%d", distance / 1000) + "km </span> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
             }
         }
     }
@@ -209,11 +204,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         int timeOpenInt = (timeOpenHour * 60 + timeOpenMinute);
         int timeCloseInt = (timeCloseHour * 60 + timeOpenMinute);
         int currentTimeInt = currentHour * 60 + currentMinute;
-        if (currentTimeInt > timeOpenInt && currentTimeInt < timeCloseInt) {
+
+        if (currentTimeInt > timeOpenInt && currentTimeInt < timeCloseInt)
             openCloseTextView.setText("ĐANG MỞ CỬA");
-        } else {
+        else
             openCloseTextView.setText("ĐÃ ĐÓNG CỬA");
-        }
+
         openCloseTimeTextView.setText(
                 (timeOpenHour >= 10 ? timeOpenHour : "0" + String.valueOf(timeOpenHour))
                         + ":"
