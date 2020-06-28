@@ -280,7 +280,6 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:text="4.2km (từ vị trí hiện tại)"
-                android:textColor="@color/green"
                 app:layout_constraintLeft_toRightOf="@id/icon_location"
                 app:layout_constraintTop_toTopOf="@id/icon_record" />
 

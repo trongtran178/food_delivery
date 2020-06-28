@@ -7,7 +7,7 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:background="@drawable/custom_dialog"
-    android:minWidth="200dp"
+    android:minWidth="300dp"
     android:orientation="vertical">
 
 

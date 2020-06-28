@@ -172,12 +172,12 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
                             "<span style='color: black;'>(từ vị trí hiện tại)</span>"
             ));
         } else {
-            if ((distance / 1000) > 10) {
+            if ((distance / 1000) > 15) {
                 distanceFromUserTextView.setText(Html.fromHtml(
-                        "<b style='color: red important!;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+                        "<span style='color: red;'>" + String.format("%d", distance / 1000) + "km </span> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
             } else {
                 distanceFromUserTextView.setText(Html.fromHtml(
-                        "<b style='color: green important!;'>" + String.format("%d", distance / 1000) + "km </b> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
+                        "<span style='color: green;'>" + String.format("%d", distance / 1000) + "km </span> <span style='color: black;'>(từ vị trí hiện tại)</span>"));
             }
         }
     }

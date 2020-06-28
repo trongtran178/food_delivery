@@ -46,11 +46,12 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
         setContentView(R.layout.activity_search_restaurant_results);
 
         searchRestaurantResultsView = findViewById(R.id.search_restaurant_results_view);
-        tabLayout = findViewById(R.id.search_results_tab);
-        viewPager = findViewById(R.id.search_results_container);
         search_results_back_button = findViewById(R.id.search_results_back_button);
         searchRestaurantResultsProvinceTextView = findViewById(R.id.search_restaurant_results_province);
         searchRestaurantResultsLoadingLayout = findViewById(R.id.search_restaurant_results_loading_layout);
+
+        tabLayout = findViewById(R.id.search_results_tab);
+        viewPager = findViewById(R.id.search_results_container);
 
         Intent intent = getIntent();
         provinceSearch = intent.getStringExtra(SEARCH_PROVINCE_EXTRA);
@@ -63,8 +64,7 @@ public class SearchRestaurantResultsActivity extends AppCompatActivity implement
         tabLayout.setupWithViewPager(viewPager);
         searchRestaurantResultsView.setOnQueryTextListener(searchViewQueryTextListener);
         search_results_back_button.setOnClickListener(searchResultsBackButtonClickListener);
-
-
+        
         handler = new Handler();
 
         searchRestaurantResultsProvinceTextView.setText(Html.fromHtml(
