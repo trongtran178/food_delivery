@@ -49,13 +49,14 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view_province"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         android:background="@drawable/custom_search_province_view"
         app:defaultQueryHint="Tìm tỉnh thành">
-
+        <!--        android:background="@drawable/custom_search_province_view"-->
     </androidx.appcompat.widget.SearchView>
 
     <androidx.recyclerview.widget.RecyclerView

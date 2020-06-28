@@ -11,7 +11,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class PutAsyncTask extends AsyncTask<String, Void, Object> {
+
     private OkHttpClient client;
+
     public static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
     public PutAsyncTask(OkHttpClient client) {
@@ -44,6 +46,5 @@ public class PutAsyncTask extends AsyncTask<String, Void, Object> {
     protected void onPostExecute(Object result) {
         super.onPostExecute(result);
     }
-
 
 }
