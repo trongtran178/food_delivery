@@ -15,7 +15,7 @@
         android:id="@+id/restaurant_wifi_name_text_input_edit_text"
         style="@style/update_wifi_text_input_style"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="40dp"
         android:layout_marginHorizontal="8dp"
         android:layout_marginVertical="16dp"
         android:background="@drawable/custom_text_input_edit_text"
@@ -23,7 +23,7 @@
         android:drawablePadding="16dp"
         android:hint="Tên wifi show sẵn nếu đã kết n"
         android:paddingHorizontal="8dp"
-        android:textSize="13dp" />
+        android:textSize="16dp" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/restaurant_wifi_password_text_input_edit_text"
