@@ -168,7 +168,7 @@ public class RestaurantDetailsActivity extends AppCompatActivity {
         long distance = (long) currentLocation.distanceTo(restaurantLocation);
         if (distance <= 1000) {
             distanceFromUserTextView.setText(Html.fromHtml(
-                    "<b style='color:green important!;'>" + String.format("%d", distance) + "mét </b> " +
+                    "<span style='color:green important!;'>" + String.format("%d", distance) + "mét </span> " +
                             "<span style='color: black;'>(từ vị trí hiện tại)</span>"
             ));
         } else {
