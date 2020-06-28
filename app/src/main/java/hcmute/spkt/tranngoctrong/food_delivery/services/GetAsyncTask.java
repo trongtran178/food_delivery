@@ -22,12 +22,10 @@ public class GetAsyncTask extends AsyncTask<String, Void, Object> {
         Response response = null;
         try {
             response = client.newCall(request).execute();
-            System.out.println(response.toString());
             return response.body().string();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-        finally {
+        } finally {
             if (response != null)
                 response.close();
         }

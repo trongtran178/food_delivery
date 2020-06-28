@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 
@@ -17,7 +19,7 @@ import java.util.List;
 import hcmute.spkt.tranngoctrong.food_delivery.R;
 import hcmute.spkt.tranngoctrong.food_delivery.model.Province;
 
-public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceHolder> {
+public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.ProvinceHolder> implements Filterable {
 
     private List<Province> provinces;
     private LayoutInflater layoutInflater;
@@ -67,6 +69,11 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         return provinces.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return null;
+    }
+
     class ProvinceHolder extends RecyclerView.ViewHolder {
         AppCompatImageButton isSelectedProvinceButton;
         TextView provinceNameTextView;
@@ -96,4 +103,8 @@ public class ProvinceAdapter extends RecyclerView.Adapter<ProvinceAdapter.Provin
         this.listener = listener;
     }
 
+    public void setProvinces(List<Province> provinces) {
+        this.provinces = provinces;
+        notifyDataSetChanged();
+    }
 }

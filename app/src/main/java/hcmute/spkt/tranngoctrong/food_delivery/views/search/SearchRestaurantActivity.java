@@ -75,6 +75,7 @@ public class SearchRestaurantActivity extends AppCompatActivity implements Locat
         searchTextInput = findViewById(R.id.search_restaurant_view);
         searchRestaurantLoadingLayout = findViewById(R.id.search_restaurant_loading_layout);
         handler = new Handler();
+
         restaurantRecyclerView = findViewById(R.id.restaurant_recycler_view);
         restaurantRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         restaurantRecyclerView.setHasFixedSize(true);
